@@ -2,7 +2,7 @@
   "name": "@tinajs/tina",
   "version": "0.0.1",
   "description": "",
-  "main": "dist",
+  "main": "dist/tina.js",
   "author": "yelo",
   "license": "MIT",
   "scripts": {
