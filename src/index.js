@@ -1,3 +1,1 @@
-const TinaPage = require('./page')
-
-exports.TinaPage = TinaPage
+exports.Page = require('./page')
