@@ -1,2 +1,2 @@
-exports.Page = require('./page')
-exports.helpers = require('./helpers')
+export Page from './page'
+export * as helpers from './helpers'
