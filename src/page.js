@@ -82,6 +82,10 @@ class Page extends Basic {
 
     return self
   }
+
+  get data () {
+    return this.$page.data
+  }
 }
 
 export default Page

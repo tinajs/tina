@@ -20,7 +20,7 @@ class Basic {
     throw new Error('Not allowed to setting ``data``, use ``setData(data, [callback])`` instead.')
   }
   get data () {
-    return this.$page.data
+    throw new Error('class Basic doesnot have a ``data`` atttribute, please implement the ``data`` getter in child class.')
   }
 
   setData (newer, callback = () => {}) {
