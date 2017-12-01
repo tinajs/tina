@@ -34,6 +34,18 @@ export function isEmpty (obj) {
   return true
 }
 
+export function pick (object, keys = []) {
+  let picked = {}
+  keys.forEach((key) => {
+    picked[key] = object[key]
+  })
+  return picked
+}
+
+export function without (input, exclude = []) {
+	return input.filter((x) => exclude.indexOf(x) === -1)
+}
+
 export function addHooks (context, handlers, isPrepend = false) {
   let result = {}
   for (let name in handlers) {
