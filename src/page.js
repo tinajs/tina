@@ -44,14 +44,12 @@ class Page extends Basic {
     let page = {
       ...mapObject(model.methods || {}, (method) => method.bind(self)),
       ...mapObject(filterObject(model, (property, name) => ~[...PAGE_PROPERTIES.HOOKS, ...TINA_PAGE_EXTRA_HOOKS].indexOf(name)), (method, name) => method.bind(self)),
-      data: model.data,
     }
 
     // copy properties into context
     for (let property in page) {
       self[property] = page[property]
     }
-
     // add $page into context
     page = addHooks(page, {
       beforeLoad (options) {
@@ -64,9 +62,8 @@ class Page extends Basic {
           query: { ...options },
           fullPath: isEmpty(options) ? `/${this.route}` : `/${this.route}?${querystring.stringify(options)}`,
         }
-        // init data
-        self.data = model.data || {}
-        self.setData({})
+        // init data (e.g.: trigger ``compute``)
+        self.setData()
       },
     }, true)
 
@@ -78,7 +75,10 @@ class Page extends Basic {
       return {}
     }
 
-    new globals.Page(page)
+    new globals.Page({
+      ...page,
+      data: model.data,
+    })
 
     return self
   }

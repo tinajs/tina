@@ -16,6 +16,13 @@ class Basic {
     }
   }
 
+  set data (value) {
+    throw new Error('Not allowed to setting ``data``, use ``setData(data, [callback])`` instead.')
+  }
+  get data () {
+    return this.$page.data
+  }
+
   setData (newer, callback = () => {}) {
     let next = { ...this.data, ...newer }
     if (typeof this.compute === 'function') {
@@ -26,7 +33,6 @@ class Basic {
     if (isEmpty(next)) {
       return callback()
     }
-    this.data = { ...this.data, ...next }
     this.$page.setData(next, callback)
   }
 }
