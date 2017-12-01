@@ -12,75 +12,120 @@ const PAGE_PROPERTIES = {
 
 const TINA_PAGE_EXTRA_HOOKS = PAGE_PROPERTIES.HOOKS.map((on) => on.replace(/^on/, 'before'))
 
-function createBeforeHooks (context, hooks) {
-  let result = { ...context }
+// generate methods for wx-Page
+function methods (object) {
+  return mapObject(object || {}, (method, name) => function handler (...args) {
+    let context = this.__tina_page__
+    return context[name].apply(context, args)
+  })
+}
+
+// generate lifecycles for wx-Page
+function lifecycles (hooks = PAGE_PROPERTIES.HOOKS) {
+  let result = {}
   hooks.forEach((on) => {
     let before = on.replace(/^on/, 'before')
     result[on] = function handler () {
+      let context = this.__tina_page__
       if (context[before]) {
-        context[before].apply(this, arguments)
+        context[before].apply(context, arguments)
       }
       if (context[on]) {
-        return context[on].apply(this, arguments)
+        return context[on].apply(context, arguments)
       }
     }
-    delete result[before]
   })
   return result
 }
 
+// builtin $route middleware for Tina-Page
+function $route (model) {
+  return addHooks(model, {
+    beforeLoad (options) {
+      this.$route = {
+        path: `/${this.route}`,
+        query: { ...options },
+        fullPath: isEmpty(options) ? `/${this.route}` : `/${this.route}?${querystring.stringify(options)}`,
+      }
+      this.$log('Route Middleware', 'Ready')
+    }
+  })
+}
+// builtin initial middleware for Tina-Page
+function $initial (model) {
+  return addHooks(model, {
+    onLoad () {
+      // init data (just for triggering ``compute`` in this moment)
+      this.setData()
+      this.$log('Initial Middleware', 'Ready')
+    }
+  })
+}
+// builtin log middleware for Tina-Page
+function $log (model) {
+  return addHooks(model, {
+    beforeLoad () {
+      this.$log = this.constructor.log.bind(this.constructor)
+      this.$log('Log Middleware', 'Ready')
+    }
+  })
+}
+
+const BUILTIN_MIDDLEWARES = [$route, $initial, $log]
+
 class Page extends Basic {
-  constructor (model = {}) {
-    super()
-
-    let self = this
-
+  static define (model = {}) {
+    // use builtin middlewares
+    model = compose(...BUILTIN_MIDDLEWARES)(model)
     // use custom middlewares
-    if (this.constructor.middlewares.length > 0) {
-      model = compose(...this.constructor.middlewares)(model)
+    if (Page.middlewares.length > 0) {
+      model = compose(...Page.middlewares)(model)
     }
 
-    // parse model
+    // create wx-Page options
     let page = {
-      ...mapObject(model.methods || {}, (method) => method.bind(self)),
-      ...mapObject(filterObject(model, (property, name) => ~[...PAGE_PROPERTIES.HOOKS, ...TINA_PAGE_EXTRA_HOOKS].indexOf(name)), (method, name) => method.bind(self)),
+      ...methods(model.methods),
+      ...lifecycles(),
     }
 
-    // copy properties into context
-    for (let property in page) {
-      self[property] = page[property]
-    }
-    // add $page into context
+    // creating Tina-Page on **wx-Page** loaded.
+    // !important: this hook is added to wx-Page directly, but not Tina-Page
     page = addHooks(page, {
-      beforeLoad (options) {
-        // basic attrs
-        self.route = this.route
-        // extra attrs
-        self.$page = this
-        self.$route = {
-          path: `/${this.route}`,
-          query: { ...options },
-          fullPath: isEmpty(options) ? `/${this.route}` : `/${this.route}?${querystring.stringify(options)}`,
-        }
-        // init data (e.g.: trigger ``compute``)
-        self.setData()
+      onLoad () {
+        let instance = new Page({ model, $page: this })
+        // create bi-direction links
+        this.__tina_page__ = instance
+        instance.$page = this
+
+        // read basic attrs
+        instance.route = this.route
       },
     }, true)
 
-    // create before-hooks
-    page = createBeforeHooks(page, PAGE_PROPERTIES.HOOKS)
-
-    // add compute into context
-    self.compute = model.compute || function () {
-      return {}
-    }
-
+    // apply wx-Page options
     new globals.Page({
       ...page,
       data: model.data,
     })
+  }
 
-    return self
+  constructor ({ model = {}, $page }) {
+    super()
+
+    // creating Tina-Page members
+    let members = {
+      compute: model.compute || function () {
+        return {}
+      },
+      ...model.methods,
+      ...filterObject(model, (property, name) => ~[...PAGE_PROPERTIES.HOOKS, ...TINA_PAGE_EXTRA_HOOKS].indexOf(name)),
+    }
+    // apply members into instance
+    for (let name in members) {
+      this[name] = members[name]
+    }
+
+    return this
   }
 
   get data () {
