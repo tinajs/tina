@@ -1,6 +1,8 @@
 import compose from 'compose-function'
 import querystring from 'querystring'
 import { mapObject, filterObject, isEmpty, addHooks } from './helpers'
+import globals from './globals'
+import Basic from './basic'
 
 const PAGE_PROPERTIES = {
   ATTRIBUTES: ['data'],
@@ -9,14 +11,6 @@ const PAGE_PROPERTIES = {
 }
 
 const TINA_PAGE_EXTRA_HOOKS = PAGE_PROPERTIES.HOOKS.map((on) => on.replace(/^on/, 'before'))
-
-let middlewares = []
-
-function log (...args) {
-  if (TinaPage.debug) {
-    console.log(`[Tina] -`, ...args)
-  }
-}
 
 function createBeforeHooks (context, hooks) {
   let result = { ...context }
@@ -35,19 +29,15 @@ function createBeforeHooks (context, hooks) {
   return result
 }
 
-class TinaPage {
-  static debug = false
-
-  static use (middleware) {
-    middlewares.unshift(middleware)
-  }
-
+class Page extends Basic {
   constructor (model = {}) {
+    super()
+
     let self = this
 
     // use custom middlewares
-    if (middlewares.length > 0) {
-      model = compose(...middlewares)(model)
+    if (this.constructor.middlewares.length > 0) {
+      model = compose(...this.constructor.middlewares)(model)
     }
 
     // parse model
@@ -88,34 +78,10 @@ class TinaPage {
       return {}
     }
 
-    new Page(page)
+    new globals.Page(page)
 
     return self
   }
-
-  setData (newer, callback = () => {}) {
-    let next = { ...this.data, ...newer }
-    if (typeof this.compute === 'function') {
-      next = { ...next, ...this.compute(next) }
-    }
-    next = diff(next, this.data)
-    log(`[setData] - ${JSON.stringify(next)}`)
-    if (isEmpty(next)) {
-      return callback()
-    }
-    this.data = { ...this.data, ...next }
-    this.$page.setData(next, callback)
-  }
 }
 
-function diff (newer, older) {
-  let result = {}
-  for (let key in newer) {
-    if (newer[key] !== older[key]) {
-      result[key] = newer[key]
-    }
-  }
-  return result
-}
-
-export default TinaPage
+export default Page
