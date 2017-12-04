@@ -45,3 +45,7 @@ export function pick (object, keys = []) {
 export function without (input, exclude = []) {
 	return input.filter((x) => exclude.indexOf(x) === -1)
 }
+
+export function values (object) {
+  return Object.keys(object).map((key) => object[key])
+}

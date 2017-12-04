@@ -1,6 +1,6 @@
 import compose from 'compose-function'
 import { $initial, $log } from '../middlewares'
-import { mapObject, filterObject, pick, without } from '../utils/functions'
+import { mapObject, filterObject, pick, without, values } from '../utils/functions'
 import { addHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
@@ -94,7 +94,7 @@ class Component extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~[...COMPONENT_HOOKS, ...Object.values(ADDON_BEFORE_HOOKS)].indexOf(name)),
+      ...filterObject(model, (property, name) => ~[...COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)].indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
