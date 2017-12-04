@@ -17,10 +17,10 @@ class Basic {
   }
 
   set data (value) {
-    throw new Error('Not allowed to setting ``data``, use ``setData(data, [callback])`` instead.')
+    throw new Error('Not allowed to set ``data``, use ``setData(data, [callback])`` instead.')
   }
   get data () {
-    throw new Error('class Basic doesnot have a ``data`` atttribute, please implement the ``data`` getter in child class.')
+    throw new Error('class Basic doesnot have a ``data`` atttribute, please implement the ``data`` getter in the child-class.')
   }
 
   setData (newer, callback = () => {}) {
@@ -33,7 +33,7 @@ class Basic {
     if (isEmpty(next)) {
       return callback()
     }
-    this.$page.setData(next, callback)
+    this.$source.setData(next, callback)
   }
 }
 

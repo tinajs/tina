@@ -71,10 +71,10 @@ class Component extends Basic {
     // !important: this hook is added to wx-Component directly, but not Tina-Component
     component = addHooks(component, {
       created () {
-        let instance = new Component({ model, $component: this })
+        let instance = new Component({ model, $source: this })
         // create bi-direction links
         this.__tina_component__ = instance
-        instance.$component = this
+        instance.$source = this
       },
     }, true)
 
@@ -85,7 +85,7 @@ class Component extends Basic {
     })
   }
 
-  constructor ({ model = {}, $component }) {
+  constructor ({ model = {}, $source }) {
     super()
 
     // creating Tina-Component members
@@ -105,7 +105,7 @@ class Component extends Basic {
   }
 
   get data () {
-    return this.$component.data
+    return this.$source.data
   }
 }
 
@@ -113,7 +113,7 @@ class Component extends Basic {
 linkProperties({
   TargetClass: Component,
   getSourceInstance (context) {
-    return context.$component
+    return context.$source
   },
   properties: [...without(COMPONENT_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(COMPONENT_METHODS, OVERWRITED_METHODS)],
 })

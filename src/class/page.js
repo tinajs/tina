@@ -67,10 +67,10 @@ class Page extends Basic {
     // !important: this hook is added to wx-Page directly, but not Tina-Page
     page = addHooks(page, {
       onLoad () {
-        let instance = new Page({ model, $page: this })
+        let instance = new Page({ model, $source: this })
         // create bi-direction links
         this.__tina_page__ = instance
-        instance.$page = this
+        instance.$source = this
       },
     }, true)
 
@@ -81,7 +81,7 @@ class Page extends Basic {
     })
   }
 
-  constructor ({ model = {}, $page }) {
+  constructor ({ model = {}, $source }) {
     super()
 
     // creating Tina-Page members
@@ -101,7 +101,7 @@ class Page extends Basic {
   }
 
   get data () {
-    return this.$page.data
+    return this.$source.data
   }
 }
 
@@ -109,7 +109,7 @@ class Page extends Basic {
 linkProperties({
   TargetClass: Page,
   getSourceInstance (context) {
-    return context.$page
+    return context.$source
   },
   properties: [...without(PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(PAGE_METHODS, OVERWRITED_METHODS)],
 })
