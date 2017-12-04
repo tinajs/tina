@@ -1,7 +1,7 @@
 import compose from 'compose-function'
 import querystring from 'querystring'
-import { mapObject, filterObject, isEmpty, pick, without, addHooks } from './helpers'
-import globals from './globals'
+import { mapObject, filterObject, isEmpty, pick, without, addHooks } from '../utils/helpers'
+import globals from '../utils/globals'
 import Basic from './basic'
 
 const COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']

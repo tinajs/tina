@@ -1,5 +1,5 @@
-import { isEmpty } from './helpers'
-import globals from './globals'
+import { isEmpty } from '../utils/helpers'
+import globals from '../utils/globals'
 
 class Basic {
   static debug = false

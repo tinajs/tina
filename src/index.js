@@ -1,3 +1,3 @@
-export Page from './page'
-export Component from './component'
-export * as helpers from './helpers'
+export Page from './class/page'
+export Component from './class/component'
+export * as helpers from './utils/helpers'

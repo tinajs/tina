@@ -1,7 +1,7 @@
 import compose from 'compose-function'
 import querystring from 'querystring'
-import { mapObject, filterObject, isEmpty, addHooks } from './helpers'
-import globals from './globals'
+import { mapObject, filterObject, isEmpty, addHooks } from '../utils/helpers'
+import globals from '../utils/globals'
 import Basic from './basic'
 
 const PAGE_PROPERTIES = {
