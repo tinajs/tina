@@ -1,4 +1,4 @@
-import { isEmpty } from '../utils/helpers'
+import { isEmpty } from '../utils/functions'
 import globals from '../utils/globals'
 
 class Basic {

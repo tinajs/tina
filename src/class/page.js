@@ -1,16 +1,24 @@
 import compose from 'compose-function'
-import querystring from 'querystring'
-import { mapObject, filterObject, isEmpty, addHooks } from '../utils/helpers'
+import { $route, $initial, $log } from '../middlewares'
+import { mapObject, filterObject, pick, without } from '../utils/functions'
+import { addHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
-const PAGE_PROPERTIES = {
-  ATTRIBUTES: ['data'],
-  METHODS: ['setData', 'route'],
-  HOOKS: ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll'],
-}
+const PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const PAGE_METHODS = ['setData']
+const PAGE_ATTRIBUTES = ['data', 'route']
 
-const TINA_PAGE_EXTRA_HOOKS = PAGE_PROPERTIES.HOOKS.map((on) => on.replace(/^on/, 'before'))
+const ADDON_BEFORE_HOOKS = PAGE_HOOKS.reduce((memory, on) => {
+  return {
+    ...memory,
+    [on]: on.replace(/^on/, 'before'),
+  }
+}, {})
+
+const OVERWRITED_METHODS = ['setData']
+const OVERWRITED_ATTRIBUTES = ['data']
 
 // generate methods for wx-Page
 function methods (object) {
@@ -21,7 +29,7 @@ function methods (object) {
 }
 
 // generate lifecycles for wx-Page
-function lifecycles (hooks = PAGE_PROPERTIES.HOOKS) {
+function lifecycles (hooks = PAGE_HOOKS) {
   let result = {}
   hooks.forEach((on) => {
     let before = on.replace(/^on/, 'before')
@@ -36,39 +44,6 @@ function lifecycles (hooks = PAGE_PROPERTIES.HOOKS) {
     }
   })
   return result
-}
-
-// builtin $route middleware for Tina-Page
-function $route (model) {
-  return addHooks(model, {
-    beforeLoad (options) {
-      this.$route = {
-        path: `/${this.route}`,
-        query: { ...options },
-        fullPath: isEmpty(options) ? `/${this.route}` : `/${this.route}?${querystring.stringify(options)}`,
-      }
-      this.$log('Route Middleware', 'Ready')
-    }
-  })
-}
-// builtin initial middleware for Tina-Page
-function $initial (model) {
-  return addHooks(model, {
-    onLoad () {
-      // init data (just for triggering ``compute`` in this moment)
-      this.setData()
-      this.$log('Initial Middleware', 'Ready')
-    }
-  })
-}
-// builtin log middleware for Tina-Page
-function $log (model) {
-  return addHooks(model, {
-    beforeLoad () {
-      this.$log = this.constructor.log.bind(this.constructor)
-      this.$log('Log Middleware', 'Ready')
-    }
-  })
 }
 
 const BUILTIN_MIDDLEWARES = [$route, $initial, $log]
@@ -96,16 +71,13 @@ class Page extends Basic {
         // create bi-direction links
         this.__tina_page__ = instance
         instance.$page = this
-
-        // read basic attrs
-        instance.route = this.route
       },
     }, true)
 
     // apply wx-Page options
     new globals.Page({
+      ...pick(model, without(PAGE_OPTIONS, PAGE_HOOKS)),
       ...page,
-      data: model.data,
     })
   }
 
@@ -118,7 +90,7 @@ class Page extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~[...PAGE_PROPERTIES.HOOKS, ...TINA_PAGE_EXTRA_HOOKS].indexOf(name)),
+      ...filterObject(model, (property, name) => ~[...PAGE_HOOKS, ...Object.values(ADDON_BEFORE_HOOKS)].indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
@@ -132,5 +104,14 @@ class Page extends Basic {
     return this.$page.data
   }
 }
+
+// link the rest of wx-Component attributes and methods to Tina-Component
+linkProperties({
+  TargetClass: Page,
+  getSourceInstance (context) {
+    return context.$page
+  },
+  properties: [...without(PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(PAGE_METHODS, OVERWRITED_METHODS)],
+})
 
 export default Page

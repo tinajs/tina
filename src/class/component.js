@@ -1,6 +1,7 @@
 import compose from 'compose-function'
-import querystring from 'querystring'
-import { mapObject, filterObject, isEmpty, pick, without, addHooks } from '../utils/helpers'
+import { $initial, $log } from '../middlewares'
+import { mapObject, filterObject, pick, without } from '../utils/functions'
+import { addHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -47,26 +48,6 @@ function lifecycles (hooks = COMPONENT_HOOKS) {
     }
   })
   return result
-}
-
-// builtin initial middleware for Tina-Component
-function $initial (model) {
-  return addHooks(model, {
-    attached () {
-      // init data (just for triggering ``compute`` in this moment)
-      this.setData()
-      this.$log('Initial Middleware', 'Ready')
-    }
-  })
-}
-// builtin log middleware for Tina-Component
-function $log (model) {
-  return addHooks(model, {
-    beforeCreate () {
-      this.$log = this.constructor.log.bind(this.constructor)
-      this.$log('Log Middleware', 'Ready')
-    }
-  })
 }
 
 const BUILTIN_MIDDLEWARES = [$initial, $log]
@@ -129,20 +110,12 @@ class Component extends Basic {
 }
 
 // link the rest of wx-Component attributes and methods to Tina-Component
-;[...without(COMPONENT_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(COMPONENT_METHODS, OVERWRITED_METHODS)].forEach((name) => {
-  Object.defineProperty(Component.prototype, name, {
-    set: function (value) {
-      throw new Error(`Not allowed to set ${name}`)
-    },
-    get: function () {
-      let context = this.$component
-      let member = context[name]
-      if (typeof member === 'function') {
-        return member.bind(context)
-      }
-      return member
-    },
-  })
+linkProperties({
+  TargetClass: Component,
+  getSourceInstance (context) {
+    return context.$component
+  },
+  properties: [...without(COMPONENT_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(COMPONENT_METHODS, OVERWRITED_METHODS)],
 })
 
 export default Component
