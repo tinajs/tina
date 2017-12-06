@@ -21,6 +21,38 @@ const ADDON_BEFORE_HOOKS = {
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
+// generate properties for wx-Component
+function properties (object) {
+  function wrap (original) {
+    return function observer (...args) {
+      let context = this.__tina_component__
+      // trigger ``compute``
+      context.setData()
+      if (typeof original === 'string') {
+        return context[original].apply(context, args)
+      }
+      if (typeof original === 'function') {
+        return original.apply(context, args)
+      }
+    }
+  }
+
+  return mapObject(object || {}, (rule) => {
+    if (typeof rule === 'function' || rule === null) {
+      return {
+        type: rule,
+        observer: wrap(),
+      }
+    }
+    if (typeof rule === 'object') {
+      return {
+        ...rule,
+        observer: wrap(rule.observer),
+      }
+    }
+  })
+}
+
 // generate methods for wx-Component
 function methods (object) {
   return mapObject(object || {}, (method, name) => function handler (...args) {
@@ -63,6 +95,7 @@ class Component extends Basic {
 
     // create wx-Component options
     let component = {
+      properties: properties(model.properties),
       methods: methods(model.methods),
       ...lifecycles(),
     }
