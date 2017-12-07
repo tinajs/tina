@@ -1,10 +1,10 @@
 import querystring from 'querystring'
 import { isEmpty } from '../utils/functions'
-import { addHooks } from '../utils/helpers'
+import { appendHooks } from '../utils/helpers'
 
 // builtin $route middleware for Tina-Page
 export function $route (model) {
-  return addHooks(model, {
+  return appendHooks(model, {
     beforeLoad (options) {
       this.$route = {
         path: `/${this.route}`,
@@ -23,7 +23,7 @@ function initial () {
   this.$log('Initial Middleware', 'Ready')
 }
 export function $initial (model) {
-  return addHooks(model, {
+  return appendHooks(model, {
     attached: initial,
     onLoad: initial,
   })
@@ -35,7 +35,7 @@ function log () {
   this.$log('Log Middleware', 'Ready')
 }
 export function $log (model) {
-  return addHooks(model, {
+  return appendHooks(model, {
     beforeCreate: log,
     beforeLoad: log,
   })

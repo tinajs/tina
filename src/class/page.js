@@ -1,7 +1,7 @@
 import compose from 'compose-function'
 import { $route, $initial, $log } from '../middlewares'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
-import { addHooks, linkProperties } from '../utils/helpers'
+import { prependHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -62,14 +62,14 @@ class Page extends Basic {
 
     // creating Tina-Page on **wx-Page** loaded.
     // !important: this hook is added to wx-Page directly, but not Tina-Page
-    page = addHooks(page, {
+    page = prependHooks(page, {
       onLoad () {
         let instance = new Page({ model, $source: this })
         // create bi-direction links
         this.__tina_page__ = instance
         instance.$source = this
       },
-    }, true)
+    })
 
     // apply wx-Page options
     new globals.Page({

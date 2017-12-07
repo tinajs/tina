@@ -1,4 +1,4 @@
-export function addHooks (context, handlers, isPrepend = false) {
+function addHooks (context, handlers, isPrepend = false) {
   let result = {}
   for (let name in handlers) {
     result[name] = function handler (...args) {
@@ -18,6 +18,9 @@ export function addHooks (context, handlers, isPrepend = false) {
     ...result,
   }
 }
+
+export const appendHooks = (context, handlers) => addHooks(context, handlers)
+export const prependHooks = (context, handlers) => addHooks(context, handlers, true)
 
 export function linkProperties ({ TargetClass, getSourceInstance, properties }) {
   properties.forEach((name) => {

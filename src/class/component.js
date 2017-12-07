@@ -1,7 +1,7 @@
 import compose from 'compose-function'
 import { $initial, $log } from '../middlewares'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
-import { addHooks, linkProperties } from '../utils/helpers'
+import { prependHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -99,14 +99,14 @@ class Component extends Basic {
 
     // creating Tina-Component on **wx-Component** created.
     // !important: this hook is added to wx-Component directly, but not Tina-Component
-    component = addHooks(component, {
+    component = prependHooks(component, {
       created () {
         let instance = new Component({ model, $source: this })
         // create bi-direction links
         this.__tina_component__ = instance
         instance.$source = this
       },
-    }, true)
+    })
 
     // apply wx-Component options
     new globals.Component({
