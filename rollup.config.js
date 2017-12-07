@@ -1,13 +1,10 @@
-import uglify from 'rollup-plugin-uglify'
-import base from './rollup.conf.base.js'
+import merge from 'deepmerge'
+import base from './rollup.config.base.js'
 
-export default Object.assign({}, base, {
+export default merge(base, {
   output: {
-    file: 'dist/tina.min.js',
+    file: 'dist/tina.js',
     format: 'umd',
     name: 'tina',
   },
-  plugins: base.plugins.concat([
-    uglify(),
-  ]),
 })
