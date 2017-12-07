@@ -46,16 +46,13 @@ function lifecycles (hooks = PAGE_HOOKS) {
   return result
 }
 
-const BUILTIN_MIDDLEWARES = [$route, $initial, $log]
+const BUILTIN_MIDDLEWARES = [$log, $initial, $route]
 
 class Page extends Basic {
   static define (model = {}) {
-    // use builtin middlewares
-    model = compose(...BUILTIN_MIDDLEWARES)(model)
-    // use custom middlewares
-    if (Page.middlewares.length > 0) {
-      model = compose(...Page.middlewares)(model)
-    }
+    // use middlewares
+    let middlewares = [...BUILTIN_MIDDLEWARES, ...Page.middlewares]
+    model = compose(...middlewares.reverse())(model)
 
     // create wx-Page options
     let page = {

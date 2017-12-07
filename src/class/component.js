@@ -86,12 +86,9 @@ const BUILTIN_MIDDLEWARES = [$initial, $log]
 
 class Component extends Basic {
   static define (model = {}) {
-    // use builtin middlewares
-    model = compose(...BUILTIN_MIDDLEWARES)(model)
-    // use custom middlewares
-    if (Component.middlewares.length > 0) {
-      model = compose(...Component.middlewares)(model)
-    }
+    // use middlewares
+    let middlewares = [...BUILTIN_MIDDLEWARES, ...Component.middlewares]
+    model = compose(...middlewares.reverse())(model)
 
     // create wx-Component options
     let component = {
