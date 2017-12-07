@@ -46,7 +46,7 @@ function lifecycles (hooks = PAGE_HOOKS) {
   return result
 }
 
-const BUILTIN_MIDDLEWARES = [$log, $initial, $route]
+const BUILTIN_MIDDLEWARES = [$log, $initial]
 
 class Page extends Basic {
   static middlewares = []

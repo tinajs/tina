@@ -1,20 +1,4 @@
-import querystring from 'querystring'
-import { isEmpty } from '../utils/functions'
 import { appendHooks } from '../utils/helpers'
-
-// builtin $route middleware for Tina-Page
-export function $route (model) {
-  return appendHooks(model, {
-    beforeLoad (options) {
-      this.$route = {
-        path: `/${this.route}`,
-        query: { ...options },
-        fullPath: isEmpty(options) ? `/${this.route}` : `/${this.route}?${querystring.stringify(options)}`,
-      }
-      this.$log('Route Middleware', 'Ready')
-    },
-  })
-}
 
 // builtin initial middleware for Tina-Page
 function initial () {
