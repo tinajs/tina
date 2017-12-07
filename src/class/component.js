@@ -85,6 +85,8 @@ function lifecycles (hooks = COMPONENT_HOOKS) {
 const BUILTIN_MIDDLEWARES = [$initial, $log]
 
 class Component extends Basic {
+  static middlewares = []
+
   static define (model = {}) {
     // use middlewares
     let middlewares = [...BUILTIN_MIDDLEWARES, ...Component.middlewares]

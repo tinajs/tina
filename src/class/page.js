@@ -49,6 +49,8 @@ function lifecycles (hooks = PAGE_HOOKS) {
 const BUILTIN_MIDDLEWARES = [$log, $initial, $route]
 
 class Page extends Basic {
+  static middlewares = []
+
   static define (model = {}) {
     // use middlewares
     let middlewares = [...BUILTIN_MIDDLEWARES, ...Page.middlewares]
