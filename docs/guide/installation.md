@@ -1,0 +1,82 @@
+# 安装和引用
+我们推荐在小程序项目中 [借助 Webpack](guide/installation?id=Webpack) 使用 tina，但如果你只是希望在现有的项目中小试牛刀，也可以通过拷贝文件的形式 [直接引入](guide/installation?id=直接引入) 。
+
+## 直接引入
+从传统项目中引入 tina 非常简单。你只需要将最新的 [tina.min.js](https://unpkg.com/@tinajs/tina/dist/tina.min.js) 拷贝至项目中，并借助小程序环境集成的 ``require`` 方法加载使用。
+
+例如我们将 *tina.min.js* 存放在项目的 *libraries* 目录中：
+
+```
+.
+├── api.js
+├── app.json
+├── libraries
+│   └── tina.min.js ※
+├── pages
+│   ├── hi.js ※
+│   ├── hi.wxml
+│   └── hi.wxss
+└── project.config.json
+```
+
+然后在页面 *page/hi.js* 中便可以加载使用：
+```javascript
+var { Page } = require('../libraries/tina.min.js')
+
+// 开始定义页面
+Page.define(......)
+```
+
+如果你感兴趣，欢迎查看 [完整的示例 - sayhi](https://github.com/tinajs/tina-examples/packages/sayhi) 。
+
+## Webpack
+
+借助 [@tinajs/mina-webpack]() , 你可以使用 **npm** 安装和使用 tina。
+
+> mina-webpack 是一套使用 webpack 开发小程序的工具链。
+> 致力于解决由于传统小程序的开发、运行环境相对封闭，开发者常面临的无法使用 *node_modules*、无法自由选择 es 版本、无法预编译文件等问题。
+
+> 使用 mina-webpack ，你的项目将获得 es2015+、npm、mina 单文件组件、文件预编译、代码混淆和压缩等能力。
+
+
+例如在一个集成 mina-webpack 的项目中：
+
+```
+.
+├── node_modules ※
+│   ├── ...
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src
+│   ├── api.js
+│   ├── app.mina
+│   ├── pages
+│   │   └── hi.mina ※
+│   └── project.config.json
+└── webpack.config.babel.js
+```
+
+使用 npm 安装 tina
+
+```bash
+npm i --save @tinajs/tina
+```
+
+然后便可以在页面 *src/pages/hi.mina* 中加载使用：
+
+```html
+......
+<script>
+import { Page } from '@tinajs/tina'
+
+// 开始定义页面
+Page.define(......)
+</script>
+.....
+```
+
+!> ``*.mina`` 是受 [Vue](https://vuejs.org/v2/guide/single-file-components.html) 启发，由 ``config``, ``template``, ``script``, ``style`` 四个块组成的小程序单文件组件 (页面)，对应的是传统小程序项目中的 ``*.json``, ``*.wxml``, ``*.js``, ``*.wxss`` 文件。
+
+
+如果你感兴趣，欢迎查看 [完整的示例 - sayhi-mina](https://github.com/tinajs/tina-examples/packages/sayhi-mina) 。

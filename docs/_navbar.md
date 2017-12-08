@@ -1,5 +1,4 @@
-- [指南](guide/README.md)
+- [指南](guide/installation.md)
 - [API](api/README.md)
-- 资源
-  - [仓库](https://github.com/tinajs/tina)
-  - [mina-webpack](https://github.com/tinajs/mina-webpack)
+- [示例](https://github.com/tinajs/tina-examples)
+- [Webpack](https://github.com/tinajs/mina-webpack)

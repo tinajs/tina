@@ -2,30 +2,32 @@
 <p align="center">一款轻巧的渐进式小程序框架</p>
 
 ## 特性
-- 轻巧。
+- 轻巧
 
   核心打包后仅 12kb+ 体积。
 
-- 非入侵。
+- 易上手
 
-  兼容 mina (微信小程序官方框架) API，可从旧项目快速迁移。
+  保持 mina (微信小程序官方框架) 大部分 API 设计，可从传统项目快速迁移。
 
-- 易扩展。
+- 渐进增强
 
-  自由插拔任何扩展，如路由、状态管理，以及你自己创造的新功能。
+  自由选择扩展功能，如路由、状态管理，以及由你自己编写的插件。
 
 
 ## 开始之前
-你也许还会对 [mina-webpack](https://github.com/tinajs/mina-webpack) 感兴趣，可使你的小程序项目：
+你也许还会对 [@tinajs/mina-webpack](https://github.com/tinajs/mina-webpack) 感兴趣，可使你的小程序项目：
 
 - 支持使用 npm 库。
 - 支持使用 ``.mina`` 单文件组件 (页面)；同时结合 npm 可引入第三方 mina 组件。
-- 提供 webpack loaders / plugins 能力，如 babel、postcss、代码混淆等功能。
+- 获得 webpack loaders / plugins 能力，如 babel、postcss、代码混淆等功能。
 
 ## 文档
-所有详细的文档都可以在 [tinajs.github.io/tina](tinajs.github.io) 查阅
+如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
 
-## 示例
+详尽的文档可以在 [tinajs.github.io/tina](tinajs.github.io) 查阅。
+
+## 上手示例
 ```javascript
 import { Page } from '@tinajs/tina'
 import { fetchUser } from '../api'

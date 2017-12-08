@@ -1,17 +1,10 @@
 - 基础
-  - 安装
-  - 介绍
-  - 页面
-    - 定义一个页面
-    - Tina 页面实例生命周期
-  - 组件
-    - 定义一个组件
-    - Tina 组件实例生命周期
-  - 计算属性
-- 规模化
-  - 路由
-  - 状态管理
-- 迁移
-  - 从普通小程序项目迁移
-- 更多
-  - 对比其他框架
+  - [安装和引用](guide/installation.md)
+  - [开始之前](guide/preparatory.md)
+  - [页面](guide/page.md)
+  - [组件](guide/component.md)
+  - [插件](guide/plugin.md)
+- 插件能力
+  - [路由](guide/router.md)
+  - [状态管理](guide/state-management.md)
+- [常见问题](guide/faq.md)
