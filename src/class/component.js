@@ -2,6 +2,7 @@ import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
+import { methods, lifecycles } from '../utils/generator'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -47,41 +48,6 @@ function properties (object) {
   })
 }
 
-// generate methods for wx-Component
-function methods (object) {
-  return mapObject(object || {}, (method, name) => function handler (...args) {
-    let context = this.__tina_instance__
-    return context[name].apply(context, args)
-  })
-}
-
-// generate lifecycles for wx-Component
-function lifecycles (hooks = MINA_COMPONENT_HOOKS) {
-  let result = {}
-  hooks.forEach((hook) => {
-    let before = ADDON_BEFORE_HOOKS[hook]
-    if (!before) {
-      result[hook] = function handler () {
-        let context = this.__tina_instance__
-        if (context[hook]) {
-          return context[hook].apply(context, arguments)
-        }
-      }
-      return
-    }
-    result[hook] = function handler () {
-      let context = this.__tina_instance__
-      if (context[before]) {
-        context[before].apply(context, arguments)
-      }
-      if (context[hook]) {
-        return context[hook].apply(context, arguments)
-      }
-    }
-  })
-  return result
-}
-
 const BUILTIN_MIXINS = [$initial, $log]
 
 class Component extends Basic {
@@ -100,7 +66,7 @@ class Component extends Basic {
     let component = {
       properties: properties(model.properties),
       methods: methods(model.methods),
-      ...lifecycles(),
+      ...lifecycles(MINA_COMPONENT_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Component on **wx-Component** created.

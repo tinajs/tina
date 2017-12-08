@@ -2,6 +2,7 @@ import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
+import { methods, lifecycles } from '../utils/generator'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -16,41 +17,6 @@ const ADDON_BEFORE_HOOKS = {
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
-
-// generate methods for wx-Page
-function methods (object) {
-  return mapObject(object || {}, (method, name) => function handler (...args) {
-    let context = this.__tina_instance__
-    return context[name].apply(context, args)
-  })
-}
-
-// generate lifecycles for wx-Page
-function lifecycles (hooks = MINA_PAGE_HOOKS) {
-  let result = {}
-  hooks.forEach((hook) => {
-    let before = ADDON_BEFORE_HOOKS[hook]
-    if (!before) {
-      result[hook] = function handler () {
-        let context = this.__tina_instance__
-        if (context[hook]) {
-          return context[hook].apply(context, arguments)
-        }
-      }
-      return
-    }
-    result[hook] = function handler () {
-      let context = this.__tina_instance__
-      if (context[before]) {
-        context[before].apply(context, arguments)
-      }
-      if (context[hook]) {
-        return context[hook].apply(context, arguments)
-      }
-    }
-  })
-  return result
-}
 
 const BUILTIN_MIXINS = [$log, $initial]
 
@@ -69,7 +35,7 @@ class Page extends Basic {
     // create wx-Page options
     let page = {
       ...methods(model.methods),
-      ...lifecycles(),
+      ...lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Page on **wx-Page** loaded.
