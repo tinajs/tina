@@ -20,7 +20,7 @@ function log () {
 }
 export function $log (model) {
   return appendHooks(model, {
-    beforeCreate: log,
+    created: log,
     beforeLoad: log,
   })
 }
