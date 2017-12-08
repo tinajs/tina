@@ -20,7 +20,7 @@ const OVERWRITED_ATTRIBUTES = ['data']
 // generate methods for wx-Page
 function methods (object) {
   return mapObject(object || {}, (method, name) => function handler (...args) {
-    let context = this.__tina_page__
+    let context = this.__tina_instance__
     return context[name].apply(context, args)
   })
 }
@@ -32,7 +32,7 @@ function lifecycles (hooks = MINA_PAGE_HOOKS) {
     let before = ADDON_BEFORE_HOOKS[hook]
     if (!before) {
       result[hook] = function handler () {
-        let context = this.__tina_page__
+        let context = this.__tina_instance__
         if (context[hook]) {
           return context[hook].apply(context, arguments)
         }
@@ -40,7 +40,7 @@ function lifecycles (hooks = MINA_PAGE_HOOKS) {
       return
     }
     result[hook] = function handler () {
-      let context = this.__tina_page__
+      let context = this.__tina_instance__
       if (context[before]) {
         context[before].apply(context, arguments)
       }
@@ -78,7 +78,7 @@ class Page extends Basic {
       onLoad () {
         let instance = new Page({ model, $source: this })
         // create bi-direction links
-        this.__tina_page__ = instance
+        this.__tina_instance__ = instance
         instance.$source = this
       },
     })

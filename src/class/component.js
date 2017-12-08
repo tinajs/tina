@@ -19,7 +19,7 @@ const OVERWRITED_ATTRIBUTES = ['data']
 function properties (object) {
   function wrap (original) {
     return function observer (...args) {
-      let context = this.__tina_component__
+      let context = this.__tina_instance__
       // trigger ``compute``
       context.setData()
       if (typeof original === 'string') {
@@ -50,7 +50,7 @@ function properties (object) {
 // generate methods for wx-Component
 function methods (object) {
   return mapObject(object || {}, (method, name) => function handler (...args) {
-    let context = this.__tina_component__
+    let context = this.__tina_instance__
     return context[name].apply(context, args)
   })
 }
@@ -62,7 +62,7 @@ function lifecycles (hooks = MINA_COMPONENT_HOOKS) {
     let before = ADDON_BEFORE_HOOKS[hook]
     if (!before) {
       result[hook] = function handler () {
-        let context = this.__tina_component__
+        let context = this.__tina_instance__
         if (context[hook]) {
           return context[hook].apply(context, arguments)
         }
@@ -70,7 +70,7 @@ function lifecycles (hooks = MINA_COMPONENT_HOOKS) {
       return
     }
     result[hook] = function handler () {
-      let context = this.__tina_component__
+      let context = this.__tina_instance__
       if (context[before]) {
         context[before].apply(context, arguments)
       }
@@ -109,7 +109,7 @@ class Component extends Basic {
       created () {
         let instance = new Component({ model, $source: this })
         // create bi-direction links
-        this.__tina_component__ = instance
+        this.__tina_instance__ = instance
         instance.$source = this
       },
     })
