@@ -25,16 +25,16 @@ class Page extends Basic {
 
   static mixins = []
 
-  static define (model = {}) {
+  static define (options = {}) {
     // use mixins
-    let mixins = [...BUILTIN_MIXINS, ...Page.mixins, ...(model.mixins || [])].map((mixin) => {
-      return (model) => Page.mix(model, mixin)
+    let mixins = [...BUILTIN_MIXINS, ...Page.mixins, ...(options.mixins || [])].map((mixin) => {
+      return (options) => Page.mix(options, mixin)
     })
-    model = compose(...mixins.reverse())(model)
+    options = compose(...mixins.reverse())(options)
 
     // create wx-Page options
     let page = {
-      ...methods(model.methods),
+      ...methods(options.methods),
       ...lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
@@ -42,7 +42,7 @@ class Page extends Basic {
     // !important: this hook is added to wx-Page directly, but not Tina-Page
     page = prependHooks(page, {
       onLoad () {
-        let instance = new Page({ model, $source: this })
+        let instance = new Page({ options, $source: this })
         // create bi-direction links
         this.__tina_instance__ = instance
         instance.$source = this
@@ -51,21 +51,21 @@ class Page extends Basic {
 
     // apply wx-Page options
     new globals.Page({
-      ...pick(model, without(MINA_PAGE_OPTIONS, MINA_PAGE_HOOKS)),
+      ...pick(options, without(MINA_PAGE_OPTIONS, MINA_PAGE_HOOKS)),
       ...page,
     })
   }
 
-  constructor ({ model = {}, $source }) {
+  constructor ({ options = {}, $source }) {
     super()
 
     // creating Tina-Page members
     let members = {
-      compute: model.compute || function () {
+      compute: options.compute || function () {
         return {}
       },
-      ...model.methods,
-      ...filterObject(model, (property, name) => ~Page.HOOKS.indexOf(name)),
+      ...options.methods,
+      ...filterObject(options, (property, name) => ~Page.HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {

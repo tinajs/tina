@@ -13,12 +13,12 @@ class Basic {
     this.mixins.unshift(mixin)
   }
 
-  static mix (model, mixin) {
+  static mix (options, mixin) {
     if (typeof mixin === 'function') {
-      return mixin(model, this)
+      return mixin(options, this)
     }
     return {
-      ...appendHooks(model, pick(mixin, this.HOOKS))
+      ...appendHooks(options, pick(mixin, this.HOOKS))
     }
   }
 

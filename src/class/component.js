@@ -55,17 +55,17 @@ class Component extends Basic {
 
   static mixins = []
 
-  static define (model = {}) {
+  static define (options = {}) {
     // use mixins
-    let mixins = [...BUILTIN_MIXINS, ...Component.mixins, ...(model.mixins || [])].map((mixin) => {
-      return (model) => Component.mix(model, mixin)
+    let mixins = [...BUILTIN_MIXINS, ...Component.mixins, ...(options.mixins || [])].map((mixin) => {
+      return (options) => Component.mix(options, mixin)
     })
-    model = compose(...mixins.reverse())(model)
+    options = compose(...mixins.reverse())(options)
 
     // create wx-Component options
     let component = {
-      properties: properties(model.properties),
-      methods: methods(model.methods),
+      properties: properties(options.properties),
+      methods: methods(options.methods),
       ...lifecycles(MINA_COMPONENT_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
@@ -73,7 +73,7 @@ class Component extends Basic {
     // !important: this hook is added to wx-Component directly, but not Tina-Component
     component = prependHooks(component, {
       created () {
-        let instance = new Component({ model, $source: this })
+        let instance = new Component({ options, $source: this })
         // create bi-direction links
         this.__tina_instance__ = instance
         instance.$source = this
@@ -82,21 +82,21 @@ class Component extends Basic {
 
     // apply wx-Component options
     new globals.Component({
-      ...pick(model, without(MINA_COMPONENT_OPTIONS, MINA_COMPONENT_HOOKS)),
+      ...pick(options, without(MINA_COMPONENT_OPTIONS, MINA_COMPONENT_HOOKS)),
       ...component,
     })
   }
 
-  constructor ({ model = {}, $source }) {
+  constructor ({ options = {}, $source }) {
     super()
 
     // creating Tina-Component members
     let members = {
-      compute: model.compute || function () {
+      compute: options.compute || function () {
         return {}
       },
-      ...model.methods,
-      ...filterObject(model, (property, name) => ~Component.HOOKS.indexOf(name)),
+      ...options.methods,
+      ...filterObject(options, (property, name) => ~Component.HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
