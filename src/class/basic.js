@@ -1,13 +1,25 @@
-import { isEmpty } from '../utils/functions'
+import { isEmpty, pick } from '../utils/functions'
 import globals from '../utils/globals'
+import { appendHooks } from '../utils/helpers'
 
 class Basic {
+  static HOOKS = []
+
   static debug = false
 
   static mixins = []
 
-  static use (mixin) {
+  static mixin (mixin) {
     this.mixins.unshift(mixin)
+  }
+
+  static mix (model, mixin) {
+    if (typeof mixin === 'function') {
+      return mixin(model, this)
+    }
+    return {
+      ...appendHooks(model, pick(mixin, this.HOOKS))
+    }
   }
 
   static log (behavior, data) {

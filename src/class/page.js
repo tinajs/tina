@@ -14,8 +14,6 @@ const ADDON_BEFORE_HOOKS = {
   'onLoad': 'beforeLoad',
 }
 
-const PAGE_HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
-
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
@@ -57,16 +55,9 @@ function lifecycles (hooks = MINA_PAGE_HOOKS) {
 const BUILTIN_MIXINS = [$log, $initial]
 
 class Page extends Basic {
-  static mixins = []
+  static HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
-  static mix (model, mixin) {
-    if (typeof mixin === 'function') {
-      return mixin(model, Page)
-    }
-    return {
-      ...appendHooks(model, pick(mixin, PAGE_HOOKS))
-    }
-  }
+  static mixins = []
 
   static define (model = {}) {
     // use mixins
@@ -108,7 +99,7 @@ class Page extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~PAGE_HOOKS.indexOf(name)),
+      ...filterObject(model, (property, name) => ~Page.HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {

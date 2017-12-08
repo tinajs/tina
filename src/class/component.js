@@ -12,8 +12,6 @@ const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 
 const ADDON_BEFORE_HOOKS = {}
 
-const COMPONENT_HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
-
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
@@ -87,16 +85,9 @@ function lifecycles (hooks = MINA_COMPONENT_HOOKS) {
 const BUILTIN_MIXINS = [$initial, $log]
 
 class Component extends Basic {
-  static mixins = []
+  static HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
-  static mix (model, mixin) {
-    if (typeof mixin === 'function') {
-      return mixin(model, Component)
-    }
-    return {
-      ...appendHooks(model, pick(mixin, COMPONENT_HOOKS))
-    }
-  }
+  static mixins = []
 
   static define (model = {}) {
     // use mixins
@@ -139,7 +130,7 @@ class Component extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~COMPONENT_HOOKS.indexOf(name)),
+      ...filterObject(model, (property, name) => ~Component.HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
