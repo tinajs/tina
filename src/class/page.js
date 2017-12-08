@@ -1,5 +1,5 @@
 import compose from 'compose-function'
-import { $route, $initial, $log } from '../middlewares'
+import { $initial, $log } from '../middlewares'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
 import { prependHooks, linkProperties } from '../utils/helpers'
 import globals from '../utils/globals'
