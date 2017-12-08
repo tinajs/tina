@@ -1,18 +1,20 @@
 import compose from 'compose-function'
-import { $initial, $log } from '../middlewares'
+import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
-import { prependHooks, linkProperties } from '../utils/helpers'
+import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
-const PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
-const PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
-const PAGE_METHODS = ['setData']
-const PAGE_ATTRIBUTES = ['data', 'route']
+const MINA_PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const MINA_PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const MINA_PAGE_METHODS = ['setData']
+const MINA_PAGE_ATTRIBUTES = ['data', 'route']
 
 const ADDON_BEFORE_HOOKS = {
   'onLoad': 'beforeLoad',
 }
+
+const PAGE_HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
@@ -26,7 +28,7 @@ function methods (object) {
 }
 
 // generate lifecycles for wx-Page
-function lifecycles (hooks = PAGE_HOOKS) {
+function lifecycles (hooks = MINA_PAGE_HOOKS) {
   let result = {}
   hooks.forEach((hook) => {
     let before = ADDON_BEFORE_HOOKS[hook]
@@ -52,15 +54,26 @@ function lifecycles (hooks = PAGE_HOOKS) {
   return result
 }
 
-const BUILTIN_MIDDLEWARES = [$log, $initial]
+const BUILTIN_MIXINS = [$log, $initial]
 
 class Page extends Basic {
-  static middlewares = []
+  static mixins = []
+
+  static mix (model, mixin) {
+    if (typeof mixin === 'function') {
+      return mixin(model, Page)
+    }
+    return {
+      ...appendHooks(model, pick(mixin, PAGE_HOOKS))
+    }
+  }
 
   static define (model = {}) {
-    // use middlewares
-    let middlewares = [...BUILTIN_MIDDLEWARES, ...Page.middlewares]
-    model = compose(...middlewares.reverse())(model)
+    // use mixins
+    let mixins = [...BUILTIN_MIXINS, ...Page.mixins, ...(model.mixins || [])].map((mixin) => {
+      return (model) => Page.mix(model, mixin)
+    })
+    model = compose(...mixins.reverse())(model)
 
     // create wx-Page options
     let page = {
@@ -81,7 +94,7 @@ class Page extends Basic {
 
     // apply wx-Page options
     new globals.Page({
-      ...pick(model, without(PAGE_OPTIONS, PAGE_HOOKS)),
+      ...pick(model, without(MINA_PAGE_OPTIONS, MINA_PAGE_HOOKS)),
       ...page,
     })
   }
@@ -95,7 +108,7 @@ class Page extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~[...PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)].indexOf(name)),
+      ...filterObject(model, (property, name) => ~PAGE_HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
@@ -116,7 +129,7 @@ linkProperties({
   getSourceInstance (context) {
     return context.$source
   },
-  properties: [...without(PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(PAGE_METHODS, OVERWRITED_METHODS)],
+  properties: [...without(MINA_PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(MINA_PAGE_METHODS, OVERWRITED_METHODS)],
 })
 
 export default Page

@@ -1,16 +1,18 @@
 import compose from 'compose-function'
-import { $initial, $log } from '../middlewares'
+import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
-import { prependHooks, linkProperties } from '../utils/helpers'
+import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import globals from '../utils/globals'
 import Basic from './basic'
 
-const COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
-const COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
-const COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes']
-const COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
+const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
+const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
+const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes']
+const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 
 const ADDON_BEFORE_HOOKS = {}
+
+const COMPONENT_HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
@@ -56,7 +58,7 @@ function methods (object) {
 }
 
 // generate lifecycles for wx-Component
-function lifecycles (hooks = COMPONENT_HOOKS) {
+function lifecycles (hooks = MINA_COMPONENT_HOOKS) {
   let result = {}
   hooks.forEach((hook) => {
     let before = ADDON_BEFORE_HOOKS[hook]
@@ -82,15 +84,26 @@ function lifecycles (hooks = COMPONENT_HOOKS) {
   return result
 }
 
-const BUILTIN_MIDDLEWARES = [$initial, $log]
+const BUILTIN_MIXINS = [$initial, $log]
 
 class Component extends Basic {
-  static middlewares = []
+  static mixins = []
+
+  static mix (model, mixin) {
+    if (typeof mixin === 'function') {
+      return mixin(model, Component)
+    }
+    return {
+      ...appendHooks(model, pick(mixin, COMPONENT_HOOKS))
+    }
+  }
 
   static define (model = {}) {
-    // use middlewares
-    let middlewares = [...BUILTIN_MIDDLEWARES, ...Component.middlewares]
-    model = compose(...middlewares.reverse())(model)
+    // use mixins
+    let mixins = [...BUILTIN_MIXINS, ...Component.mixins, ...(model.mixins || [])].map((mixin) => {
+      return (model) => Component.mix(model, mixin)
+    })
+    model = compose(...mixins.reverse())(model)
 
     // create wx-Component options
     let component = {
@@ -112,7 +125,7 @@ class Component extends Basic {
 
     // apply wx-Component options
     new globals.Component({
-      ...pick(model, without(COMPONENT_OPTIONS, COMPONENT_HOOKS)),
+      ...pick(model, without(MINA_COMPONENT_OPTIONS, MINA_COMPONENT_HOOKS)),
       ...component,
     })
   }
@@ -126,7 +139,7 @@ class Component extends Basic {
         return {}
       },
       ...model.methods,
-      ...filterObject(model, (property, name) => ~[...COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)].indexOf(name)),
+      ...filterObject(model, (property, name) => ~COMPONENT_HOOKS.indexOf(name)),
     }
     // apply members into instance
     for (let name in members) {
@@ -147,7 +160,7 @@ linkProperties({
   getSourceInstance (context) {
     return context.$source
   },
-  properties: [...without(COMPONENT_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(COMPONENT_METHODS, OVERWRITED_METHODS)],
+  properties: [...without(MINA_COMPONENT_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(MINA_COMPONENT_METHODS, OVERWRITED_METHODS)],
 })
 
 export default Component

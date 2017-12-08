@@ -37,7 +37,9 @@ export function isEmpty (obj) {
 export function pick (object, keys = []) {
   let picked = {}
   keys.forEach((key) => {
-    picked[key] = object[key]
+    if (key in object) {
+      picked[key] = object[key]
+    }
   })
   return picked
 }

@@ -1,3 +1,5 @@
+import _compose from 'compose-function'
+
 function addHooks (context, handlers, isPrepend = false) {
   let result = {}
   for (let name in handlers) {
@@ -40,4 +42,10 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
     })
   })
   return TargetClass
+}
+
+export function compose (...functions) {
+  return (x, ...rest) => _compose(...functions.map((func) =>function curried (x) {
+    return func(x, ...rest)
+  }))(x)
 }

@@ -4,10 +4,10 @@ import globals from '../utils/globals'
 class Basic {
   static debug = false
 
-  static middlewares = []
+  static mixins = []
 
-  static use (middleware) {
-    this.middlewares.unshift(middleware)
+  static use (mixin) {
+    this.mixins.unshift(mixin)
   }
 
   static log (behavior, data) {
