@@ -10,13 +10,7 @@ const COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
 const COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes']
 const COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 
-const ADDON_BEFORE_HOOKS = {
-  created: 'beforeCreate',
-  attached: 'beforeAttach',
-  ready: 'beforeReady',
-  move: 'beforeMove',
-  detached: 'beforeDetach',
-}
+const ADDON_BEFORE_HOOKS = {}
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
@@ -64,9 +58,15 @@ function methods (object) {
 // generate lifecycles for wx-Component
 function lifecycles (hooks = COMPONENT_HOOKS) {
   let result = {}
-  COMPONENT_HOOKS.forEach((hook) => {
+  hooks.forEach((hook) => {
     let before = ADDON_BEFORE_HOOKS[hook]
     if (!before) {
+      result[hook] = function handler () {
+        let context = this.__tina_component__
+        if (context[hook]) {
+          return context[hook].apply(context, arguments)
+        }
+      }
       return
     }
     result[hook] = function handler () {

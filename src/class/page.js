@@ -10,12 +10,9 @@ const PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPull
 const PAGE_METHODS = ['setData']
 const PAGE_ATTRIBUTES = ['data', 'route']
 
-const ADDON_BEFORE_HOOKS = PAGE_HOOKS.reduce((memory, on) => {
-  return {
-    ...memory,
-    [on]: on.replace(/^on/, 'before'),
-  }
-}, {})
+const ADDON_BEFORE_HOOKS = {
+  'onLoad': 'beforeLoad',
+}
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
@@ -31,15 +28,24 @@ function methods (object) {
 // generate lifecycles for wx-Page
 function lifecycles (hooks = PAGE_HOOKS) {
   let result = {}
-  hooks.forEach((on) => {
-    let before = on.replace(/^on/, 'before')
-    result[on] = function handler () {
+  hooks.forEach((hook) => {
+    let before = ADDON_BEFORE_HOOKS[hook]
+    if (!before) {
+      result[hook] = function handler () {
+        let context = this.__tina_page__
+        if (context[hook]) {
+          return context[hook].apply(context, arguments)
+        }
+      }
+      return
+    }
+    result[hook] = function handler () {
       let context = this.__tina_page__
       if (context[before]) {
         context[before].apply(context, arguments)
       }
-      if (context[on]) {
-        return context[on].apply(context, arguments)
+      if (context[hook]) {
+        return context[hook].apply(context, arguments)
       }
     }
   })
