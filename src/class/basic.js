@@ -10,7 +10,7 @@ class Basic {
   static mixins = []
 
   static mixin (mixin) {
-    this.mixins.unshift(mixin)
+    this.mixins.push(mixin)
   }
 
   // utilty function for mixin
