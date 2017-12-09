@@ -1,4 +1,3 @@
-import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
@@ -57,10 +56,7 @@ class Component extends Basic {
 
   static define (options = {}) {
     // use mixins
-    let mixins = [...BUILTIN_MIXINS, ...Component.mixins, ...(options.mixins || [])].map((mixin) => {
-      return (options) => Component.mix(options, mixin)
-    })
-    options = compose(...mixins.reverse())(options)
+    options = this.mix(options, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || [])])
 
     // create wx-Component options
     let component = {

@@ -43,9 +43,3 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
   })
   return TargetClass
 }
-
-export function compose (...functions) {
-  return (x, ...rest) => _compose(...functions.map((func) =>function curried (x) {
-    return func(x, ...rest)
-  }))(x)
-}

@@ -20,6 +20,16 @@ const OVERWRITED_ATTRIBUTES = ['data']
 
 const BUILTIN_MIXINS = [$log, $initial]
 
+
+function mix (upstream, payload) {
+  if (typeof payload === 'function') {
+    return payload(upstream, Page)
+  }
+  return {
+    ...appendHooks(upstream, pick(payload, Page.HOOKS))
+  }
+}
+
 class Page extends Basic {
   static HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
@@ -27,10 +37,7 @@ class Page extends Basic {
 
   static define (options = {}) {
     // use mixins
-    let mixins = [...BUILTIN_MIXINS, ...Page.mixins, ...(options.mixins || [])].map((mixin) => {
-      return (options) => Page.mix(options, mixin)
-    })
-    options = compose(...mixins.reverse())(options)
+    options = this.mix(options, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || [])])
 
     // create wx-Page options
     let page = {

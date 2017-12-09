@@ -1,6 +1,6 @@
 import { isEmpty, pick } from '../utils/functions'
 import globals from '../utils/globals'
-import { appendHooks } from '../utils/helpers'
+import { appendHooks, compose } from '../utils/helpers'
 
 class Basic {
   static HOOKS = []
@@ -13,12 +13,17 @@ class Basic {
     this.mixins.unshift(mixin)
   }
 
-  static mix (options, mixin) {
-    if (typeof mixin === 'function') {
-      return mixin(options, this)
+  // utilty function for mixin
+  static mix (options, mixins) {
+    if (typeof mixins === 'function') {
+      return mixins(options, this)
+    }
+    if (Array.isArray(mixins)) {
+      return mixins.reduce((memory, mixin) => this.mix(memory, mixin), options)
     }
     return {
-      ...appendHooks(options, pick(mixin, this.HOOKS))
+      // todo
+      ...appendHooks(options, pick(mixins, this.HOOKS))
     }
   }
 
