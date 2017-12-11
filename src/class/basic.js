@@ -1,13 +1,31 @@
-import { isEmpty } from '../utils/functions'
+import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
+import { appendHooks, appendHook } from '../utils/helpers'
+import strategies from '../utils/mix-strategies'
 
 class Basic {
   static debug = false
 
-  static middlewares = []
+  static mixins = []
 
-  static use (middleware) {
-    this.middlewares.unshift(middleware)
+  static mixin (mixin) {
+    this.mixins.push(mixin)
+  }
+
+  // utilty function for mixin
+  static mix (options, mixins) {
+    if (Array.isArray(mixins)) {
+      return mixins.reduce((memory, mixin) => this.mix(memory, mixin), options)
+    }
+    if (typeof mixins === 'function') {
+      return this.mix(options, mixins(options, this))
+    }
+
+    let mixin = mixins
+    return {
+      ...options,
+      ...mapObject(mixin, (extra, key) => strategies.merge(options[key], extra)),
+    }
   }
 
   static log (behavior, data) {

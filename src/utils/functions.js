@@ -37,7 +37,9 @@ export function isEmpty (obj) {
 export function pick (object, keys = []) {
   let picked = {}
   keys.forEach((key) => {
-    picked[key] = object[key]
+    if (key in object) {
+      picked[key] = object[key]
+    }
   })
   return picked
 }
@@ -48,4 +50,10 @@ export function without (input, exclude = []) {
 
 export function values (object) {
   return Object.keys(object).map((key) => object[key])
+}
+
+export function fromPairs (pairs = []) {
+  let object = {}
+  pairs.forEach(([key, value]) => object[key] = value)
+  return object
 }

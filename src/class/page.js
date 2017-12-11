@@ -1,101 +1,81 @@
 import compose from 'compose-function'
-import { $initial, $log } from '../middlewares'
-import { mapObject, filterObject, pick, without, values } from '../utils/functions'
-import { prependHooks, linkProperties } from '../utils/helpers'
+import { $initial, $log } from '../mixins'
+import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
+import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
+import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
 import Basic from './basic'
 
-const PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
-const PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
-const PAGE_METHODS = ['setData']
-const PAGE_ATTRIBUTES = ['data', 'route']
+const MINA_PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const MINA_PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
+const MINA_PAGE_METHODS = ['setData']
+const MINA_PAGE_ATTRIBUTES = ['data', 'route']
 
 const ADDON_BEFORE_HOOKS = {
   'onLoad': 'beforeLoad',
 }
+const ADDON_OPTIONS = ['mixins', 'compute', 'methods', 'beforeLoad']
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
-// generate methods for wx-Page
-function methods (object) {
-  return mapObject(object || {}, (method, name) => function handler (...args) {
-    let context = this.__tina_page__
-    return context[name].apply(context, args)
-  })
+const PAGE_HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
+
+const PAGE_INITIAL_OPTIONS = {
+  mixins: [],
+  data: {},
+  compute () {},
+  // hooks: return { beforeLoad: [], ...... }
+  ...fromPairs(PAGE_HOOKS.map((name) => [name, []])),
+  methods: {},
 }
 
-// generate lifecycles for wx-Page
-function lifecycles (hooks = PAGE_HOOKS) {
-  let result = {}
-  hooks.forEach((hook) => {
-    let before = ADDON_BEFORE_HOOKS[hook]
-    if (!before) {
-      result[hook] = function handler () {
-        let context = this.__tina_page__
-        if (context[hook]) {
-          return context[hook].apply(context, arguments)
-        }
-      }
-      return
-    }
-    result[hook] = function handler () {
-      let context = this.__tina_page__
-      if (context[before]) {
-        context[before].apply(context, arguments)
-      }
-      if (context[hook]) {
-        return context[hook].apply(context, arguments)
-      }
-    }
-  })
-  return result
-}
-
-const BUILTIN_MIDDLEWARES = [$log, $initial]
+const BUILTIN_MIXINS = [$log, $initial]
 
 class Page extends Basic {
-  static middlewares = []
+  static mixins = []
 
-  static define (model = {}) {
-    // use middlewares
-    let middlewares = [...BUILTIN_MIDDLEWARES, ...Page.middlewares]
-    model = compose(...middlewares.reverse())(model)
+  static define (options = {}) {
+    // use mixins
+    options = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
 
     // create wx-Page options
     let page = {
-      ...methods(model.methods),
-      ...lifecycles(),
+      ...wxOptionsGenerator.methods(options.methods),
+      ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Page on **wx-Page** loaded.
     // !important: this hook is added to wx-Page directly, but not Tina-Page
     page = prependHooks(page, {
       onLoad () {
-        let instance = new Page({ model, $source: this })
+        let instance = new Page({ options, $source: this })
         // create bi-direction links
-        this.__tina_page__ = instance
+        this.__tina_instance__ = instance
         instance.$source = this
       },
     })
 
     // apply wx-Page options
     new globals.Page({
-      ...pick(model, without(PAGE_OPTIONS, PAGE_HOOKS)),
+      ...pick(options, without(MINA_PAGE_OPTIONS, MINA_PAGE_HOOKS)),
       ...page,
     })
   }
 
-  constructor ({ model = {}, $source }) {
+  constructor ({ options = {}, $source }) {
     super()
 
     // creating Tina-Page members
     let members = {
-      compute: model.compute || function () {
+      compute: options.compute || function () {
         return {}
       },
-      ...model.methods,
-      ...filterObject(model, (property, name) => ~[...PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)].indexOf(name)),
+      ...options.methods,
+      // hooks
+      ...mapObject(pick(options, PAGE_HOOKS), (hook, name) => function (...args) {
+        hook.forEach((h) => h.apply(this, args))
+      }),
     }
     // apply members into instance
     for (let name in members) {
@@ -116,7 +96,7 @@ linkProperties({
   getSourceInstance (context) {
     return context.$source
   },
-  properties: [...without(PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(PAGE_METHODS, OVERWRITED_METHODS)],
+  properties: [...without(MINA_PAGE_ATTRIBUTES, OVERWRITED_ATTRIBUTES), ...without(MINA_PAGE_METHODS, OVERWRITED_METHODS)],
 })
 
 export default Page
