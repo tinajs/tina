@@ -1,4 +1,3 @@
-import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'

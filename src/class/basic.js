@@ -1,6 +1,5 @@
 import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
-import { appendHooks, appendHook } from '../utils/helpers'
 import strategies from '../utils/mix-strategies'
 
 class Basic {

@@ -29,7 +29,5 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "uglify-js": "^3.2.1"
   },
-  "dependencies": {
-    "compose-function": "^3.0.3"
-  }
+  "dependencies": {}
 }
