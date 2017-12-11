@@ -1,6 +1,6 @@
 import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
-import { mapObject, filterObject, pick, without, values } from '../utils/functions'
+import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import { methods, lifecycles } from '../utils/generator'
 import globals from '../utils/globals'
@@ -14,30 +14,30 @@ const MINA_PAGE_ATTRIBUTES = ['data', 'route']
 const ADDON_BEFORE_HOOKS = {
   'onLoad': 'beforeLoad',
 }
+const ADDON_OPTIONS = ['mixins', 'compute', 'methods', 'beforeLoad']
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
-const BUILTIN_MIXINS = [$log, $initial]
+const PAGE_HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
 
-
-function mix (upstream, payload) {
-  if (typeof payload === 'function') {
-    return payload(upstream, Page)
-  }
-  return {
-    ...appendHooks(upstream, pick(payload, Page.HOOKS))
-  }
+const PAGE_INITIAL_OPTIONS = {
+  mixins: [],
+  data: {},
+  compute () {},
+  // hooks: return { beforeLoad: [], ...... }
+  ...fromPairs(PAGE_HOOKS.map((name) => [name, []])),
+  methods: {},
 }
 
-class Page extends Basic {
-  static HOOKS = [...MINA_PAGE_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
+const BUILTIN_MIXINS = [$log, $initial]
 
+class Page extends Basic {
   static mixins = []
 
   static define (options = {}) {
     // use mixins
-    options = this.mix(options, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || [])])
+    options = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
 
     // create wx-Page options
     let page = {
@@ -72,7 +72,10 @@ class Page extends Basic {
         return {}
       },
       ...options.methods,
-      ...filterObject(options, (property, name) => ~Page.HOOKS.indexOf(name)),
+      // hooks
+      ...mapObject(pick(options, PAGE_HOOKS), (hook, name) => function (...args) {
+        hook.forEach((h) => h.apply(this, args))
+      }),
     }
     // apply members into instance
     for (let name in members) {

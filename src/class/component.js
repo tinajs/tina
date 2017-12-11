@@ -1,5 +1,5 @@
 import { $initial, $log } from '../mixins'
-import { mapObject, filterObject, pick, without, values } from '../utils/functions'
+import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import { methods, lifecycles } from '../utils/generator'
 import globals from '../utils/globals'
@@ -11,9 +11,27 @@ const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'creat
 const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 
 const ADDON_BEFORE_HOOKS = {}
+const ADDON_OPTIONS = ['mixins', 'compute']
 
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
+
+const COMPONENT_HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
+
+const COMPONENT_INITIAL_OPTIONS = {
+  mixins: [],
+  behaviors: [],
+  properties: {},
+  data: {},
+  compute () {},
+  // hooks: return { created: [], ...... }
+  ...fromPairs(COMPONENT_HOOKS.map((name) => [name, []])),
+  methods: {},
+  relations: {},
+  options: {},
+}
+
+const BUILTIN_MIXINS = [$log, $initial]
 
 // generate properties for wx-Component
 function properties (object) {
@@ -47,16 +65,12 @@ function properties (object) {
   })
 }
 
-const BUILTIN_MIXINS = [$initial, $log]
-
 class Component extends Basic {
-  static HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
-
   static mixins = []
 
   static define (options = {}) {
     // use mixins
-    options = this.mix(options, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || [])])
+    options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
 
     // create wx-Component options
     let component = {
@@ -92,7 +106,10 @@ class Component extends Basic {
         return {}
       },
       ...options.methods,
-      ...filterObject(options, (property, name) => ~Component.HOOKS.indexOf(name)),
+      // hooks
+      ...mapObject(pick(options, COMPONENT_HOOKS), (hook, name) => function (...args) {
+        hook.forEach((h) => h.apply(this, args))
+      }),
     }
     // apply members into instance
     for (let name in members) {

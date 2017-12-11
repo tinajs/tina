@@ -1,10 +1,9 @@
 import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
 import { appendHooks, appendHook } from '../utils/helpers'
+import strategies from '../utils/mix-strategies'
 
 class Basic {
-  static HOOKS = []
-
   static debug = false
 
   static mixins = []
@@ -24,8 +23,8 @@ class Basic {
 
     let mixin = mixins
     return {
-      // todo
-      ...appendHooks(options, pick(mixin, this.HOOKS))
+      ...options,
+      ...mapObject(mixin, (extra, key) => strategies.merge(options[key], extra)),
     }
   }
 

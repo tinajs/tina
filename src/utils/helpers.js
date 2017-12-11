@@ -21,6 +21,15 @@ function addHooks (context, handlers, isPrepend = false) {
   }
 }
 
+export function appendHook (origin, extra) {
+  return function handler (...args) {
+    if (typeof origin === 'function') {
+      origin.apply(this, args)
+    }
+    extra.apply(this, args)
+  }
+}
+
 export const appendHooks = (context, handlers) => addHooks(context, handlers)
 export const prependHooks = (context, handlers) => addHooks(context, handlers, true)
 
