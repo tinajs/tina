@@ -1,5 +1,3 @@
-import _compose from 'compose-function'
-
 function addHooks (context, handlers, isPrepend = false) {
   let result = {}
   for (let name in handlers) {
@@ -18,15 +16,6 @@ function addHooks (context, handlers, isPrepend = false) {
   return {
     ...context,
     ...result,
-  }
-}
-
-export function appendHook (origin, extra) {
-  return function handler (...args) {
-    if (typeof origin === 'function') {
-      origin.apply(this, args)
-    }
-    extra.apply(this, args)
   }
 }
 

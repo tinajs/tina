@@ -2,7 +2,7 @@ import compose from 'compose-function'
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
-import { methods, lifecycles } from '../utils/generator'
+import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -41,8 +41,8 @@ class Page extends Basic {
 
     // create wx-Page options
     let page = {
-      ...methods(options.methods),
-      ...lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
+      ...wxOptionsGenerator.methods(options.methods),
+      ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Page on **wx-Page** loaded.

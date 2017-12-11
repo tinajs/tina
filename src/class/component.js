@@ -1,7 +1,7 @@
 import { $initial, $log } from '../mixins'
 import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
-import { methods, lifecycles } from '../utils/generator'
+import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
 import Basic from './basic'
 
@@ -33,38 +33,6 @@ const COMPONENT_INITIAL_OPTIONS = {
 
 const BUILTIN_MIXINS = [$log, $initial]
 
-// generate properties for wx-Component
-function properties (object) {
-  function wrap (original) {
-    return function observer (...args) {
-      let context = this.__tina_instance__
-      // trigger ``compute``
-      context.setData()
-      if (typeof original === 'string') {
-        return context[original].apply(context, args)
-      }
-      if (typeof original === 'function') {
-        return original.apply(context, args)
-      }
-    }
-  }
-
-  return mapObject(object || {}, (rule) => {
-    if (typeof rule === 'function' || rule === null) {
-      return {
-        type: rule,
-        observer: wrap(),
-      }
-    }
-    if (typeof rule === 'object') {
-      return {
-        ...rule,
-        observer: wrap(rule.observer),
-      }
-    }
-  })
-}
-
 class Component extends Basic {
   static mixins = []
 
@@ -74,9 +42,9 @@ class Component extends Basic {
 
     // create wx-Component options
     let component = {
-      properties: properties(options.properties),
-      methods: methods(options.methods),
-      ...lifecycles(MINA_COMPONENT_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
+      properties: wxOptionsGenerator.properties(options.properties),
+      methods: wxOptionsGenerator.methods(options.methods),
+      ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Component on **wx-Component** created.
