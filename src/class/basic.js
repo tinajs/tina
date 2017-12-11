@@ -18,7 +18,7 @@ class Basic {
       return mixins.reduce((memory, mixin) => this.mix(memory, mixin), options)
     }
     if (typeof mixins === 'function') {
-      return this.mix(mixins(options, this), options)
+      return this.mix(options, mixins(options, this))
     }
 
     let mixin = mixins
