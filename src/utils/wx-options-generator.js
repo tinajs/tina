@@ -1,4 +1,4 @@
-import { mapObject } from './functions'
+import { mapObject, fromPairs } from './functions'
 
 // generate methods
 export function methods (object) {
@@ -10,29 +10,21 @@ export function methods (object) {
 
 // generate lifecycles
 export function lifecycles (hooks, getBeforeHookName) {
-  let result = {}
-  hooks.forEach((hook) => {
-    let before = getBeforeHookName(hook)
-    if (!before) {
-      result[hook] = function handler () {
+  return fromPairs(hooks.map((origin) => {
+    let before = getBeforeHookName(origin)
+    return [
+      origin,
+      function handler () {
         let context = this.__tina_instance__
-        if (context[hook]) {
-          return context[hook].apply(context, arguments)
+        if (before && context[before]) {
+          context[before].apply(context, arguments)
         }
-      }
-      return
-    }
-    result[hook] = function handler () {
-      let context = this.__tina_instance__
-      if (context[before]) {
-        context[before].apply(context, arguments)
-      }
-      if (context[hook]) {
-        return context[hook].apply(context, arguments)
-      }
-    }
-  })
-  return result
+        if (context[origin]) {
+          return context[origin].apply(context, arguments)
+        }
+      },
+    ]
+  }))
 }
 
 // generate properties for wx-Component
