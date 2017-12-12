@@ -165,7 +165,7 @@ const mustLoggedIn = [
       this.fetchSession()
         .then(({ isLogged }) => {
           if (!isLogged) {
-            this.$router.navigate('/page/login'))
+            this.$router.redirect('/page/login'))
           }
         })
     },

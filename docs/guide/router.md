@@ -19,11 +19,11 @@ import { api } from '../api'
 Page.define({
   mixins: [router()],
   onLoad () {
-    api.fetchUser({ id: this.$router.query.id }).then((data) => this.setData(data))
+    api.fetchUser({ id: this.$route.query.id }).then((data) => this.setData(data))
   },
   methods: {
-    toArticles () {
-      this.$router.navigate(`/pages/articles?by=${this.$router.query.id}`)
+    toLogin () {
+      this.$router.navigate(`/pages/login?from=${this.$route.fullPath}`)
     },
   }
 })

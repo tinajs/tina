@@ -47,9 +47,10 @@ Page.define(({
 
   onLoad () {
     // 由 tina-router 提供的路由能力扩展
-    let id = this.$route.query.id
+    let { id } = this.$route.query
     fetchUser(id)
       .then(({ firstname, lastname ) => this.setData({ firstname, lastname }))
+      .catch(() => this.$router.redirect(`/pages/login?from=${this.$route.fullPath}`))
   },
 
   methods: {
