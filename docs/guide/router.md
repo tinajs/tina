@@ -8,7 +8,7 @@
 
 ```javascript
 /**
- * demo-page.js or <script> in demo-page.mina
+ * /pages/user.js or <script> in /pages/user.mina
  *
  * 当前路径: /pages/user?id=4310
  */
@@ -29,4 +29,4 @@ Page.define({
 })
 ```
 
-了解更多的信息请查阅 [@tinajs/tina-router 文档](https://github.com/tinajs/tina-router)。
+如果你对 tina-router 感兴趣，欢迎访问 [@tinajs/tina-router](https://github.com/tinajs/tina-router) 了解更多信息。

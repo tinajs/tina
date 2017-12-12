@@ -5,7 +5,9 @@
 在单个页面或组件中，通过传入 ``mixins`` 参数使用混合：
 
 ```javascript
-// demo-page.js or <script> in demo-page.mina
+/**
+ * /demo-page.js or <script> in /demo-page.mina
+ */
 import { Page } from '@tinajs/tina'
 
 const sayhi = {
@@ -39,7 +41,9 @@ Page.define({
 通过全局方法 ``Page.mixin`` 和 ``Component.mixin`` 可以分别为所有的 Page 和 Component 使用混合：
 
 ```javascript
-// app.js or <script> in app.mina
+/**
+ * /app.js or <script> in /app.mina
+ */
 import { Page, Component } from '@tinajs/tina'
 
 function sayHi () {
