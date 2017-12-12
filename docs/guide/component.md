@@ -1,4 +1,4 @@
-# 页面
+# 组件
 
 ## 基础
 Tina 没有破坏 MINA 自定义组件原有的设计，并在其身上附加了新的能力。有关数据、方法、生命周期等介绍，请查阅微信官方的文档 —— [MINA - 自定义组件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/)。
