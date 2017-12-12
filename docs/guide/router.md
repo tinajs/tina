@@ -29,6 +29,9 @@ Page.define({
 })
 ```
 
+> [查看完整的示例项目 —— tina-hackernews](https://github.com/imyelo/tina-hackernews)
+
+
 如果你对 tina-router 感兴趣，欢迎访问 [@tinajs/tina-router](https://github.com/tinajs/tina-router) 了解更多信息。
 
 或者你有更好的路由扩展，也欢迎提交 [Pull Request](https://github.com/tinajs/tina/pulls) 告诉我们。
