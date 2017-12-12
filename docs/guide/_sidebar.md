@@ -3,8 +3,8 @@
   - [开始之前](guide/preparatory.md)
   - [页面](guide/page.md)
   - [组件](guide/component.md)
-  - [插件](guide/plugin.md)
-- 插件能力
+  - [混合](guide/mixin.md)
+- 推荐扩展
   - [路由](guide/router.md)
   - [状态管理](guide/state-management.md)
 - [常见问题](guide/faq.md)

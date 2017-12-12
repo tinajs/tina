@@ -1,7 +1,7 @@
 # 页面
 
 ## 基础
-Tina 高度保持了传统小程序 (MINA) 页面原有的设计，并在其身上附加了更多能力。有关 MINA 页面的基本介绍，请查阅微信官方的文档 ——
+Tina 高度保持了传统小程序 (MINA) 页面原有的设计，并在其身上附加了新的能力。有关 MINA 页面的基本介绍，请查阅微信官方的文档 ——
 [MINA - 注册页面](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html)。
 
 ## 定义一个新页面
@@ -104,4 +104,4 @@ Page.define({
 </script>
 ```
 
-通过 ``compute(data)`` 方法计算返回的值，将被合并入实例的 ``data`` 属性中。你可以在模板或者实例方法中以读取 ``data`` 的方式直接使用计算后的值。
+通过 ``compute(data)`` 方法计算返回的值，将被合并入实例的 ``data`` 属性中。你可以在模板或者实例方法中通过读取 ``data`` 使用计算后的值。
