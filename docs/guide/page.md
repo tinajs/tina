@@ -71,7 +71,7 @@ Tina Page 保持了 MINA Page 的所有生命周期和页面事件，并新增 `
   - onShareAppMessage
   - onPageScroll
 
-!> ``beforeLoad`` 钩子主要用于一般插件的加载注入，并约定在该钩子的处理函数中不应访问 ``this.data`` 或调用 ``this.setData()`` 操作数据。
+!> ``beforeLoad`` 钩子主要用于一般扩展的加载注入，并约定在该钩子的处理函数中不应访问 ``this.data`` 或调用 ``this.setData()`` 操作数据。
 
 ## 计算属性
 MINA 的 wxml 语言提供了 [简单的表达式运算能力](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/data.html#运算)，但冗长的表达式和过于简单的运算能力往往也无法满足项目的实际需求。
