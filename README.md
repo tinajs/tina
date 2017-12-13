@@ -4,7 +4,7 @@
 ## 特性
 - 轻巧
 
-  核心打包后仅 12kb+ 体积。
+  核心打包后仅 ![](http://img.badgesize.io/https://unpkg.com/@tinajs/tina/dist/tina.min.js?style=flat-square) 。
 
 - 易上手
 
