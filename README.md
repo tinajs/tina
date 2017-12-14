@@ -67,5 +67,5 @@ Page.define(({
 - [Hacker News 热点](https://github.com/imyelo/tina-hackernews)
 
 ## License
-MIT @ [yelo](https://github.com/imyelo), 2017 - present
+Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
 

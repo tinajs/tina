@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/tina.js",
   "author": "yelo",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "rollup -c -w",
     "clean": "rimraf ./dist",
