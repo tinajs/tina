@@ -1,5 +1,9 @@
-<p align="center"><img src="https://avatars2.githubusercontent.com/u/33456300?s=200&v=4"/ ></p>
-<p align="center">一款轻巧的渐进式小程序框架</p>
+# Tina
+> 一款轻巧的渐进式小程序框架
+
+[![npm](https://img.shields.io/npm/v/@tinajs/tina.svg?style=flat-square)](https://www.npmjs.com/package/@tinajs/tina)
+[![license](https://img.shields.io/github/license/tinajs/tina.svg?style=flat-square)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ## 特性
 - 轻巧
@@ -68,4 +72,3 @@ Page.define(({
 
 ## License
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
-
