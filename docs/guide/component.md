@@ -4,7 +4,7 @@
 Tina 没有破坏 MINA 自定义组件原有的设计，仅仅是在其身上附加了新的能力。有关数据、方法、生命周期等介绍，请查阅微信官方的文档 —— [MINA - 自定义组件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/)。
 
 ## 定义一个新组件
-在使用 tina 定义一个新的组件时，与传统的小程序 (**MINA**) 并没有太大的区别：
+在使用 Tina 定义一个新的组件时，与传统的小程序 (**MINA**) 并没有太大的区别：
 
 ```javascript
 /*
@@ -31,7 +31,7 @@ Component({
 
 ```javascript
 /**
-  * 使用 tina 的项目
+  * 使用 Tina 的项目
   * /demo-component.js or <script> in demo-component.mina
   */
 import { Component } from '@tinajs/tina'

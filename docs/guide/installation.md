@@ -2,7 +2,7 @@
 我们推荐在小程序项目中 [借助 Webpack](guide/installation?id=Webpack) 使用 tina，但如果你只是希望在现有的项目中小试牛刀，也可以通过拷贝文件的形式 [直接引入](guide/installation?id=直接引入) 。
 
 ## 直接引入
-从传统项目中引入 tina 非常简单。你只需要将最新的 [tina.min.js](https://unpkg.com/@tinajs/tina/dist/tina.min.js) 拷贝至项目中，并借助小程序环境集成的 ``require`` 方法加载使用。
+从传统项目中引入 Tina 非常简单。你只需要将最新的 [tina.min.js](https://unpkg.com/@tinajs/tina/dist/tina.min.js) 拷贝至项目中，并借助小程序环境集成的 ``require`` 方法加载使用。
 
 例如我们将 *tina.min.js* 存放在项目的 *libraries* 目录中：
 
