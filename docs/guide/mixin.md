@@ -1,5 +1,5 @@
 # 混合
-在 tina 中，你可以通过混合 (mixin) 为全局或仅单个页面/组件扩展功能。
+Tina 为小程序带来了 **混合** (mixin) 能力，开发者可以通过混合为全局或仅单个页面/组件扩展功能。
 
 ## 使用混合
 在单个页面或组件中，通过传入 ``mixins`` 参数使用混合：
@@ -38,7 +38,7 @@ Page.define({
 
 
 ## 全局混合
-通过全局方法 ``Page.mixin`` 和 ``Component.mixin`` 可以分别为所有的 Page 和 Component 使用混合：
+通过全局方法 ``Page.mixin`` 和 ``Component.mixin`` 可以分别混合所有的 Page 和 Component：
 
 ```javascript
 /**
@@ -78,6 +78,7 @@ App(......)
 1. 同名参数为数组类型时，将返回以先后顺序 ``concat`` 的结果：
 
   ```javascript
+  // pseudocode example
   mix({
     array: ['a', 'b'],
   }, {
@@ -96,6 +97,7 @@ App(......)
 2. 同名参数为对象类型时，将返回以先后顺序浅合并的结果：
 
   ```javascript
+  // pseudocode example
   mix({
     object: {
       a: 1,
@@ -120,6 +122,7 @@ App(......)
 3. 其他情况时，将返回唯一存在的值或后传入的值：
 
   ```javascript
+  // pseudocode example
   mix({
     string: 'foo',
     exist: 'baz',
@@ -139,7 +142,7 @@ App(......)
 
 ?> *这也意味着，当存在同名参数时，通过 ``.define()`` 传入的参数一定会被保留，而且其中钩子函数会被最后调用。*
 
-## 混合对象
+## 混合对象的特殊类型
 混合对象 (Mixin) 一般为普通的 ``Object``，但在某些特殊场景下，也可以是 ``Array`` (数组) 或 ``Function`` (函数)。
 
 在进行混合操作时，如果遇到 ``Array`` 类型的混合对象，tina 内部会将其展开后再依次混合；如果遇到 ``Function`` 类型的混合对象，则会把经上游混合后的参数``options`` 以及当前混合方法所属的类 ``Model`` (Page 或 Component) 传入该函数，并取返回值再进行混合。
@@ -149,17 +152,20 @@ App(......)
 ```javascript
 import { Page } from '@tinajs/tina'
 import router from '@tinajs/tina-router'
-import store from '../store'
+import tinax from '../store'
 
 const mustLoggedIn = [
+  // 注入路由助手
   router(),
-  store.connect({
+  // 从 tinax 注入 actions 方法
+  tinax.connect({
     actions ({ fetchSession }) {
       return {
         fetchSession,
       }
     },
   }),
+  // 在页面加载后确认用户已登录
   {
     onLoad () {
       this.fetchSession()
