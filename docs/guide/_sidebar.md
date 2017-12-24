@@ -1,4 +1,4 @@
-- 基础
+- 核心
   - [安装和引用](guide/installation.md)
   - [开始之前](guide/preparatory.md)
   - [页面](guide/page.md)
@@ -7,4 +7,8 @@
 - 推荐扩展
   - [路由](guide/router.md)
   - [状态管理](guide/state-management.md)
+  - [界面反馈](guide/ui-feedback.md)
+- 工程化
+  - [单文件组件](guide/single-file-component.md)
+  - [包管理及构建工具](guide/package-management-and-build-tools.md)
 - [常见问题](guide/faq.md)
