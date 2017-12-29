@@ -76,7 +76,6 @@ Page.define(......)
 .....
 ```
 
-!> ``*.mina`` 是受 [Vue](https://vuejs.org/v2/guide/single-file-components.html) 启发，由 ``config``, ``template``, ``script``, ``style`` 四个块组成的小程序单文件组件 (页面)，对应的是传统小程序项目中的 ``*.json``, ``*.wxml``, ``*.js``, ``*.wxss`` 文件。
-
+> ``*.mina`` 是受 [Vue](https://vuejs.org/v2/guide/single-file-components.html) 启发，由 ``config``, ``template``, ``script``, ``style`` 四个块组成的小程序 [单文件组件](guide/single-file-component) (含页面)，对应的是传统小程序项目中的 ``*.json``, ``*.wxml``, ``*.js``, ``*.wxss`` 文件。
 
 如果你感兴趣，欢迎查看 [完整的示例 - sayhi-mina](https://github.com/tinajs/tina-examples/packages/sayhi-mina) 。
