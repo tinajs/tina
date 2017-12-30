@@ -9,7 +9,7 @@
 
 
 ## 文件结构
-一个 ``.mina``文件由四个部件组成：
+一个 ``.mina``文件由四个部块组成：
 
 - **config** : 对应 ``${basename}.json``
 - **template** : 对应 ``${basename}.wxml``
@@ -53,7 +53,7 @@ Component.define({
 ```
 
 ## 预处理器
-与 Vue.js 不同，``.mina`` 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部件。
+与 Vue.js 不同，``.mina`` 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部块。
 
 > 对于一般项目的构建，推荐使用 [mina-webpack](https://github.com/tinajs/mina-webpack) ；而对于构建独立组件库，则推荐使用 [gulp-mina](https://github.com/tinajs/gulp-mina)。
 
@@ -69,7 +69,7 @@ Component.define({
 4. 弹出菜单中选择 ``".mina"的配置文件关联``
 5. 弹出菜单中选择 ``Vue``。
 
-由于使用的是 **Vue** 的插件，你可以为文件中的部件设置 ``lang`` 属性，进一步高亮预处理器语法（虽然这一设置并不会在构建时产生实质作用）：
+由于使用的是 **Vue** 的插件，你可以为文件中的部块设置 ``lang`` 属性，进一步高亮预处理器语法（虽然这一属性并不会在构建时产生实质作用）：
 
 ```html
 ...

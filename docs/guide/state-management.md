@@ -5,7 +5,7 @@
 ## Tinax
 在 Tina 框架中，我们推荐使用 [Tinax](https://github.com/tinajs/tinax) 作为你的状态管理器。
 
-尽管 Tinax 的 API 与 Vuex 并不完全一致，但毫无疑问 Tinax 受到了 Vuex 的启发，并学习了 Vuex 的核心概念 —— ``state``, ``getter``, ``mutation``, ``action``, ``module`` 等；如果你还没有用过 Vuex，我们建议你先了解 [Vuex 的核心概念](https://vuex.vuejs.org/zh-cn/core-concepts.html)。
+尽管 Tinax 的 API 与 Vuex 并不完全一致，但毫无疑问 Tinax 受到了 Vuex 的启发，并学习了 Vuex 的核心概念 —— ``state``, ``getter``, ``mutation``, ``action``, ``module``；如果你还没有使用过 Vuex，在此建议你先了解 [Vuex 的核心概念](https://vuex.vuejs.org/zh-cn/core-concepts.html)。
 
 示例：
 
@@ -15,10 +15,10 @@
  */
 
 import types from '../types'
-import { fetchSession } from '../../api'
+import api from '../../api'
 
 const initialState = {
-  expiredAt: 0,
+  expiredAt: null,
 }
 
 const getters = {
@@ -27,7 +27,7 @@ const getters = {
 
 const actions = {
   fetchSession ({ commit, state }, { key }) {
-    fetchSession(key).then((session) => commit(types.SET_SESSION, { session }))
+    api.fetchSession(key).then((session) => commit(types.SET_SESSION, { session }))
   },
 }
 
