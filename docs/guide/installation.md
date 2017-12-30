@@ -30,12 +30,9 @@ Page.define(......)
 如果你感兴趣，欢迎查看 [完整的示例 - sayhi](https://github.com/tinajs/tina-examples/packages/sayhi) 。
 
 ## Webpack
-借助 [@tinajs/mina-webpack]() , 你可以使用 **npm** 安装和使用 tina。
+借助 [mina-webpack](https://github.com/tinajs/mina-webpack) , 你可以通过 **npm** 安装和使用 tina。
 
-> mina-webpack 是一套使用 webpack 开发小程序的工具链。
-> 致力于解决由于传统小程序的开发、运行环境相对封闭，开发者常面临的无法使用 *node_modules*、无法自由选择 es 版本、无法预编译文件等问题。
-
-> 使用 mina-webpack ，你的项目将获得 es2015+、npm、mina 单文件组件、文件预编译、代码混淆和压缩等能力。
+> 使用 mina-webpack ，你的项目将获得 es2015+、npm、mina 单文件组件、文件预处理器、代码混淆和压缩等能力。
 
 > 如果你不知道该如何开始，不妨尝试我们为你准备的 [mina-webpack 项目模板](https://github.com/tinajs/template-mina)。
 
