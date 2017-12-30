@@ -54,8 +54,6 @@ Component.define({
 })
 ```
 
-?> [为什么是 ``Component.define()`` 而不是 ``Component()``](guide/faq?id=%e4%b8%ba%e4%bb%80%e4%b9%88%e6%98%af-tinapagedefine-%e8%80%8c%e4%b8%8d%e6%98%af-tinapage-%ef%bc%9f)
-
 ## 更新数据
 与 Tina Page 一样，Tina Component 中的 ``setData`` 也会自动做 *diff* 优化。具体请查阅 [页面 - 更新数据](guide/page?id=更新数据)。
 

@@ -11,4 +11,3 @@
 - 工程化
   - [单文件组件](guide/single-file-component.md)
   - [包管理及构建工具](guide/package-management-and-build-tools.md)
-- [常见问题](guide/faq.md)
