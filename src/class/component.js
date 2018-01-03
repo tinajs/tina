@@ -75,8 +75,8 @@ class Component extends Basic {
       },
       ...options.methods,
       // hooks
-      ...mapObject(pick(options, COMPONENT_HOOKS), (hook, name) => function (...args) {
-        hook.forEach((h) => h.apply(this, args))
+      ...mapObject(pick(options, COMPONENT_HOOKS), (handlers, name) => function (...args) {
+        return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
       }),
     }
     // apply members into instance
