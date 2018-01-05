@@ -41,7 +41,7 @@ class Page extends Basic {
     // create wx-Page options
     let page = {
       ...wxOptionsGenerator.methods(options.methods),
-      ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
+      ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Page on **wx-Page** loaded.

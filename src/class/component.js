@@ -44,7 +44,7 @@ class Component extends Basic {
     let component = {
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
-      ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS, (name) => ADDON_BEFORE_HOOKS[name]),
+      ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
     // creating Tina-Component on **wx-Component** created.
