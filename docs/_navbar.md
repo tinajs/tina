@@ -1,4 +1,7 @@
 - [指南](guide/installation.md)
 - [API](api/README.md)
-- [示例](https://github.com/tinajs/tina-examples)
-- [Webpack](https://github.com/tinajs/mina-webpack)
+- 示例
+  - [Say Hi](https://github.com/tinajs/tina-examples/sayhi)
+  - [Say Hi with Mina](https://github.com/tinajs/tina-examples/sayhi-mina)
+  - [Counter](https://github.com/tinajs/tina-examples/counter)
+  - [HackerNews :tada:](https://github.com/tinajs/tina-hackernews)
