@@ -1,15 +1,15 @@
 # 单文件组件
 在传统小程序项目中，一个页面或组件 [由多个文件名相同而后缀类型不同的文件组成](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages) 。虽然这样的设定足以应对一般项目的需要，但在开发和维护的过程中，繁琐的操作还是显得十分麻烦。如果我们拥有一个类似 [Vue.js - 单文件组件](https://cn.vuejs.org/v2/guide/single-file-components.html) 的模式，便可以更优雅地管理小程序项目中的文件，也可以更轻松地分享独立组件。
 
-基于这样的想法，我们定义了 ``.mina`` 文件。
+基于这样的想法，我们定义了 Mina 文件 (``.mina``)。
 
-!> 虽然我们统称为 **单文件组件**，但一个 ``.mina`` 文件除了可以是小程序概念中的 **组件** 以外，也可以是 **页面**。
+!> 虽然我们统称为 **单文件组件**，但一个 Mina 文件除了可以是小程序概念中的 **组件** 以外，也可以是 **页面**。
 
 > 关于 *单文件组件* 和 *分离多个独立文件* 两种模式间的权衡，推荐阅读 [Vue.js - 怎么看待关注点分离](https://cn.vuejs.org/v2/guide/single-file-components.html#怎么看待关注点分离？) 。
 
 
 ## 文件结构
-一个 ``.mina``文件由四个部块组成：
+一个 Mina 文件由四个部块组成：
 
 - **config** : 对应 ``${basename}.json``
 - **template** : 对应 ``${basename}.wxml``
@@ -20,7 +20,10 @@
 ```html
 <config>
 {
-  "component": true
+  "component": true,
+  "usingComponents": {
+    "logo": "./logo.mina"
+  }
 }
 </config>
 
@@ -29,6 +32,7 @@
     <view wx:if="{{ isLoading }}" class="loading">
       Loading...
     </view>
+    <logo />
   </view>
 </template>
 
@@ -52,8 +56,17 @@ Component.define({
 </style>
 ```
 
+## 页面和组件引用
+小程序中规定，[全局配置的 ``pages`` 项](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages) 决定了项目应引用哪些页面；在页面或组件中，[设置配置项 ``usingComponents``](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/#使用自定义组件) 则声明了应引用哪些组件。
+
+通过观察示例，我们不难发现 Mina 文件的 ``config`` 部块延续了以上设定；但与传统小程序规则不同的是，我们还约定文件路径 **不应省略文件后缀**。
+
+也就是说，除了 ``.mina``，你也可以根据你的喜好，在你的项目中自由地使用其他后缀名编写 Mina 文件，比如 ``.wx``、``.page``、``.component`` 等。
+
+> 得益于这一设定的改变，使用 Mina 单文件组件格式，你可以更加轻松地引用 NPM 上的独立组件。
+
 ## 预处理器
-与 Vue.js 不同，``.mina`` 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部块。
+与 Vue.js 不同，Mina 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部块。
 
 > 对于一般项目的构建，推荐使用 [mina-webpack](https://github.com/tinajs/mina-webpack) ；而对于构建独立组件库，则推荐使用 [gulp-mina](https://github.com/tinajs/gulp-mina)。
 
@@ -64,7 +77,7 @@ Component.define({
 
 例如在 VSCode 中：
 1. 安装 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
-2. 打开 ``.mina`` 文件
+2. 打开 Mina 文件 (``.mina``)
 3. 按下 ``Ctrl+K``, ``M``
 4. 弹出菜单中选择 ``".mina"的配置文件关联``
 5. 弹出菜单中选择 ``Vue``。
