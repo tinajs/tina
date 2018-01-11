@@ -1,4 +1,5 @@
 - 核心
+  - [介绍](/)
   - [安装和引用](guide/installation.md)
   - [开始之前](guide/preparatory.md)
   - [页面](guide/page.md)
