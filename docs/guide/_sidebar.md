@@ -1,14 +1,14 @@
-- 核心
-  - [介绍](/)
-  - [安装和引用](guide/installation.md)
-  - [开始之前](guide/preparatory.md)
-  - [页面](guide/page.md)
-  - [组件](guide/component.md)
-  - [混合](guide/mixin.md)
-- 推荐扩展
-  - [路由](guide/router.md)
-  - [状态管理](guide/state-management.md)
-  - [界面反馈](guide/ui-feedback.md)
-- 工程化
-  - [单文件组件](guide/single-file-component.md)
-  - [包管理及构建工具](guide/package-management-and-build-tools.md)
+- <span class="iconfont icon-atom"></span> 核心
+  - [<span class="iconfont icon-fly"></span> 介绍](/)
+  - [<span class="iconfont icon-install"></span> 安装和引用](guide/installation.md)
+  - [<span class="iconfont icon-wxapp"></span> 开始之前](guide/preparatory.md)
+  - [<span class="iconfont icon-page"></span> 页面](guide/page.md)
+  - [<span class="iconfont icon-component"></span> 组件](guide/component.md)
+  - [<span class="iconfont icon-mix"></span> 混合](guide/mixin.md)
+- <span class="iconfont icon-plugin"></span> 推荐扩展
+  - [<span class="iconfont icon-router"></span> 路由](guide/router.md)
+  - [<span class="iconfont icon-satellite"></span> 状态管理](guide/state-management.md)
+  - [<span class="iconfont icon-alert"></span> 界面反馈](guide/ui-feedback.md)
+- <span class="iconfont icon-factory"></span> 工程化
+  - [<span class="iconfont icon-file"></span> 单文件组件](guide/single-file-component.md)
+  - [<span class="iconfont icon-pack"></span> 包管理及构建工具](guide/package-management-and-build-tools.md)
