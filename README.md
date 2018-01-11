@@ -1,4 +1,4 @@
-# Tina
+# Tina.js
 > 一款轻巧的渐进式小程序框架
 
 [![npm](https://img.shields.io/npm/v/@tinajs/tina.svg?style=flat-square)](https://www.npmjs.com/package/@tinajs/tina)
@@ -6,33 +6,46 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ## 特性
-- 轻巧
+- 轻盈小巧
 
   核心打包后仅 ![](http://img.badgesize.io/https://unpkg.com/@tinajs/tina/dist/tina.min.js?style=flat-square) 。
 
-- 易上手
+- 极易上手
 
-  保持 mina (微信小程序官方框架) 大部分 API 设计，可从传统项目快速迁移上手。
+  保持 MINA (微信小程序官方框架) 大部分 API 设计，可从传统项目快速迁移上手。
 
 - 渐进增强
 
   自由选择扩展功能，如路由、状态管理，以及由你自己编写的插件。
 
+## NPM 与单文件组件
 
-## 开始之前
-你也许还会对 [@tinajs/mina-webpack](https://github.com/tinajs/mina-webpack) 感兴趣，可使你的小程序项目：
+结合我们为你准备的 [mina-webpack](https://github.com/tinajs/mina-webpack)，还能够为你的小程序项目带来：
 
-- 支持使用 npm 库。
-- 支持使用 ``.mina`` 单文件组件 (页面)；同时结合 npm 可引入第三方 mina 组件。
-- 获得 webpack loaders / plugins 能力，如 babel、postcss、代码混淆等功能。
+- Mina 单文件组件 / 页面
+- NPM（没错！除了一般的包，你还可以分享或下载独立的 Mina 组件）
+- 以及 Webpack 基本的能力，，如 Babel、PostCSS、代码压缩等功能。
 
-## 文档
-如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
+## 示例
+**pages/home.mina**
+```html
+<config>
+{
+  "usingComponent": {
+    "logo": "../components/logo.mina"
+  }
+}
+</config>
 
-详尽的文档可以在 [tinajs.github.io/tina](tinajs.github.io) 查阅。
+<template>
+  <view>
+    <text>I'm {{ name }}. </text>
+    <button bindtap="sayHi">Say Hi</button>
+    <logo />
+  </view>
+</template>
 
-## 上手示例
-```javascript
+<script>
 import { Page } from '@tinajs/tina'
 import { fetchUser } from '../api'
 
@@ -65,10 +78,31 @@ Page.define(({
     },
   },
 }))
+</script>
+
+<style>
+view {
+  padding: 30px 20px;
+}
+button {
+  margin: 20px 0;
+}
+</style>
 ```
+
+查看更多示例：
+- [tina-examples](https://github.com/tinajs/tina-examples/packages)
+- [tina-hackernews](https://github.com/tinajs/tina-hackernews)
+
+## 文档
+如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
+
+接下来，请前往 [tinajs.github.io/tina](tinajs.github.io) 查阅更详尽的指南。
 
 ## Showcase
 - [Hacker News 热点](https://github.com/imyelo/tina-hackernews)
+
+  ![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/hackernews-wxcode-172.png)
 
 ## License
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
