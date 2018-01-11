@@ -1,0 +1,10 @@
+section.cover.has-mask .mask {
+  background-image: linear-gradient(hsla(0, 0%, 100%, 0.75),hsl(0, 0%, 100%));
+  background-color: transparent;
+  opacity: 1;
+}
+
+section.cover h1 .anchor span{
+  font-family: 'Lobster', cursive;
+  color: var(--theme-color);
+}
