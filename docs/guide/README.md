@@ -24,7 +24,7 @@
 
 - Mina 单文件组件 / 页面
 - NPM（没错！除了一般的包，你还可以分享或下载独立的 Mina 组件）
-- 以及 Webpack 基本的能力，，如 Babel、PostCSS、代码压缩等功能。
+- 以及 Webpack 附带的其他能力，如 Babel、PostCSS、代码压缩等功能。
 
 ## 示例
 **pages/home.mina**

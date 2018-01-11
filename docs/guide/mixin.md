@@ -10,35 +10,35 @@ Tina 为小程序带来了 **混合** (mixin) 能力，开发者可以通过混�
  */
 import { Page } from '@tinajs/tina'
 
-const sayhi = {
+const sayHiMixin = {
   onLoad () {
     console.log('hi')
   },
 }
 
-const wag = {
+const askMixin = {
   methods: {
-    wag () {
-      console.log('wagged')
+    ask () {
+      console.log('How was your day?')
     },
   },
 }
 
 Page.define({
-  mixins: [sayhi, wag],
+  mixins: [sayHiMixin, askMixin],
   onLoad () {
-    this.wag()
+    this.ask()
   },
 })
 
 // -- console --
 // [log] hi
-// [log] wagged
+// [log] How was your day?
 ```
 
 
 ## 全局混合
-通过全局方法 ``Page.mixin`` 和 ``Component.mixin`` 可以分别混合所有的 Page 和 Component：
+通过全局方法 ``Page.mixin`` 和 ``Component.mixin`` 可以分别将功能混入所有的 Page 和 Component：
 
 ```javascript
 /**
@@ -57,16 +57,16 @@ Component.mixin({
   created: sayHi,
 })
 
-const wag = {
+const askMixin = {
   methods: {
-    wag () {
-      console.log('wagged')
+    ask () {
+      console.log('How was your day?')
     },
   },
 }
 
-Page.mixin(wag)
-Component.mixin(wag)
+Page.mixin(askMixin)
+Component.mixin(askMixin)
 
 App(......)
 ```
@@ -145,7 +145,7 @@ App(......)
 ## 混合对象的特殊类型
 混合对象 (Mixin) 一般为普通的 ``Object``，但在某些特殊场景下，也可以是 ``Array`` (数组) 或 ``Function`` (函数)。
 
-在进行混合操作时，如果遇到 ``Array`` 类型的混合对象，Tina 内部会将其展开后再依次混合；如果遇到 ``Function`` 类型的混合对象，则会把经上游混合后的参数``options`` 以及当前混合方法所属的类 ``Model`` (Page 或 Component) 传入该函数，并取返回值再进行混合。
+在进行混合操作时，如果遇到 ``Array`` 类型的混合对象，Tina 内部会将其展开后再依次混合；如果遇到 ``Function`` 类型的混合对象，则会把经上游混合后的参数 (``options``) 以及当前混合方法所属的类 (``Model``, 即 Page 或 Component) 传入该函数，并取返回值再进行混合。
 
 例如以下示例，我们将使用 **数组类型** 的混合对象，在 ``tinax`` 和 ``tina-router`` 的基础上实现一个 ``mustLoggedIn`` 的混合：
 
@@ -157,7 +157,7 @@ import tinax from '../store'
 const mustLoggedIn = [
   // 注入路由助手
   router(),
-  // 从 tinax 注入 actions 方法
+  // 从 tinax 注入 actions
   tinax.connect({
     actions ({ fetchSession }) {
       return {
@@ -165,7 +165,8 @@ const mustLoggedIn = [
       }
     },
   }),
-  // 依赖的扩展准备好了，紧接着便可以在页面加载后确认用户已登录
+  // 依赖的扩展准备好了。
+  // 紧接着便可以在页面加载后核实用户是否已登录；若未登录则跳转至登录页。
   {
     onLoad () {
       this.fetchSession()

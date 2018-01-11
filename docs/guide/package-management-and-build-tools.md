@@ -11,7 +11,7 @@
 - mina 单文件组件
 - 文件预处理器
 - 代码混淆 / 压缩
-- 等等等等...
+- 以及更多 Webpack 附带的功能
 
 ## 使用项目模板
 如果你已经等不及了，使用 [template-mina](https://github.com/tinajs/template-mina) 项目模板可以帮助你快速地搭建好基于 mina-webpack 的小程序项目：
@@ -33,4 +33,4 @@ npm start
 > 编译生产环境版本时，请使用 ``npm run build``。
 
 ## 了解更多
-mina-webpack 由 mina-loader 以及两个 webpack 插件组成，如果你感兴趣，欢迎访问 [项目仓库](https://github.com/imyelo/mina-webpack/tree/master/packages) 了解更多信息。
+mina-webpack 由 mina-loader 以及两个 webpack 插件组成，如果你感兴趣，欢迎访问 [项目仓库](https://github.com/tinajs/mina-webpack/) 了解更多信息。
