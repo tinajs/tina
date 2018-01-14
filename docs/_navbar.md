@@ -1,4 +1,4 @@
-- [指南](guide/installation.md)
+- [指南](/)
 - [API](api/README.md)
 - 示例
   - [Say Hi](https://github.com/tinajs/tina-examples/sayhi)
