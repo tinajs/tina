@@ -7,9 +7,9 @@ Tina 高度保持了传统小程序 (MINA) 页面原有的设计，并在其身�
 ## 定义一个新页面
 在使用 Tina 定义一个新的页面时，与 MINA 并没有太大的区别：
 
+**传统小程序 (MINA) 项目：**
 ```javascript
 /*
- * 传统小程序 (MINA) 项目
  * /demo-page.js
  */
 Page({
@@ -25,9 +25,9 @@ Page({
 })
 ```
 
+**使用 Tina 的项目**：
 ```javascript
 /**
-  * 使用 Tina 的项目
   * /demo-page.js or <script> in demo-page.mina
   */
 import { Page } from '@tinajs/tina'
@@ -45,6 +45,29 @@ Page.define({
     },
   },
 })
+```
+
+**对比：**
+```diff
+@@ -1,11 +1,15 @@
+-Page({
++import { Page } from '@tinajs/tina'
++
++Page.define({
+   data: {
+     count: 0,
+   },
+   onLoad () {
+     console.log(this.data.count)
+   },
+-  handleTapButton () {
+-    console.log(this.data.count)
++  methods: {
++    handleTapButton () {
++      console.log(this.data.count)
++    },
+   },
+ })
 ```
 
 ## 更新数据

@@ -4,7 +4,7 @@
 ## 直接引入
 从传统项目中引入 Tina 非常简单。你只需要将最新的 [tina.min.js](https://unpkg.com/@tinajs/tina/dist/tina.min.js) 拷贝至项目中，并借助小程序环境集成的 ``require`` 方法加载使用。
 
-例如我们将 *tina.min.js* 存放在项目的 *libraries* 目录中：
+例如我们将 *tina.min.js* 存放在项目的 *libraries* 目录中：
 
 ```
 .

@@ -6,9 +6,10 @@ Tina 没有破坏 MINA 自定义组件原有的设计，仅仅是在其身上附
 ## 定义一个新组件
 在使用 Tina 定义一个新的组件时，与传统的小程序 (**MINA**) 并没有太大的区别：
 
+
+**传统小程序 (MINA) 项目：**
 ```javascript
 /*
- * 传统小程序 (MINA) 项目
  * /demo-component.js
  */
 Component({
@@ -29,9 +30,9 @@ Component({
 })
 ```
 
+**使用 Tina 的项目：**
 ```javascript
 /**
-  * 使用 Tina 的项目
   * /demo-component.js or <script> in demo-component.mina
   */
 import { Component } from '@tinajs/tina'
@@ -52,6 +53,19 @@ Component.define({
     },
   },
 })
+```
+
+**对比：**
+```diff
+@@ -1,5 +1,7 @@
+-Component({
++import { Component } from '@tinajs/tina'
++
++Component.define({
+   properties: {
+     content: String,
+   },
+   data: {
 ```
 
 ## 更新数据
