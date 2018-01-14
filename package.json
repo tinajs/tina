@@ -1,6 +1,6 @@
 {
   "name": "@tinajs/tina",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/tina.js",
   "author": "yelo",
