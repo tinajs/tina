@@ -97,7 +97,7 @@ button {
 ## 文档
 如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
 
-接下来，请前往 [tinajs.github.io/tina](tinajs.github.io) 查阅更详尽的指南。
+接下来，请前往 [tinajs.github.io/tina](https://tinajs.github.io/tina) 查阅更详尽的指南。
 
 ## Showcase
 - [Hacker News 热点](https://github.com/imyelo/tina-hackernews)
