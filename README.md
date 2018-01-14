@@ -8,7 +8,7 @@
 ## 特性
 - 轻盈小巧
 
-  核心打包后仅 ![](http://img.badgesize.io/https://unpkg.com/@tinajs/tina/dist/tina.min.js?style=flat-square) 。
+  核心打包后仅 ![](http://img.badgesize.io/https://unpkg.com/@tinajs/tina@1.0.1/dist/tina.min.js?style=flat-square) 。
 
 - 极易上手
 
