@@ -91,7 +91,7 @@ button {
 ```
 
 查看更多示例：
-- [tina-examples](https://github.com/tinajs/tina-examples/packages)
+- [tina-examples](https://github.com/tinajs/tina-examples/tree/master/packages)
 - [tina-hackernews](https://github.com/tinajs/tina-hackernews)
 
 ## 文档
