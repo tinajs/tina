@@ -1,10 +1,18 @@
 {
   "name": "@tinajs/tina",
   "version": "1.0.1",
-  "description": "",
+  "description": "A light and progressive Wechat-Mini Program Framework",
   "main": "dist/tina.js",
   "author": "yelo",
   "license": "Apache-2.0",
+  "repository": {
+    "url": "tinajs/tina",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/tinajs/tina/issues"
+  },
+  "homepage": "https://tinajs.github.io/tina",
   "scripts": {
     "start": "rollup -c -w",
     "clean": "rimraf ./dist",
