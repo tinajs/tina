@@ -1,7 +1,7 @@
 - [指南](/)
 - [API](api/README.md)
 - 示例
-  - [Say Hi](https://github.com/tinajs/tina-examples/sayhi)
-  - [Say Hi with Mina](https://github.com/tinajs/tina-examples/sayhi-mina)
-  - [Counter](https://github.com/tinajs/tina-examples/counter)
+  - [Say Hi](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi)
+  - [Say Hi with Mina](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi-mina)
+  - [Counter](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
   - [HackerNews :tada:](https://github.com/tinajs/tina-hackernews)
