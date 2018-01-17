@@ -5,6 +5,8 @@
 [![license](https://img.shields.io/github/license/tinajs/tina.svg?style=flat-square)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
+[![GitHub stars](https://img.shields.io/github/stars/tinajs/tina.svg?label=关注 Tina.js&style=for-the-badge)](https://github.com/tinajs/tina)
+
 ## 特性
 - 轻盈小巧
 
@@ -16,7 +18,7 @@
 
 - 渐进增强
 
-  自由选择扩展功能，如路由、状态管理，以及由你自己编写的插件。
+  自由选择扩展功能，如[路由](/guide/router.md)、[状态管理](/guide/state-management.md)，以及[由你自己编写的插件](/guide/mixin.md)。
 
 ## NPM 与单文件组件
 
@@ -90,6 +92,6 @@ button {
 </style>
 ```
 
-查看更多示例：
-- [tina-examples](https://github.com/tinajs/tina-examples/tree/master/packages)
-- [tina-hackernews](https://github.com/tinajs/tina-hackernews)
+更详细的示例：
+- [Tina.js - Examples](https://github.com/tinajs/tina-examples/tree/master/packages)
+- [Tina.js - HackerNews 热点](https://github.com/tinajs/tina-hackernews)

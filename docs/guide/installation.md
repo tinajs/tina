@@ -34,7 +34,7 @@ Page.define(......)
 
 > 使用 mina-webpack ，你的项目将获得 es2015+、npm、mina 单文件组件、文件预处理器、代码混淆和压缩等能力。
 
-> 如果你不知道该如何开始，不妨尝试我们为你准备的 [mina-webpack 项目模板](https://github.com/tinajs/template-mina)。
+> 如果你不知道该如何开始，不妨先阅读 [包管理及构建工具](/guide/package-management-and-build-tools.md) 章节，尝试使用我们为你准备的 [项目模板](/guide/package-management-and-build-tools.md?id=使用项目模板)。
 
 例如在一个集成 mina-webpack 的项目中：
 

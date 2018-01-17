@@ -143,11 +143,11 @@ App(......)
 ?> *这意味着，当存在同名参数时，通过 ``.define()`` 传入的参数一定会被保留，而且其中钩子函数会被最后调用。*
 
 ## 混合对象的特殊类型
-混合对象 (Mixin) 一般为普通的 ``Object``，但在某些特殊场景下，也可以是 ``Array`` (数组) 或 ``Function`` (函数)。
+混合对象 (Mixin) 一般为普通的 ``Object``，但在某些特殊场景下，也可以是 ``Array`` (数组) 类型；当 Tina 在执行混合操作时遇到 ``Array`` 类型的混合对象，会将其展开后再依次混合。
 
-在进行混合操作时，如果遇到 ``Array`` 类型的混合对象，Tina 内部会将其展开后再依次混合；如果遇到 ``Function`` 类型的混合对象，则会把经上游混合后的参数 (``options``) 以及当前混合方法所属的类 (``Model``, 即 Page 或 Component) 传入该函数，并取返回值再进行混合。
+除此以外，在一些复杂的场景下，你还可以使用 ``Function`` (函数) 类型的混合对象；Tina 会取 ``fn(options, Model)`` 的结果进行混合 —— 其中 ``options`` 为经上游混合后的参数，而 ``Model`` 为当前混合方法所属的类 (即 Page 或 Component)。
 
-例如以下示例，我们将使用 **数组类型** 的混合对象，在 ``tinax`` 和 ``tina-router`` 的基础上实现一个 ``mustLoggedIn`` 的混合：
+例如以下示例，我们将使用 **数组类型** 的混合对象，在 ``tinax`` 和 ``tina-router`` 的基础上快速地实现一个 ``mustLoggedIn`` 的混合：
 
 ```javascript
 import { Page } from '@tinajs/tina'
@@ -183,3 +183,6 @@ Page.define({
   mixin: [mustLoggedIn],
 })
 ```
+
+## 推荐使用的混合扩展
+基于混合的能力，我们为你准备好了 [<i class="iconfont icon-plugin"></i>几款 Tina.js 的扩展模块](/guide/router.md) 。你现在就可以开始在实际项目中使用它们；或者也可以从中参考源代码，了解更多编写混合模块的细节。
