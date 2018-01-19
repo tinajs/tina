@@ -47,6 +47,9 @@ class Basic {
       next = { ...next, ...this.compute(next) }
     }
     next = diff(next, this.data)
+    if (hasDotPath(next)) {
+      throw new Error('The data object in method ``setData`` is not support dot-path key (``"x.y"`` or ``"x[n]"``) yet, please use a plain object instead.')
+    }
     this.constructor.log('setData', next)
     if (isEmpty(next)) {
       return callback()
@@ -63,6 +66,12 @@ function diff (newer, older) {
     }
   }
   return result
+}
+
+function hasDotPath (obj) {
+  return Object.keys(obj).some((key) => {
+    return /\.|\[.*\]/.test(key)
+  })
 }
 
 export default Basic
