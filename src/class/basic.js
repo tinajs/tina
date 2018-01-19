@@ -1,3 +1,4 @@
+import equal from 'fast-deep-equal'
 import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
 import strategies from '../utils/mix-strategies'
@@ -57,7 +58,7 @@ class Basic {
 function diff (newer, older) {
   let result = {}
   for (let key in newer) {
-    if (newer[key] !== older[key]) {
+    if (!equal(newer[key], older[key])) {
       result[key] = newer[key]
     }
   }
