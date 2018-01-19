@@ -1,4 +1,5 @@
 import equal from 'fast-deep-equal'
+import { is } from 'immutable'
 import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
 import strategies from '../utils/mix-strategies'
@@ -42,30 +43,21 @@ class Basic {
   }
 
   setData (newer, callback = () => {}) {
-    let next = { ...this.data, ...newer }
+    let last = this.data
+    let next = last.merge(newer)
     if (typeof this.compute === 'function') {
-      next = { ...next, ...this.compute(next) }
+      next = next.merge(this.compute(next.toJS()))
     }
-    next = diff(next, this.data)
-    if (hasDotPath(next)) {
+    let patch = next.filter((value, key) => !is(value, last.get(key))).toJS()
+    if (hasDotPath(patch)) {
       throw new Error('The data object in method ``setData`` is not support dot-path key (``"x.y"`` or ``"x[n]"``) yet, please use a plain object instead.')
     }
-    this.constructor.log('setData', next)
-    if (isEmpty(next)) {
+    this.constructor.log('setData', patch)
+    if (isEmpty(patch)) {
       return callback()
     }
-    this.$source.setData(next, callback)
+    this.$source.setData(patch, callback)
   }
-}
-
-function diff (newer, older) {
-  let result = {}
-  for (let key in newer) {
-    if (!equal(newer[key], older[key])) {
-      result[key] = newer[key]
-    }
-  }
-  return result
 }
 
 function hasDotPath (obj) {

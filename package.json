@@ -41,6 +41,7 @@
     "uglify-js": "^3.2.1"
   },
   "dependencies": {
-    "fast-deep-equal": "^1.0.0"
+    "fast-deep-equal": "^1.0.0",
+    "immutable": "^4.0.0-rc.9"
   }
 }
