@@ -1,6 +1,11 @@
 import { mapObject, fromPairs } from './functions'
 
-// generate methods
+// generate data for wx-Component
+export function data (data) {
+  return data.toPlainObject()
+}
+
+// generate methods for wx-Component
 export function methods (object) {
   return mapObject(object || {}, (method, name) => function handler (...args) {
     let context = this.__tina_instance__
@@ -8,7 +13,7 @@ export function methods (object) {
   })
 }
 
-// generate lifecycles
+// generate lifecycles for wx-Component
 export function lifecycles (hooks, getBeforeHookName) {
   return fromPairs(hooks.map((origin) => {
     let before = getBeforeHookName(origin)
@@ -29,31 +34,34 @@ export function lifecycles (hooks, getBeforeHookName) {
 
 // generate properties for wx-Component
 export function properties (object) {
-  function wrap (original) {
+  function wrap (key, handler) {
     return function observer (...args) {
+      let newer = args[0]
       let context = this.__tina_instance__
-      // trigger ``compute``
-      context.setData()
-      if (typeof original === 'string') {
-        return context[original].apply(context, args)
+      let Data = this.__tina_instance__.constructor.Data
+      context.setData(new Data({
+        [key]: newer,
+      }))
+      if (typeof handler === 'string') {
+        return context[handler].apply(context, args)
       }
-      if (typeof original === 'function') {
-        return original.apply(context, args)
+      if (typeof handler === 'function') {
+        return handler.apply(context, args)
       }
     }
   }
 
-  return mapObject(object || {}, (rule) => {
+  return mapObject(object || {}, (rule, key) => {
     if (typeof rule === 'function' || rule === null) {
       return {
         type: rule,
-        observer: wrap(),
+        observer: wrap(key),
       }
     }
     if (typeof rule === 'object') {
       return {
         ...rule,
-        observer: wrap(rule.observer),
+        observer: wrap(key, rule.observer),
       }
     }
   })

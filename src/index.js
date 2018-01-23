@@ -1,2 +1,5 @@
-export Page from './class/page'
-export Component from './class/component'
+export Basic from './core/basic'
+export Page from './core/page'
+export Component from './core/component'
+export BasicData from './data/basic'
+export SigmundData from './data/sigmund'

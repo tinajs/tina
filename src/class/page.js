@@ -15,6 +15,7 @@ const ADDON_BEFORE_HOOKS = {
 }
 const ADDON_OPTIONS = ['mixins', 'compute', 'methods', 'beforeLoad']
 
+const OVERWRITED_OPTIONS = ['data', ...MINA_PAGE_HOOKS]
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
@@ -38,8 +39,12 @@ class Page extends Basic {
     // use mixins
     options = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
 
+    // initilize data
+    options.data = this.Data.isInstance(options.data) ? data : new this.Data(options.data)
+
     // create wx-Page options
     let page = {
+      data: wxOptionsGenerator.data(options.data),
       ...wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
@@ -57,7 +62,7 @@ class Page extends Basic {
 
     // apply wx-Page options
     new globals.Page({
-      ...pick(options, without(MINA_PAGE_OPTIONS, MINA_PAGE_HOOKS)),
+      ...pick(options, without(MINA_PAGE_OPTIONS, OVERWRITED_OPTIONS)),
       ...page,
     })
   }
@@ -67,6 +72,7 @@ class Page extends Basic {
 
     // creating Tina-Page members
     let members = {
+      data: options.data,
       compute: options.compute || function () {
         return {}
       },
@@ -82,10 +88,6 @@ class Page extends Basic {
     }
 
     return this
-  }
-
-  get data () {
-    return this.$source.data
   }
 }
 

@@ -1,9 +1,13 @@
+import isPlainObject from 'is-plain-obj'
+import SigmundData from '../data/sigmund'
 import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
 import globals from '../utils/globals'
 import strategies from '../utils/mix-strategies'
 
 class Basic {
   static debug = false
+
+  static Data = SigmundData
 
   static mixins = []
 
@@ -33,35 +37,22 @@ class Basic {
     }
   }
 
-  set data (value) {
-    throw new Error('Not allowed to set ``data``, use ``setData(data, [callback])`` instead.')
-  }
-  get data () {
-    throw new Error('class Basic doesnot have a ``data`` atttribute, please implement the ``data`` getter in the child-class.')
-  }
-
   setData (newer, callback = () => {}) {
-    let next = { ...this.data, ...newer }
+    let next = this.data.merge(newer)
     if (typeof this.compute === 'function') {
-      next = { ...next, ...this.compute(next) }
+      next = next.merge(this.compute(next))
     }
-    next = diff(next, this.data)
-    this.constructor.log('setData', next)
-    if (isEmpty(next)) {
+    let patch = next.diff(this.data).toPlainObject()
+    if (!isPlainObject(patch)) {
+      console.warn('[Tina] - The data which is passed to MINA should be a plain object, please check your Data-class.')
+    }
+    this.constructor.log('setData', patch)
+    this.data = next
+    if (isEmpty(patch)) {
       return callback()
     }
-    this.$source.setData(next, callback)
+    this.$source.setData(patch, callback)
   }
-}
-
-function diff (newer, older) {
-  let result = {}
-  for (let key in newer) {
-    if (newer[key] !== older[key]) {
-      result[key] = newer[key]
-    }
-  }
-  return result
 }
 
 export default Basic

@@ -13,6 +13,7 @@ const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 const ADDON_BEFORE_HOOKS = {}
 const ADDON_OPTIONS = ['mixins', 'compute']
 
+const OVERWRITED_OPTIONS = ['properties', 'data', 'methods', ...MINA_COMPONENT_HOOKS]
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
@@ -40,8 +41,12 @@ class Component extends Basic {
     // use mixins
     options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
 
+    // initilize data
+    options.data = this.Data.isInstance(options.data) ? data : new this.Data(options.data)
+
     // create wx-Component options
     let component = {
+      data: wxOptionsGenerator.data(options.data),
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
@@ -60,7 +65,7 @@ class Component extends Basic {
 
     // apply wx-Component options
     new globals.Component({
-      ...pick(options, without(MINA_COMPONENT_OPTIONS, MINA_COMPONENT_HOOKS)),
+      ...pick(options, without(MINA_COMPONENT_OPTIONS, OVERWRITED_OPTIONS)),
       ...component,
     })
   }
@@ -70,6 +75,7 @@ class Component extends Basic {
 
     // creating Tina-Component members
     let members = {
+      data: options.data,
       compute: options.compute || function () {
         return {}
       },
@@ -85,10 +91,6 @@ class Component extends Basic {
     }
 
     return this
-  }
-
-  get data () {
-    return this.$source.data
   }
 }
 
