@@ -46,7 +46,7 @@ class Component extends Basic {
 
     // create wx-Component options
     let component = {
-      data: wxOptionsGenerator.data(options.data),
+      data: wxOptionsGenerator.data(options.data, options.properties),
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),

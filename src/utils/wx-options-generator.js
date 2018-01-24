@@ -1,7 +1,19 @@
+import map from 'just-map-object'
+import filter from 'just-filter-object'
 import { mapObject, fromPairs } from './functions'
 
 // generate data for wx-Component
-export function data (data) {
+export function data (data, properties) {
+  if (typeof properties === 'object') {
+    let defaults = map(
+      filter(
+        properties,
+        (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+      ),
+      (name, property) => property.value,
+    )
+    data = data.merge(defaults)
+  }
   return data.toPlainObject()
 }
 
