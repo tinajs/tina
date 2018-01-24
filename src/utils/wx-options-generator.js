@@ -1,6 +1,6 @@
 import map from 'just-map-object'
 import filter from 'just-filter-object'
-import { mapObject, fromPairs } from './functions'
+import { fromPairs } from './functions'
 
 // generate data for wx-Component
 export function data (data, properties) {
@@ -19,7 +19,7 @@ export function data (data, properties) {
 
 // generate methods for wx-Component
 export function methods (object) {
-  return mapObject(object || {}, (method, name) => function handler (...args) {
+  return map(object || {}, (name, method) => function handler (...args) {
     let context = this.__tina_instance__
     return context[name].apply(context, args)
   })
@@ -63,7 +63,7 @@ export function properties (object) {
     }
   }
 
-  return mapObject(object || {}, (rule, key) => {
+  return map(object || {}, (key, rule) => {
     if (typeof rule === 'function' || rule === null) {
       return {
         type: rule,

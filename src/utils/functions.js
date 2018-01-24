@@ -1,21 +1,3 @@
-export function mapObject (obj, iteratee = o => o) {
-  let result = {}
-  for (let key in obj) {
-    result[key] = iteratee(obj[key], key, obj)
-  }
-  return result
-}
-
-export function filterObject (obj, predicate = o => o) {
-  let result = {}
-  for (let key in obj) {
-    if (predicate(obj[key], key, obj)) {
-      result[key] = obj[key]
-    }
-  }
-  return result
-}
-
 export function isEmpty (obj) {
   if (obj == null) {
     return true

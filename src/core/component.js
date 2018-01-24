@@ -1,5 +1,6 @@
+import map from 'just-map-object'
 import { $initial, $log } from '../mixins'
-import { mapObject, filterObject, pick, without, values, fromPairs } from '../utils/functions'
+import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
@@ -81,7 +82,7 @@ class Component extends Basic {
       },
       ...options.methods,
       // hooks
-      ...mapObject(pick(options, COMPONENT_HOOKS), (handlers, name) => function (...args) {
+      ...map(pick(options, COMPONENT_HOOKS), (name, handlers) => function (...args) {
         return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
       }),
     }

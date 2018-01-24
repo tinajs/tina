@@ -1,6 +1,7 @@
 import isPlainObject from 'is-plain-obj'
+import map from 'just-map-object'
 import SigmundData from '../data/sigmund'
-import { isEmpty, pick, mapObject, filterObject } from '../utils/functions'
+import { isEmpty, pick } from '../utils/functions'
 import globals from '../utils/globals'
 import strategies from '../utils/mix-strategies'
 
@@ -27,7 +28,7 @@ class Basic {
     let mixin = mixins
     return {
       ...options,
-      ...mapObject(mixin, (extra, key) => strategies.merge(options[key], extra)),
+      ...map(mixin, (key, extra) => strategies.merge(options[key], extra)),
     }
   }
 
