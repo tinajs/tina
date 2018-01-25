@@ -1,5 +1,1 @@
-export Unit from './core/unit'
-export Page from './core/page'
-export Component from './core/component'
-export BasicData from './data/basic'
-export SigmundData from './data/sigmund'
+export default from './instance'
