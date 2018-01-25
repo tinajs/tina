@@ -2,7 +2,7 @@
 
 一款轻巧的渐进式小程序框架
 
-[<i class="iconfont icon-star"></i> Star](https://github.com/tinajs/tina)
+[<i class="iconfont icon-github"></i> GitHub](https://github.com/tinajs/tina)
 [马上开始](#main)
 
 <!-- background image -->
