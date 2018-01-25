@@ -46,7 +46,7 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
 }
 
 export function initializeData (DataAdaptor, data, properties) {
-  data = DataAdaptor.isInstance(data) ? data : DataAdaptor.fromPlainObject(data)
+  data = DataAdaptor.isData(data) ? data : DataAdaptor.fromPlainObject(data)
   if (typeof properties === 'object') {
     let defaults = DataAdaptor.fromPlainObject(
       map(

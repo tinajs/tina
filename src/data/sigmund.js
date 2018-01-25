@@ -38,7 +38,7 @@ export class SigmundData {
 }
 
 class SigmundDataAdaptor extends BasicDataAdaptor {
-  static isInstance (data) {
+  static isData (data) {
     return data instanceof SigmundData
   }
 
@@ -47,7 +47,7 @@ class SigmundDataAdaptor extends BasicDataAdaptor {
   }
 
   static merge (original, extra) {
-    // let extra = original.isInstance(extra) ? extra : new SigmundData(extra)
+    // let extra = original.isData(extra) ? extra : new SigmundData(extra)
     // return new SigmundData({ ...original, ...extra })
     return new SigmundData({ ...original, ...extra })
   }

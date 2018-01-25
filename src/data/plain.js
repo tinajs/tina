@@ -5,7 +5,7 @@ import isPlainObject from 'is-plain-obj'
 import BasicDataAdaptor from './basic'
 
 class PlainDataAdaptor extends BasicDataAdaptor {
-  static isInstance (data) {
+  static isData (data) {
     return isPlainObject(data)
   }
 

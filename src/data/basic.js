@@ -8,8 +8,8 @@ function shouleBeOverrided (name, args, result) {
 }
 
 class BasicDataAdaptor {
-  static isInstance (data) {
-    shouleBeOverrided('isInstance', ['data'], 'Boolean()')
+  static isData (data) {
+    shouleBeOverrided('isData', ['data'], 'Boolean()')
   }
 
   static fromPlainObject (plain) {

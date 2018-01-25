@@ -40,7 +40,7 @@ class Basic {
 
   setData (newer, callback = () => {}) {
     let { DataAdaptor } = this.constructor
-    newer = DataAdaptor.isInstance(newer) ? newer : DataAdaptor.fromPlainObject(newer)
+    newer = DataAdaptor.isData(newer) ? newer : DataAdaptor.fromPlainObject(newer)
 
     let next = DataAdaptor.merge(this.data, newer)
     if (typeof this.compute === 'function') {
