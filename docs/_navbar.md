@@ -4,4 +4,6 @@
   - [Say Hi](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi)
   - [Say Hi with Mina](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi-mina)
   - [Counter](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
+  - [TodoMVC Lite](https://github.com/tinajs/tina-examples/tree/master/packages/todomvc-lite)
+  - [TodoMVC Lite - Redux](https://github.com/tinajs/tina-redux/tree/master/example)
   - [HackerNews :tada:](https://github.com/tinajs/tina-hackernews)
