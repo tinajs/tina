@@ -10,6 +10,20 @@ class Tina {
   static Component = Component
   static BasicData = BasicData
   static SigmundData = SigmundData
+
+  static plugins = []
+
+  static use (plugin, ...args) {
+    if (~this.plugins.indexOf(plugin)) {
+      return this
+    }
+
+    if (typeof plugin.install === 'function') {
+      plugin.install(this, ...args)
+    }
+    this.plugins.push(plugin)
+    return this
+  }
 }
 
 export default Tina
