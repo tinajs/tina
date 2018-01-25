@@ -1,6 +1,6 @@
 import isPlainObject from 'is-plain-obj'
 import map from 'just-map-object'
-import SigmundData from '../data/sigmund'
+import SigmundDataAdaptor from '../data/sigmund'
 import { isEmpty, pick } from '../utils/functions'
 import globals from '../utils/globals'
 import strategies from '../utils/mix-strategies'
@@ -8,7 +8,7 @@ import strategies from '../utils/mix-strategies'
 class Basic {
   static debug = false
 
-  static Data = SigmundData
+  static DataAdaptor = SigmundDataAdaptor
 
   static _mixins = []
 
@@ -39,13 +39,14 @@ class Basic {
   }
 
   setData (newer, callback = () => {}) {
-    let next = this.data.merge(newer)
+    let { DataAdaptor } = this.constructor
+    let next = DataAdaptor.merge(this.data, newer)
     if (typeof this.compute === 'function') {
-      next = next.merge(this.compute(next))
+      next = DataAdaptor.merge(next, this.compute(next))
     }
-    let patch = next.diff(this.data).toPlainObject()
+    let patch = DataAdaptor.toPlainObject(DataAdaptor.diff(next, this.data))
     if (!isPlainObject(patch)) {
-      console.warn('[Tina] - The data which is passed to MINA should be a plain object, please check your Data-class.')
+      console.warn('[Tina] - The data which is passed to MINA should be a plain object, please check your DataAdaptor-class.')
     }
     this.constructor.log('setData', patch)
     this.data = next

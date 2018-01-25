@@ -43,11 +43,11 @@ class Component extends Unit {
     options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
-    options.data = this.Data.isInstance(options.data) ? data : new this.Data(options.data)
+    options.data = this.DataAdaptor.isInstance(options.data) ? options.data : this.DataAdaptor.fromPlainObject(options.data)
 
     // create wx-Component options
     let component = {
-      data: wxOptionsGenerator.data(options.data, options.properties),
+      data: wxOptionsGenerator.data(this.DataAdaptor, options.data, options.properties),
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),

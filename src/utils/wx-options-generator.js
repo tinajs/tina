@@ -3,7 +3,7 @@ import filter from 'just-filter-object'
 import { fromPairs } from './functions'
 
 // generate data for wx-Component
-export function data (data, properties) {
+export function data (DataAdaptor, data, properties) {
   if (typeof properties === 'object') {
     let defaults = map(
       filter(
@@ -12,9 +12,9 @@ export function data (data, properties) {
       ),
       (name, property) => property.value,
     )
-    data = data.merge(defaults)
+    data = DataAdaptor.merge(data, defaults)
   }
-  return data.toPlainObject()
+  return DataAdaptor.toPlainObject(data)
 }
 
 // generate methods for wx-Component
@@ -50,8 +50,8 @@ export function properties (object) {
     return function observer (...args) {
       let newer = args[0]
       let context = this.__tina_instance__
-      let Data = this.__tina_instance__.constructor.Data
-      context.setData(new Data({
+      let DataAdaptor = this.__tina_instance__.constructor.DataAdaptor
+      context.setData(DataAdaptor.fromPlainObject({
         [key]: newer,
       }))
       if (typeof handler === 'string') {

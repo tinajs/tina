@@ -1,33 +1,32 @@
 import each from 'for-own'
 import map from 'just-map-object'
 import filter from 'just-filter-object'
+import isPlainObject from 'is-plain-obj'
 
-export default class BasicData {
+function shouleBeOverrided (name, args, result) {
+  throw new Error(`[Tina] - The method "${name}" of DataAdaptor should be overrided by a function, which receives arguments <(${args.join(', ')})> and return <${result}>.`)
+}
+
+class BasicDataAdaptor {
   static isInstance (data) {
-    return data instanceof this
+    shouleBeOverrided('isInstance', ['data'], 'Boolean()')
   }
 
-  constructor (plain) {
-    each(plain, (value, key) => {
-      this[key] = value
-    })
+  static fromPlainObject (plain) {
+    shouleBeOverrided('fromPlainObject', ['plain'], 'data')
   }
 
-  merge (data) {
-    if (!this.constructor.isInstance(data)) {
-      data = new this.constructor(data)
-    }
-    return new this.constructor({ ...this, ...data })
+  static merge (original, plain) {
+    shouleBeOverrided('merge', ['original', 'plain'], 'data')
   }
 
-  /**
-   * shallow diff
-   */
-  diff (data) {
-    return new this.constructor(filter(this, (key, value) => value !== data[key]))
+  static diff (original, extra) {
+    shouleBeOverrided('diff', ['original', 'extra'], 'data')
   }
 
-  toPlainObject () {
-    return map(this, (key, value) => value)
+  static toPlainObject (data) {
+    shouleBeOverrided('diff', ['data'], 'plain')
   }
 }
+
+export default BasicDataAdaptor

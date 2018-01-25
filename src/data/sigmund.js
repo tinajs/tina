@@ -2,15 +2,13 @@ import sigmund from 'sigmund'
 import each from 'for-own'
 import map from 'just-map-object'
 import filter from 'just-filter-object'
-import BasicData from './basic'
+import BasicDataAdaptor from './basic'
 
-export default class SigmundData extends BasicData {
-  static isInstance (data) {
-    return data instanceof this
-  }
-
+export class SigmundData {
   constructor (plain) {
-    super(plain)
+    each(plain, (value, key) => {
+      this[key] = value
+    })
 
     Object.defineProperty(this, '__signatures', {
       enumerable: false,
@@ -37,11 +35,30 @@ export default class SigmundData extends BasicData {
     }
     return this.__signatures[key] !== sigmund(this[key])
   }
+}
 
-  /**
-   * @override
-   */
-  diff (data) {
-    return new SigmundData(filter(this, (key, value) => value !== data[key] || this.signature(key) !== data.signature(key)))
+class SigmundDataAdaptor extends BasicDataAdaptor {
+  static isInstance (data) {
+    return data instanceof SigmundData
+  }
+
+  static fromPlainObject (plain) {
+    return new SigmundData(plain)
+  }
+
+  static merge (original, plain) {
+    // let extra = original.isInstance(plain) ? extra : new SigmundData(extra)
+    // return new SigmundData({ ...original, ...extra })
+    return new SigmundData({ ...original, ...plain })
+  }
+
+  static diff (original, extra) {
+    return new SigmundData(filter(original, (key, value) => value !== extra[key] || original.signature(key) !== extra.signature(key)))
+  }
+
+  static toPlainObject (data) {
+    return map(data, (key, value) => value)
   }
 }
+
+export default SigmundDataAdaptor

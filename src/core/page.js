@@ -41,11 +41,11 @@ class Page extends Unit {
     options = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
-    options.data = this.Data.isInstance(options.data) ? data : new this.Data(options.data)
+    options.data = this.DataAdaptor.isInstance(options.data) ? options.data : this.DataAdaptor.fromPlainObject(options.data)
 
     // create wx-Page options
     let page = {
-      data: wxOptionsGenerator.data(options.data),
+      data: wxOptionsGenerator.data(this.DataAdaptor, options.data),
       ...wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
