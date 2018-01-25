@@ -5,7 +5,8 @@
   - [<span class="iconfont icon-page"></span> 页面](guide/page.md)
   - [<span class="iconfont icon-component"></span> 组件](guide/component.md)
   - [<span class="iconfont icon-mix"></span> 混合](guide/mixin.md)
-- <span class="iconfont icon-plugin"></span> 推荐扩展
+  - [<span class="iconfont icon-plugin"></span> 插件](guide/plugin.md)
+- <span class="iconfont icon-crown"></span> 推荐扩展
   - [<span class="iconfont icon-router"></span> 路由](guide/router.md)
   - [<span class="iconfont icon-satellite"></span> 状态管理](guide/state-management.md)
   - [<span class="iconfont icon-alert"></span> 界面反馈](guide/ui-feedback.md)
