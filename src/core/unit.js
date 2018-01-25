@@ -40,16 +40,21 @@ class Basic {
 
   setData (newer, callback = () => {}) {
     let { DataAdaptor } = this.constructor
+    newer = DataAdaptor.isInstance(newer) ? newer : DataAdaptor.fromPlainObject(newer)
+
     let next = DataAdaptor.merge(this.data, newer)
     if (typeof this.compute === 'function') {
       next = DataAdaptor.merge(next, this.compute(next))
     }
+
     let patch = DataAdaptor.toPlainObject(DataAdaptor.diff(next, this.data))
     if (!isPlainObject(patch)) {
       console.warn('[Tina] - The data which is passed to MINA should be a plain object, please check your DataAdaptor-class.')
     }
     this.constructor.log('setData', patch)
+
     this.data = next
+
     if (isEmpty(patch)) {
       return callback()
     }

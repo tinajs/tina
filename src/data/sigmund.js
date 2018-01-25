@@ -46,10 +46,10 @@ class SigmundDataAdaptor extends BasicDataAdaptor {
     return new SigmundData(plain)
   }
 
-  static merge (original, plain) {
-    // let extra = original.isInstance(plain) ? extra : new SigmundData(extra)
+  static merge (original, extra) {
+    // let extra = original.isInstance(extra) ? extra : new SigmundData(extra)
     // return new SigmundData({ ...original, ...extra })
-    return new SigmundData({ ...original, ...plain })
+    return new SigmundData({ ...original, ...extra })
   }
 
   static diff (original, extra) {

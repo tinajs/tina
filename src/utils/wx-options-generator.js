@@ -5,12 +5,14 @@ import { fromPairs } from './functions'
 // generate data for wx-Component
 export function data (DataAdaptor, data, properties) {
   if (typeof properties === 'object') {
-    let defaults = map(
-      filter(
-        properties,
-        (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+    let defaults = DataAdaptor.fromPlainObject(
+      map(
+        filter(
+          properties,
+          (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+        ),
+        (name, property) => property.value,
       ),
-      (name, property) => property.value,
     )
     data = DataAdaptor.merge(data, defaults)
   }

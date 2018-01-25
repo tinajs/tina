@@ -16,8 +16,8 @@ class BasicDataAdaptor {
     shouleBeOverrided('fromPlainObject', ['plain'], 'data')
   }
 
-  static merge (original, plain) {
-    shouleBeOverrided('merge', ['original', 'plain'], 'data')
+  static merge (original, extra) {
+    shouleBeOverrided('merge', ['original', 'extra'], 'data')
   }
 
   static diff (original, extra) {

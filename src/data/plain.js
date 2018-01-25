@@ -13,8 +13,8 @@ class PlainDataAdaptor extends BasicDataAdaptor {
     return plain
   }
 
-  static merge (original, plain) {
-    return { ...original, ...plain }
+  static merge (original, extra) {
+    return { ...original, ...extra }
   }
 
   /**
