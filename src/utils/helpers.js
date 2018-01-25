@@ -1,3 +1,6 @@
+import map from 'just-map-object'
+import filter from 'just-filter-object'
+
 function addHooks (context, handlers, isPrepend = false) {
   let result = {}
   for (let name in handlers) {
@@ -40,4 +43,21 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
     })
   })
   return TargetClass
+}
+
+export function initializeData (DataAdaptor, data, properties) {
+  data = DataAdaptor.isInstance(data) ? data : DataAdaptor.fromPlainObject(data)
+  if (typeof properties === 'object') {
+    let defaults = DataAdaptor.fromPlainObject(
+      map(
+        filter(
+          properties,
+          (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+        ),
+        (name, property) => property.value,
+      ),
+    )
+    data = DataAdaptor.merge(data, defaults)
+  }
+  return data
 }

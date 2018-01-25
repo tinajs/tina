@@ -1,7 +1,7 @@
 import map from 'just-map-object'
 import { $initial, $log } from '../mixins'
 import { pick, without, values, fromPairs } from '../utils/functions'
-import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
+import { prependHooks, linkProperties, initializeData } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
 import Unit from './unit'
@@ -43,11 +43,11 @@ class Component extends Unit {
     options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
-    options.data = this.DataAdaptor.isInstance(options.data) ? options.data : this.DataAdaptor.fromPlainObject(options.data)
+    options.data = initializeData(this.DataAdaptor, options.data, options.properties)
 
     // create wx-Component options
     let component = {
-      data: wxOptionsGenerator.data(this.DataAdaptor, options.data, options.properties),
+      data: this.DataAdaptor.toPlainObject(options.data),
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
