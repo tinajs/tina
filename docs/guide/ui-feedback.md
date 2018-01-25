@@ -1,18 +1,26 @@
 # 界面反馈
-得益于混合能力，我们为你准备了常用的几种界面反馈插件。
+得益于插件和混合能力，我们为你准备了常用的几种界面反馈插件。
 
 ## 弹窗
 基于微信官方的接口 (``showModal``、``hideModal``)，[tina-modal](https://github.com/tinajs/tina-modal) 提供了使用方便的 Promise 风格的 ``alert``、``confirm`` 方法。
 
 ```javascript
 /**
+ * /app.js or <script> in /app.mina
+ */
+import Tina from '@tinajs/tina'
+import { modal } from '@tinajs/tina-modal'
+
+Tina.use(modal)
+```
+
+```javascript
+/**
  * /demo-page.js or <script> in /demo-page.mina
  */
 import { Page } from '@tinajs/tina'
-import { modal } from '@tinajs/tina-modal'
 
 Page.define({
-  mixins: [modal()],
   onLoad () {
     this.$confirm({ content: 'say hi?' })
       .then(() => this.$alert({ content: 'hi' }))
@@ -29,15 +37,24 @@ Page.define({
 ## 加载状态
 微信官方的接口提供了两种反馈加载状态的方式：``show (hide) Loading`` (强反馈) 和 ``show (hide) NavigationBarLoading`` (弱反馈)。使用 [tina-loading](https://github.com/tinajs/tina-loading) 并结合 ``Promise.prototype.finally``，可以很轻松地管理 ``NavigationBarLoading``。
 
+
+```javascript
+/**
+ * /app.js or <script> in /app.mina
+ */
+import Tina from '@tinajs/tina'
+import { loading } from '@tinajs/tina-loading'
+
+Tina.use(loading)
+```
+
 ```javascript
 /**
  * /demo-page.js or <script> in /demo-page.mina
  */
 import { Page } from '@tinajs/tina'
-import { loading } from '@tinajs/tina-loading'
 import { fetchData } from './api'
 Page.define({
-  mixins: [loading()],
   methods: {
     usageA () {
       fetchData()
