@@ -1,5 +1,5 @@
 # Tina.js
-> 一款轻巧的渐进式小程序框架
+> 一款轻巧的渐进式微信小程序框架
 
 [![npm](https://img.shields.io/npm/v/@tinajs/tina.svg?style=flat-square)](https://www.npmjs.com/package/@tinajs/tina)
 [![license](https://img.shields.io/github/license/tinajs/tina.svg?style=flat-square)](./LICENSE)
