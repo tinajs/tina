@@ -4,7 +4,7 @@ import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
-import Basic from './basic'
+import Unit from './unit'
 
 const MINA_PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
 const MINA_PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
@@ -33,7 +33,7 @@ const PAGE_INITIAL_OPTIONS = {
 
 const BUILTIN_MIXINS = [$log, $initial]
 
-class Page extends Basic {
+class Page extends Unit {
   static mixins = []
 
   static define (options = {}) {

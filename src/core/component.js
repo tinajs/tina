@@ -4,7 +4,7 @@ import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, appendHooks } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
-import Basic from './basic'
+import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
@@ -35,7 +35,7 @@ const COMPONENT_INITIAL_OPTIONS = {
 
 const BUILTIN_MIXINS = [$log, $initial]
 
-class Component extends Basic {
+class Component extends Unit {
   static mixins = []
 
   static define (options = {}) {
