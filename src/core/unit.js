@@ -44,7 +44,9 @@ class Basic {
 
     let next = DataAdaptor.merge(this.data, newer)
     if (typeof this.compute === 'function') {
-      next = DataAdaptor.merge(next, this.compute(next))
+      let computed = this.compute(next)
+      computed = DataAdaptor.isData(computed) ? computed : DataAdaptor.fromPlainObject(computed)
+      next = DataAdaptor.merge(next, computed)
     }
 
     let patch = DataAdaptor.toPlainObject(DataAdaptor.diff(next, this.data))
