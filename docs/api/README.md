@@ -1,3 +1,24 @@
+### Tina
+
+#### 全局 API
+##### Tina.use(plugin)
+- 参数:
+  - ``{Object} plugin``
+    - ``{Function} install``
+- 用法:
+
+  为全局 Tina 安装插件。
+
+  ```javascript
+  Tina.use({
+    install (Tina, options) {
+      let { Page, Component } = Tina
+      console.log(Page, Component, options)
+    },
+  }, options)
+  ```
+
+
 ### Page
 
 #### 全局配置
