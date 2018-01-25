@@ -36,11 +36,11 @@ const COMPONENT_INITIAL_OPTIONS = {
 const BUILTIN_MIXINS = [$log, $initial]
 
 class Component extends Unit {
-  static mixins = []
+  static _mixins = []
 
   static define (options = {}) {
     // use mixins
-    options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this.mixins, ...(options.mixins || []), options])
+    options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
     options.data = this.Data.isInstance(options.data) ? data : new this.Data(options.data)

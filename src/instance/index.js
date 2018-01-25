@@ -11,17 +11,17 @@ class Tina {
   static BasicData = BasicData
   static SigmundData = SigmundData
 
-  static plugins = []
+  static _plugins = []
 
   static use (plugin, ...args) {
-    if (~this.plugins.indexOf(plugin)) {
+    if (~this._plugins.indexOf(plugin)) {
       return this
     }
 
     if (typeof plugin.install === 'function') {
       plugin.install(this, ...args)
     }
-    this.plugins.push(plugin)
+    this._plugins.push(plugin)
     return this
   }
 }

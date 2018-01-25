@@ -10,10 +10,10 @@ class Basic {
 
   static Data = SigmundData
 
-  static mixins = []
+  static _mixins = []
 
   static mixin (mixin) {
-    this.mixins.push(mixin)
+    this._mixins.push(mixin)
   }
 
   // utilty function for mixin
