@@ -183,6 +183,3 @@ Page.define({
   mixin: [mustLoggedIn],
 })
 ```
-
-## 推荐使用的混合扩展
-基于混合的能力，我们为你准备好了 [<i class="iconfont icon-plugin"></i>几款 Tina.js 的扩展模块](/guide/router.md) 。你现在就可以开始在实际项目中使用它们；或者也可以从中参考源代码，了解更多编写混合模块的细节。
