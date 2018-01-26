@@ -14,6 +14,9 @@ export default {
     builtins(),
     babel({
       exclude: ['node_modules/**'],
+      plugins: [
+        'external-helpers',
+      ],
     }),
     nodejs(),
     commonjs(),
