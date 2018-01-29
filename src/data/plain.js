@@ -2,9 +2,9 @@ import each from 'for-own'
 import map from 'just-map-object'
 import filter from 'just-filter-object'
 import isPlainObject from 'is-plain-obj'
-import BasicDataAdaptor from './basic'
+import BasicDataAdapter from './basic'
 
-class PlainDataAdaptor extends BasicDataAdaptor {
+class PlainDataAdapter extends BasicDataAdapter {
   static isData (data) {
     return isPlainObject(data)
   }
@@ -29,4 +29,4 @@ class PlainDataAdaptor extends BasicDataAdaptor {
   }
 }
 
-export default PlainDataAdaptor
+export default PlainDataAdapter

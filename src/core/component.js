@@ -4,7 +4,7 @@ import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, initializeData } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
-import SigmundDataAdaptor from '../data/sigmund'
+import SigmundDataAdapter from '../data/sigmund'
 import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
@@ -33,7 +33,7 @@ const COMPONENT_INITIAL_OPTIONS = {
   relations: {},
   options: {},
   adapters: {
-    data: SigmundDataAdaptor,
+    data: SigmundDataAdapter,
   },
 }
 

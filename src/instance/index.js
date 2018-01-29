@@ -1,17 +1,17 @@
 import Unit from '../core/unit'
 import Page from '../core/page'
 import Component from '../core/component'
-import BasicDataAdaptor from '../data/basic'
-import PlainDataAdaptor from '../data/plain'
-import SigmundDataAdaptor from '../data/sigmund'
+import BasicDataAdapter from '../data/basic'
+import PlainDataAdapter from '../data/plain'
+import SigmundDataAdapter from '../data/sigmund'
 
 class Tina {
   static Unit = Unit
   static Page = Page
   static Component = Component
-  static BasicDataAdaptor = BasicDataAdaptor
-  static PlainDataAdaptor = PlainDataAdaptor
-  static SigmundDataAdaptor = SigmundDataAdaptor
+  static BasicDataAdapter = BasicDataAdapter
+  static PlainDataAdapter = PlainDataAdapter
+  static SigmundDataAdapter = SigmundDataAdapter
 
   static _plugins = []
 

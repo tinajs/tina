@@ -7,7 +7,7 @@ function shouleBeOverrided (name, args, result) {
   throw new Error(`[Tina] - The method "${name}" of DataAdaptor should be overrided by a function, which receives arguments <(${args.join(', ')})> and return <${result}>.`)
 }
 
-class BasicDataAdaptor {
+class BasicDataAdapter {
   static isData (data) {
     shouleBeOverrided('isData', ['data'], 'Boolean()')
   }
@@ -29,4 +29,4 @@ class BasicDataAdaptor {
   }
 }
 
-export default BasicDataAdaptor
+export default BasicDataAdapter

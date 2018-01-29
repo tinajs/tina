@@ -2,7 +2,7 @@ import sigmund from 'sigmund'
 import each from 'for-own'
 import map from 'just-map-object'
 import filter from 'just-filter-object'
-import BasicDataAdaptor from './basic'
+import BasicDataAdapter from './basic'
 
 export class SigmundData {
   constructor (plain) {
@@ -37,7 +37,7 @@ export class SigmundData {
   }
 }
 
-class SigmundDataAdaptor extends BasicDataAdaptor {
+class SigmundDataAdaptr extends BasicDataAdapter {
   static isData (data) {
     return data instanceof SigmundData
   }
@@ -61,4 +61,4 @@ class SigmundDataAdaptor extends BasicDataAdaptor {
   }
 }
 
-export default SigmundDataAdaptor
+export default SigmundDataAdaptr
