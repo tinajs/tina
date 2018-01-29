@@ -1,8 +1,8 @@
 import isPlainObject from 'is-plain-obj'
 import map from 'just-map-object'
-import { isEmpty, pick } from '../utils/functions'
-import globals from '../utils/globals'
-import strategies from '../utils/mix-strategies'
+import { isEmpty, pick } from '../../utils/functions'
+import globals from '../../utils/globals'
+import strategies from '../../utils/mix-strategies'
 
 class Basic {
   static debug = false

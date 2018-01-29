@@ -1,1 +1,1 @@
-export default from './instance'
+export default from './core/instance'

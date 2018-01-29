@@ -1,10 +1,10 @@
 import map from 'just-map-object'
-import { $initial, $log } from '../mixins'
-import { pick, without, values, fromPairs } from '../utils/functions'
-import { prependHooks, linkProperties, initializeData } from '../utils/helpers'
-import * as wxOptionsGenerator from '../utils/wx-options-generator'
-import globals from '../utils/globals'
-import SigmundDataAdapter from '../data/sigmund'
+import { $initial, $log } from '../../mixins'
+import { pick, without, values, fromPairs } from '../../utils/functions'
+import { prependHooks, linkProperties, initializeData } from '../../utils/helpers'
+import * as wxOptionsGenerator from '../../utils/wx-options-generator'
+import globals from '../../utils/globals'
+import SigmundDataAdapter from '../../adapters/data/sigmund'
 import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']

@@ -1,9 +1,9 @@
-import Unit from '../core/unit'
-import Page from '../core/page'
-import Component from '../core/component'
-import BasicDataAdapter from '../data/basic'
-import PlainDataAdapter from '../data/plain'
-import SigmundDataAdapter from '../data/sigmund'
+import Unit from '../layers/unit'
+import Page from '../layers/page'
+import Component from '../layers/component'
+import BasicDataAdapter from '../../adapters/data/basic'
+import PlainDataAdapter from '../../adapters/data/plain'
+import SigmundDataAdapter from '../../adapters/data/sigmund'
 
 class Tina {
   static Unit = Unit
