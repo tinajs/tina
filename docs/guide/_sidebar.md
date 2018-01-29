@@ -4,6 +4,7 @@
   - [<span class="iconfont icon-wxapp"></span> 开始之前](guide/preparatory.md)
   - [<span class="iconfont icon-page"></span> 页面](guide/page.md)
   - [<span class="iconfont icon-component"></span> 组件](guide/component.md)
+  - [<span class="iconfont icon-matrix"></span> 数据](guide/data.md)
   - [<span class="iconfont icon-mix"></span> 混合](guide/mixin.md)
   - [<span class="iconfont icon-plugin"></span> 插件](guide/plugin.md)
 - <span class="iconfont icon-crown"></span> 推荐扩展
