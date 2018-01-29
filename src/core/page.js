@@ -4,6 +4,7 @@ import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, initializeData } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
+import SigmundDataAdaptor from '../data/sigmund'
 import Unit from './unit'
 
 const MINA_PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll']
@@ -29,6 +30,9 @@ const PAGE_INITIAL_OPTIONS = {
   // hooks: return { beforeLoad: [], ...... }
   ...fromPairs(PAGE_HOOKS.map((name) => [name, []])),
   methods: {},
+  adapters: {
+    data: SigmundDataAdaptor,
+  },
 }
 
 const BUILTIN_MIXINS = [$log, $initial]
@@ -41,11 +45,11 @@ class Page extends Unit {
     options = this.mix(PAGE_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
-    options.data = initializeData(this.DataAdaptor, options.data)
+    options.data = initializeData(options.adapters.data, options.data)
 
     // create wx-Page options
     let page = {
-      data: this.DataAdaptor.toPlainObject(options.data),
+      data: options.adapters.data.toPlainObject(options.data),
       ...wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
@@ -82,6 +86,7 @@ class Page extends Unit {
       ...map(pick(options, PAGE_HOOKS), (name, handlers) => function (...args) {
         return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
       }),
+      adapters: options.adapters,
     }
     // apply members into instance
     for (let name in members) {

@@ -4,6 +4,7 @@ import { pick, without, values, fromPairs } from '../utils/functions'
 import { prependHooks, linkProperties, initializeData } from '../utils/helpers'
 import * as wxOptionsGenerator from '../utils/wx-options-generator'
 import globals from '../utils/globals'
+import SigmundDataAdaptor from '../data/sigmund'
 import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
@@ -31,6 +32,9 @@ const COMPONENT_INITIAL_OPTIONS = {
   methods: {},
   relations: {},
   options: {},
+  adapters: {
+    data: SigmundDataAdaptor,
+  },
 }
 
 const BUILTIN_MIXINS = [$log, $initial]
@@ -43,11 +47,11 @@ class Component extends Unit {
     options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
-    options.data = initializeData(this.DataAdaptor, options.data, options.properties)
+    options.data = initializeData(options.adapters.data, options.data, options.properties)
 
     // create wx-Component options
     let component = {
-      data: this.DataAdaptor.toPlainObject(options.data),
+      data: options.adapters.data.toPlainObject(options.data),
       properties: wxOptionsGenerator.properties(options.properties),
       methods: wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
@@ -85,6 +89,7 @@ class Component extends Unit {
       ...map(pick(options, COMPONENT_HOOKS), (name, handlers) => function (...args) {
         return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
       }),
+      adapters: options.adapters,
     }
     // apply members into instance
     for (let name in members) {

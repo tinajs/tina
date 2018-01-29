@@ -45,10 +45,11 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
   return TargetClass
 }
 
-export function initializeData (DataAdaptor, data, properties) {
-  data = DataAdaptor.isData(data) ? data : DataAdaptor.fromPlainObject(data)
+export function initializeData (adapter, data, properties) {
+  let { isData, fromPlainObject, merge } = adapter
+  data = isData(data) ? data : fromPlainObject(data)
   if (typeof properties === 'object') {
-    let defaults = DataAdaptor.fromPlainObject(
+    let defaults = fromPlainObject(
       map(
         filter(
           properties,
@@ -57,7 +58,7 @@ export function initializeData (DataAdaptor, data, properties) {
         (name, property) => property.value,
       ),
     )
-    data = DataAdaptor.merge(data, defaults)
+    data = merge(data, defaults)
   }
   return data
 }

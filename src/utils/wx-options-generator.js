@@ -34,8 +34,8 @@ export function properties (object) {
     return function observer (...args) {
       let newer = args[0]
       let context = this.__tina_instance__
-      let DataAdaptor = this.__tina_instance__.constructor.DataAdaptor
-      context.setData(DataAdaptor.fromPlainObject({
+      let { fromPlainObject } = this.__tina_instance__.adapters.data
+      context.setData(fromPlainObject({
         [key]: newer,
       }))
       if (typeof handler === 'string') {
