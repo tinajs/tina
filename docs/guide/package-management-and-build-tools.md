@@ -32,5 +32,72 @@ npm start
 
 > 编译生产环境版本时，请使用 ``npm run build``。
 
+## 与预处理器一起工作
+**mina-loader** 是 mina-webpack 项目的核心组成部分。除了正常地解析 [mina 单文件组件](/guide/single-file-component) 外，mina-loader 还支持与其他预处理器一起工作。
+
+比如我们常使用 Babel 预处理 ``<script>`` 部块，并使用 PostCSS 预处理 ``<style>``:
+
+```javascript
+// ... webpack.config.js
+      {
+        test: /\.mina$/,
+        use: [{
+          loader: '@tinajs/mina-loader',
+          options: {
+            loaders: {
+              script: 'babel-loader',
+              style: 'postcss-loader',
+            },
+          },
+        }],
+      },
+// ...
+```
+
+你可以设置 loader 的自定义选项 (options)，格式与 webpack 中的 [Rule.use](https://webpack.js.org/configuration/module/#rule-use) 一致：
+
+```javascript
+// ... webpack.config.js
+      {
+        test: /\.mina$/,
+        use: [{
+          loader: '@tinajs/mina-loader',
+          options: {
+            loaders: {
+              script: 'babel-loader',
+              style: {
+                loader: 'postcss-loader',
+                options: {
+                  config: {
+                    path: __dirname + '/postcss.config.js',
+                  },
+                },
+              },
+            },
+          },
+        }],
+      },
+// ...
+```
+
+当然，得益于 webpack 成熟的社区，你同样可以自由地选择任何其它 loaders，比如 Buble、Less：
+
+```javascript
+// ... webpack.config.js
+      {
+        test: /\.mina$/,
+        use: [{
+          loader: '@tinajs/mina-loader',
+          options: {
+            loaders: {
+              script: 'buble-loader',
+              style: 'less-loader',
+            },
+          },
+        }],
+      },
+// ...
+```
+
 ## 了解更多
-mina-webpack 由 mina-loader 以及两个 webpack 插件组成，如果你感兴趣，欢迎访问 [项目仓库](https://github.com/tinajs/mina-webpack/) 了解更多信息。
+除了 mina-loader，mina-webpack 中还包含两个 webpack 插件。如果你感兴趣，同样欢迎访问 [项目仓库](https://github.com/tinajs/mina-webpack/) 了解更多信息。
