@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/tinajs/tina/issues"
   },
-  "homepage": "https://tinajs.github.io/tina",
+  "homepage": "https://tina.js.org",
   "scripts": {
     "start": "rollup -c -w",
     "clean": "rimraf ./dist",
