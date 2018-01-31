@@ -22,7 +22,7 @@ Page.define({
 })
 ```
 
-借助混合设置全局数据模型适配器:
+或借助混合设置全局数据模型适配器:
 ```javascript
 import { Page, Component } from '@tinajs/tina'
 
@@ -68,7 +68,7 @@ Component.mixin(mixin)
 
 
 ## 不可变数据
-在小程序开发中，你 [应尽量避免直接修改 ``this.data``](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#pageprototypesetdata)。
+在小程序开发中，[应尽量避免直接修改 ``this.data``](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#pageprototypesetdata)。
 
 大多数情况下，你可以使用 ``Object.assign`` 或者 [ES2015 - Spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)：
 
@@ -181,7 +181,7 @@ Page.define({
 </script>
 ```
 
-<del>这样的操作让人窒息。</del>
+<del>这样的操作令人窒息。</del>
 
 你可以引入一些工具简化这一操作，比如使用 [immutability-helper](https://github.com/kolodny/immutability-helper):
 ```javascript
