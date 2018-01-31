@@ -239,7 +239,7 @@ Tina.use(ImmutablePlugin)
 
 为了兼容上述在 MINA 中直接修改 ``this.data`` 的特殊用例，在 Tina.js 中，``setData`` 的默认去重算法便无法简单地只做浅比较 —— 这也就给更新数据带来了不必要的性能损耗。
 
-> Tina.js 默认使用 SigmundData 数据模型封装 data —— 一个基于 [isaacs/sigmund](https://github.com/isaacs/sigmund)，通过对数据签名实现脏检查的数据模型；其检查效率高于深对比，但少数特殊情况下准确度不及深对比。
+> Tina.js 默认使用 SigmundData 数据模型封装 data —— 一个基于 [isaacs/sigmund](https://github.com/isaacs/sigmund)，通过对数据签名实现脏检查的数据模型；其检查效率高于深对比，但代价是牺牲了少数场景下的准确度。
 
 如果你严格地保持以不可变数据看待 ``this.data``，不直接对其进行修改，那么你还可以选择将数据模型适配器设置为 Tina.js 集成的 PlainDataAdapter —— 让去重算法仅做简单的浅比较，从而提高性能 ：
 
