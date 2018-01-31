@@ -46,23 +46,23 @@ Component.mixin(mixin)
 
 - isData(object)
 
-  接收一个 object, 返回 object 是否为指定的数据模型。
+  接收一个 object, 返回 object 是否为期望的数据模型。
 
 - fromPlainObject(plain)
 
-  接受一个可转换为 JSON 的对象，返回一个经指定数据模型封装的实例。
+  接受一个可转换为 JSON 的对象，返回一个经期望数据模型封装的实例。
 
 - merge(original, extra)
 
-  接受两个指定数据模型实例，返回后者浅合并入前者的新实例。
+  接受两个期望数据模型实例，返回后者浅合并入前者的新实例。
 
 - diff(original, extra)
 
-  接受两个指定数据模型实例，返回前者中相比后者不同部分的新实例。
+  接受两个期望数据模型实例，返回前者中相比后者不同部分的新实例。
 
 - toPlainObject(data)
 
-  接受一个指定数据模型实例，返回一个可以转换为 JSON 的对象
+  接受一个期望数据模型实例，返回一个可以转换为 JSON 的对象
 
 你可以查看 [Tina.js 集成的数据模型适配器源码](https://github.com/tinajs/tina/tree/master/src/adapters/data)，参考更多关于编写数据模型适配器的细节。
 

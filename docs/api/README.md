@@ -145,6 +145,13 @@
 
   页面混入的混合对象列表。
 
+##### adapters
+- 类型: ``{ [key: String]: Object }``
+- 默认值: ``{ data: SigmundDataAdapter }``
+- 说明:
+
+  适配器。可用于适配不同的数据模型，如 Immutable.js。
+
 #### Page 选项 / 生命周期和页面事件钩子
 ##### beforeLoad(query)
 - 参数:
@@ -512,30 +519,108 @@
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.hasBehavior`` 一致。
 
 ##### component.createSelectorQuery()
-- 参数
-  - ``{Object} data`` 更新的数据
 - 说明:
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.createSelectorQuery`` 一致。
 
 ##### component.selectComponent(selector)
-- 参数
-  - ``{Object} data`` 更新的数据
 - 说明:
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.setData`` 一致。
 
 ##### component.selectAllComponents(selector)
-- 参数
-  - ``{Object} data`` 更新的数据
 - 说明:
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.setData`` 一致。
 
 ##### component.getRelationNodes(key)
-- 参数
-  - ``{Object} data`` 更新的数据
 - 说明:
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.setData`` 一致。
+
+
+### BasicDataAdapter
+#### 全局 API
+##### isData(object)
+- 参数
+  - ``{Object} object`` 对象
+- 返回值: object 是否为期望的数据模型。
+
+##### fromPlainObject(plain)
+- 参数
+  - ``{Object} plain`` 可转换为 JSON 的对象
+- 返回值: 经期望数据模型封装的实例。
+
+##### merge(original, extra)
+- 参数
+  - ``{Object} original`` 原期望数据模型实例
+  - ``{Object} extra`` 扩展的期望数据模型实例
+- 返回值: extra 浅合并入 original 的新实例。
+
+##### diff(original, extra)
+- 参数
+  - ``{Object} original`` 原期望数据模型实例
+  - ``{Object} extra`` 扩展的期望数据模型实例
+- 返回值: 回 original 中相比 extra 不同部分的新实例。
+
+##### toPlainObject(data)
+- 参数
+  - ``{Object} original`` 期望数据模型实例
+- 返回值: 可以转换为 JSON 的对象
+
+
+### PlainDataAdapter
+#### 全局 API
+##### isData(object)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.isData
+
+##### fromPlainObject(plain)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.fromPlainObject
+
+##### merge(original, extra)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.merge
+
+##### diff(original, extra)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.diff
+
+##### toPlainObject(data)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.toPlainObject
+
+
+### SigmundDataAdapter
+#### 全局 API
+##### isData(object)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.isData
+
+##### fromPlainObject(plain)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.fromPlainObject
+
+##### merge(original, extra)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.merge
+
+##### diff(original, extra)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.diff
+
+##### toPlainObject(data)
+- 说明:
+
+  覆盖并实现 BasicDataAdapter.toPlainObject
 
