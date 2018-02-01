@@ -8,8 +8,8 @@
   - [<span class="iconfont icon-mix"></span> 混合](guide/mixin.md)
   - [<span class="iconfont icon-plugin"></span> 插件](guide/plugin.md)
 - <span class="iconfont icon-crown"></span> 推荐扩展
-  - [<span class="iconfont icon-router"></span> 路由](guide/router.md)
   - [<span class="iconfont icon-satellite"></span> 状态管理](guide/state-management.md)
+  - [<span class="iconfont icon-router"></span> 路由增强](guide/router.md)
   - [<span class="iconfont icon-alert"></span> 界面反馈](guide/ui-feedback.md)
 - <span class="iconfont icon-factory"></span> 工程化
   - [<span class="iconfont icon-file"></span> 单文件组件](guide/single-file-component.md)

@@ -1,4 +1,4 @@
-# 路由
+# 路由增强
 微信官方小程序框架 (MINA) 中集成了基础的 [路由功能](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/route.html)。在 Tina 中，你可以毫无疑问地直接使用官方接口，同时也可以借助插件扩展这一能力。
 
 ## tina-router

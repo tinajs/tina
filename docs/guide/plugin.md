@@ -24,7 +24,7 @@ App({
 
 
 ## 开发插件
-与 [Vue 的插件机制](https://cn.vuejs.org/v2/guide/plugins.html#开发插件) 相似，Tina 插件的范围没有任何限制。例如你可以在插件中使用混合，或者直接添加全局属性、方法等。
+与 [Vue 的插件机制](https://cn.vuejs.org/v2/guide/plugins.html#开发插件) 类似，Tina.js 插件的范围没有任何限制。例如你可以在插件中使用 [混合](/guide/mixin)、扩展新的 [数据模型适配器](/guide/data?数据模型适配器)，或者直接添加全局属性、方法。
 
 我们约定 Tina 的插件对象应实现 ``install`` 方法。该方法接受第一个参数是 ``Tina`` 类，你可以从中访问 ``Page``、``Component`` 等变量；剩余参数均为可选，并与用户调用 ``Tina.use`` 时第二个起的所有参数一致。
 
