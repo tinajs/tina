@@ -10,7 +10,7 @@
 
 - [Counter](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
 
-  使用 Tina.js 编写一个简单的计数器小程序。
+  使用 Tina.js 编写一个简单的计数器小程序，并展示了如何引用 NPM 中的小程序独立组件。
 
 - [TodoMVC Lite](https://github.com/tinajs/tina-examples/tree/master/packages/todomvc-lite)
 

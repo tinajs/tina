@@ -65,6 +65,23 @@ Component.define({
 
 > 得益于这一设定的改变，使用 Mina 单文件组件格式，你可以更加轻松地引用 NPM 上的独立组件。
 
+### 从 NPM 引用独立组件
+由于 ``config`` 部块里的无前缀路径 (如 ``"components/spinner"``) 在原小程序框架中代表相对路径，所以我们在不破坏其原设定的基础上，额外约定使用 ``~`` 前缀表示引用 *node_modules* 中的独立组件（或页面）。
+
+比如引入 [@tinajs/tina-logo.mina](https://www.npmjs.com/package/@tinajs/tina-logo.mina)：
+
+```html
+<config>
+{
+  "usingComponents": {
+    "tina-logo": "~@tinajs/tina-logo.mina"
+  }
+}
+</config>
+```
+
+[查看从 NPM 引用独立组件的示例](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
+
 ## 预处理器
 与 Vue.js 不同，Mina 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部块。
 
