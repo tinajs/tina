@@ -103,8 +103,7 @@ button {
 ```
 
 ## 浏览更多示例
-- [Tina.js - Examples](https://github.com/tinajs/tina-examples/tree/master/packages)
-- [HackerNews 热点](https://github.com/tinajs/tina-hackernews)
+[浏览更多使用 Tina.js 的示例](https://tina.js.org/#/guide/examples)
 
 ## 文档
 如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
