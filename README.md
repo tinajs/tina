@@ -16,7 +16,7 @@
 
 - :chart_with_upwards_trend: 渐进增强
 
-  我们已经为你准备好了 [状态管理器](https://tina.js.org/#/guide/state-management)、[Immutable.js](https://github.com/tinajs/tina-immutable)、[路由增强](https://tina.js.org/#/guide/router) 等扩展，当然你也可以 [自己编写一个新的插件](https://tina.js.org/#/guide/plugin)。
+  我们已经为你准备好了 [状态管理器](https://tina.js.org/#/guide/state-management) (比如 Redux)、[Immutable.js](https://github.com/tinajs/tina-immutable)、[路由增强](https://tina.js.org/#/guide/router) 等扩展，当然你也可以 [自己编写一个新的插件](https://tina.js.org/#/guide/plugin)。
 
 ## NPM 与单文件组件
 

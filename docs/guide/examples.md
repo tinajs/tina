@@ -18,7 +18,7 @@
 
 - [TodoMVC Lite - Redux](https://github.com/tinajs/tina-redux/tree/master/example)
 
-  使用 Tina.js 实现一个 TodoMVC Lite 版，并引入 [Redux](cn.redux.js.org) 。
+  使用 Tina.js 实现一个 TodoMVC Lite 版，并引入 [Redux](http://cn.redux.js.org) 。
 
 - [TodoMVC Lite - Immutable](https://github.com/tinajs/tina-immutable/tree/master/example)
 
@@ -30,4 +30,4 @@
 
 - [:tada: HackerNews 热点](https://github.com/tinajs/tina-hackernews)
 
-  使用 Tina.js 编写的小程序版 [Hacker News](https://news.ycombinator.com/) Reader。
+  使用 Tina.js 编写的小程序版 [Hacker News](https://news.ycombinator.com/) [Reader](https://hnpwa.com/)。
