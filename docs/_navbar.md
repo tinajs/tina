@@ -1,11 +1,3 @@
 - [指南](/)
-- [API](api/README.md)
-- 示例
-  - [Say Hi](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi)
-  - [Say Hi with Mina](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi-mina)
-  - [Counter](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
-  - [TodoMVC Lite](https://github.com/tinajs/tina-examples/tree/master/packages/todomvc-lite)
-  - [TodoMVC Lite - Redux](https://github.com/tinajs/tina-redux/tree/master/example)
-  - [TodoMVC Lite - Immutable](https://github.com/tinajs/tina-immutable/tree/master/example)
-  - [TodoMVC Lite - Redux + Immutable](https://github.com/tinajs/tina-examples/tree/master/packages/todomvc-lite-redux-immutable)
-  - [HackerNews :tada:](https://github.com/tinajs/tina-hackernews)
+- [API](/api/README.md)
+- [示例](/guide/examples.md)

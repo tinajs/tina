@@ -14,3 +14,4 @@
 - <span class="iconfont icon-factory"></span> 工程化
   - [<span class="iconfont icon-file"></span> 单文件组件](guide/single-file-component.md)
   - [<span class="iconfont icon-pack"></span> 包管理及构建工具](guide/package-management-and-build-tools.md)
+- [<span class="iconfont icon-nut"></span> 示例](guide/examples.md)
