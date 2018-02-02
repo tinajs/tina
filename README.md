@@ -1,3 +1,5 @@
+[![](https://github.com/tinajs/assets/raw/master/images/banners/title.png)](https://tina.js.org/)
+
 # Tina.js
 > 一款轻巧的渐进式微信小程序框架
 
@@ -117,3 +119,5 @@ button {
 
 ## License
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
+
+[![](https://github.com/tinajs/assets/raw/master/images/banners/sponsored.png)](https://github.com/tinajs/tina)
