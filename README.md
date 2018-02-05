@@ -33,15 +33,15 @@
 [![](https://github.com/tinajs/assets/raw/master/images/screenshots/intro/home.png)](https://gist.github.com/imyelo/48872fc76468c86b1feb893a98a216fa#file-home-mina)
 
 ## 浏览更多示例
-[浏览更多使用 Tina.js 的示例](https://tina.js.org/#/guide/examples)
+[浏览更多使用 Tina.js 的示例 :beginner:](https://tina.js.org/#/guide/examples)
 
 ## 文档
 如果你已经熟悉传统的小程序开发，那么上手 tina 将会非常简单。
 
-接下来，请前往 [tina.js.org](https://tina.js.org) 查阅更详尽的指南。
+接下来，请前往 [:book: tina.js.org](https://tina.js.org) 查阅更详尽的指南。
 
 ## Showcase
-- [Hacker News 热点](https://github.com/imyelo/tina-hackernews)
+- [Hacker News 热点 :fire:](https://github.com/imyelo/tina-hackernews)
 
   ![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/hackernews-wxcode-172.png)
 
