@@ -31,6 +31,16 @@
 ## 一个简单的例子
 **/app.mina**
 ```html
+<!-- /app.mina -->
+
+<config>
+{
+  "pages": [
+    "pages/home.mina",
+  ]
+}
+</config>
+
 <script>
 import Tina from '@tinajs/tina'
 import router from '@tinajs/tina-router'
@@ -43,6 +53,8 @@ App()
 
 **/pages/home.mina**
 ```html
+<!-- /pages/home.mina -->
+
 <config>
 {
   "usingComponent": {
@@ -74,14 +86,17 @@ Page.define(({
     return {
       name: `${firstname} ${lastname}`,
     }
-  }
+  },
 
-  onLoad () {
+  async onLoad () {
     // 由 tina-router 提供的路由能力扩展
     let { id } = this.$route.query
-    fetchUser(id)
-      .then(({ firstname, lastname ) => this.setData({ firstname, lastname }))
-      .catch(() => this.$router.redirect(`/pages/login?from=${this.$route.fullPath}`))
+    try {
+      let { firstname, lastname } = fetchUser(id)
+      this.setData({ firstname, lastname })
+    } catch (error) {
+      this.$router.redirect(`/pages/login?from=${this.$route.fullPath}`)
+    }
   },
 
   methods: {
