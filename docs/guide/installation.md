@@ -1,5 +1,5 @@
 # 安装和引用
-我们推荐在小程序项目中 [借助 Webpack](guide/installation?id=Webpack) 使用 Tina，但如果你只是希望在现有的项目中小试牛刀，也可以通过拷贝文件的形式 [直接引入](guide/installation?id=直接引入) 。
+我们推荐在小程序项目中 [借助 Webpack](guide/installation?id=Webpack) 使用 Tina，但如果你只是希望在现有的项目中小试牛刀，也可以通过拷贝文件的形式 [直接引入](guide/installation?id=直接引入) 。
 
 ## 直接引入
 从传统项目中引入 Tina 非常简单。你只需要将最新的 [tina.min.js](https://unpkg.com/@tinajs/tina/dist/tina.min.js) 拷贝至项目中，并借助小程序环境集成的 ``require`` 方法加载使用。
@@ -30,7 +30,7 @@ Page.define(......)
 如果你感兴趣，欢迎查看 [完整的示例 - sayhi](https://github.com/tinajs/tina-examples/tree/master/packages/sayhi) 。
 
 ## Webpack
-借助 [mina-webpack](https://github.com/tinajs/mina-webpack) , 你可以通过 **npm** 安装和使用 tina。
+借助 [mina-webpack](https://github.com/tinajs/mina-webpack) , 你可以通过 **npm** 安装和使用 tina。
 
 > 使用 mina-webpack ，你的项目将获得 es2015+、npm、mina 单文件组件、文件预处理器、代码混淆和压缩等能力。
 
