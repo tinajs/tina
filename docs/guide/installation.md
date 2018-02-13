@@ -19,7 +19,7 @@
 └── project.config.json
 ```
 
-然后在页面 *pages/hi.js* 中便可以加载使用：
+然后在页面 *pages/hi.js* 中便可以加载使用：
 ```javascript
 var { Page } = require('../libraries/tina.min.js')
 
