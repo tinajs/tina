@@ -45,6 +45,8 @@
 
   ![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/hackernews-wxcode-172.png)
 
+*你也已经在使用 Tina.js 了吗？[请在这里告诉我们 :muscle:。 ](https://github.com/tinajs/tina/edit/master/README.md)*
+
 ## License
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
 
