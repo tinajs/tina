@@ -82,6 +82,15 @@ Component.define({
 
 [查看从 NPM 引用独立组件的示例](https://github.com/tinajs/tina-examples/tree/master/packages/counter)
 
+### 引用组件的所有路径规则
+| 路径前缀 |              含义              |      示例 (假定当前文件为 ``/cabin/page.mina``)      |
+| -------- | ------------------------------ | ---------------------------------------------------- |
+| *无*     | 从当前目录开始的相对路径       | ``octocat.mina`` -> ``/cabin/octocat.mina``          |
+| ``./``   | 从当前目录开始的相对路径       | ``./octocat.mina`` -> ``/cabin/octocat.mina``        |
+| ``../``  | 从上级目录开始的相对路径       | ``../octocat.mina`` -> ``/octocat.mina``             |
+| ``/``    | 从应用根目录开始的绝对路径     | ``/octocat.mina`` -> ``/octocat.mina``               |
+| ``~``    | 从 node_modules 开始的绝对路径 | ``~octocat-mina`` -> ``(node_modules/)octocat-mina`` |
+
 ## 预处理器
 与 Vue.js 不同，Mina 文件没有内置预处理器。但借助 webpack 或 gulp 等构建工具，你可以更加灵活地处理文件中的各个部块。
 
