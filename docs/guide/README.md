@@ -6,6 +6,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 [![GitHub stars](https://img.shields.io/github/stars/tinajs/tina.svg?label=关注 Tina.js&style=for-the-badge)](https://github.com/tinajs/tina)
+[![Chat](https://img.shields.io/badge/Discord-加入讨论组-7289da.svg?style=for-the-badge)](https://discord.gg/FX2RATn)
 
 ## 特性
 - :honeybee: 轻盈小巧
