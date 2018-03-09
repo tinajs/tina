@@ -248,6 +248,12 @@
 
   与 [MINA 注册页面](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#pageprototypesetdata) 中的 ``Page.prototype.route`` 一致。
 
+##### page.$source
+- 类型: ``Object``
+- 说明:
+
+  当前页面对应的 [原 MINA Page 实例](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html)。
+
 #### 实例方法
 ##### page.setData(data)
 - 参数
@@ -486,6 +492,12 @@
   节点 dataset。
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.dataset`` 一致。
+
+##### component.$source
+- 类型: ``Object``
+- 说明:
+
+  当前组件对应的 [原 MINA Component 实例](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/)。
 
 
 #### 实例方法
