@@ -23,13 +23,16 @@
     "build": "run-s build:*",
     "build:rollup": "rollup -c",
     "build:minify": "uglifyjs --compress --mangle --output ./dist/tina.min.js -- ./dist/tina.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "ava ./test"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
+    "clone": "^2.1.1",
     "deepmerge": "^2.0.1",
     "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
@@ -38,6 +41,8 @@
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "set-value": "^3.0.0",
+    "sinon": "^5.1.0",
     "uglify-js": "^3.2.1"
   },
   "dependencies": {
