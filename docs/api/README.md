@@ -1,5 +1,17 @@
 ### Tina
 
+#### 全局配置
+##### Tina.globals
+- 类型: ``Object``
+- 默认值: ``{ App, Page, Component, wx }``
+- 用法:
+
+  ```javascript
+  Tina.globals.Page = require('sinon').spy()
+  ```
+
+  Tina 所依赖的全局变量集合。在编写测试用例时，可通过重写该对象的值模拟小程序运行时的环境。
+
 #### 全局 API
 ##### Tina.use(plugin)
 - 参数:
