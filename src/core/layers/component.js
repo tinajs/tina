@@ -9,7 +9,7 @@ import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'options']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
-const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes']
+const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes', 'createIntersectionObserver']
 const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
 
 const ADDON_BEFORE_HOOKS = {}
