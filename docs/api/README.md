@@ -242,6 +242,15 @@
 
   与 [MINA 注册页面 - 页面相关事件处理函数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#页面相关事件处理函数) 中的 ``onShareAppMessage`` 一致。
 
+##### onTabItemTap()
+- 返回值:
+  - ``{Object} item`` Tab 项
+- 说明:
+
+  当前是 tab 页时，点击 tab 时触发。
+
+  与 [MINA 注册页面 - 页面相关事件处理函数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/page.html#页面相关事件处理函数) 中的 ``onTabItemTap`` 一致。
+
 
 #### 实例属性
 ##### page.data
@@ -410,6 +419,13 @@
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``relations`` 一致。
 
+##### externalClasses
+- 类型: ``String | Array``
+- 默认值: ``''``
+- 说明:
+
+  与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``externalClasses`` 一致。
+
 ##### options
 - 类型: ``Object``
 - 默认值: ``{}``
@@ -561,6 +577,11 @@
 - 说明:
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``Component.prototype.setData`` 一致。
+
+##### component.createIntersectionObserver(options)
+- 说明:
+
+  与 [WXML节点布局相交状态](https://mp.weixin.qq.com/debug/wxadoc/dev/api/intersection-observer.html) 中的 ``Component.prototype.createIntersectionObserver`` 一致。
 
 
 ### BasicDataAdapter
