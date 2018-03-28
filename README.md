@@ -7,6 +7,7 @@
 [![license](https://img.shields.io/github/license/tinajs/tina.svg?style=flat-square)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg?style=flat-square)](https://discord.gg/FX2RATn)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftinajs%2Ftina.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftinajs%2Ftina?ref=badge_shield)
 
 ## 特性
 - :honeybee: 轻盈小巧
@@ -52,3 +53,6 @@
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2017 - present
 
 [![](https://github.com/tinajs/assets/raw/master/images/banners/sponsored.png)](https://github.com/tinajs/tina)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftinajs%2Ftina.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftinajs%2Ftina?ref=badge_large)
