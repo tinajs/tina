@@ -120,3 +120,18 @@ Component.define({
 }
 </style>
 ```
+
+你还可以通过配置 Vetur 的 [``vetur.grammar.customBlocks``](https://vuejs.github.io/vetur/highlighting.html#custom-block) 为 ``<config>`` 部块也设置语法高亮：
+
+1. 在 VSCode 中按下 ``Ctrl+,`` 打开用户设置 (User Settings)
+2. 在用户设置中追加如下配置并保存
+
+  ```json
+  "vetur.grammar.customBlocks": {
+      "config": "json"
+  }
+  ```
+
+3. 通过 ``Ctrl+Shift+P`` 唤起命令面板，执行 ``Vetur: Generate grammar from vetur.grammar.customBlocks``
+4. 通过 ``Ctrl+Shift+P`` 唤起命令面板，执行 ``Reload Window``，或直接重启 VSCode
+
