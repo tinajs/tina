@@ -23,7 +23,8 @@
     "build": "run-s build:*",
     "build:rollup": "rollup -c",
     "build:minify": "uglifyjs --compress --mangle --output ./dist/tina.min.js -- ./dist/tina.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "postinstall": "opencollective-postinstall"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -45,6 +46,11 @@
     "is-plain-obj": "^1.1.0",
     "just-filter-object": "^1.1.22",
     "just-map-object": "^1.1.24",
+    "opencollective": "^1.0.3",
     "sigmund": "^1.0.1"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/tina"
   }
 }
