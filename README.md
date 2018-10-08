@@ -46,6 +46,7 @@
 |-|-|
 |![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/hackernews-wxcode-172.png)|Hacker News 热点 :fire:<br />[https://github.com/tinajs/tina-hackernews](https://github.com/tinajs/tina-hackernews)|
 |![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/kuaizixun-wxcode-172.png)|快资讯<br />[@lizheming](https://github.com/lizheming)|
+|![wxcode](https://cdn.ruguoapp.com/jike-mp/wxcode-172.jpg)|即刻App<br />[@ruguoapp](https://github.com/ruguoapp)|
 
 *你也已经在使用 Tina.js 了吗？[请在这里告诉我们 :muscle:。 ](https://github.com/tinajs/tina/edit/master/README.md)*
 
