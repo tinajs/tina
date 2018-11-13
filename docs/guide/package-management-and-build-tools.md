@@ -17,7 +17,7 @@
 如果你已经等不及了，使用 [template-mina](https://github.com/tinajs/template-mina) 项目模板可以帮助你快速地搭建好基于 mina-webpack 的小程序项目：
 
 ```bash
-npm i -g sao
+npm i -g sao@0.x
 
 sao mina my-app
 cd my-app
