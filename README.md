@@ -48,6 +48,7 @@
 |![wxcode](https://github.com/tinajs/assets/raw/master/images/showcases/kuaizixun-wxcode-172.png)|快资讯<br />[@lizheming](https://github.com/lizheming)|
 |![wxcode](https://cdn.ruguoapp.com/jike-mp/wxcode-172.jpg)|即刻App<br />[@ruguoapp](https://github.com/ruguoapp)|
 |![wxcode](https://raw.githubusercontent.com/leadream/funny/master/calendar-movie/movielect-wxcode.jpg)|选个电影<br/>[@leadream](https://github.com/leadream)|
+|![wxcode](https://static.kanfangjilu.com/common/weapp-code-tina-showcase-172.jpg)|小鹿选房<br/>[fanggeek.com](http://fanggeek.com)|
 
 *你也已经在使用 Tina.js 了吗？[请在这里告诉我们 :muscle:。 ](https://github.com/tinajs/tina/edit/master/README.md)*
 
