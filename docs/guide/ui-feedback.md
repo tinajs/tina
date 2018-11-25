@@ -9,7 +9,7 @@
  * /app.js or <script> in /app.mina
  */
 import Tina from '@tinajs/tina'
-import { modal } from '@tinajs/tina-modal'
+import modal from '@tinajs/tina-modal'
 
 Tina.use(modal)
 ```
