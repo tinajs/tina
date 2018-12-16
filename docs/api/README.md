@@ -123,6 +123,28 @@
   // [Tina.Page] - custom-action: >+data
   ```
 
+##### getCurrentPages()
+- 返回值: 由 Tina 代理的当前页面栈
+- 用法:
+
+  获取当前页面栈。与小程序全局的 `getCurrentPages` 方法不同，这个 API 将返回由 Tina 代理的页面栈。
+
+  ```javascript
+  import { Page, getCurrentPages } from '@tinajs/tina'
+
+  Page.define({
+    onLoad () {
+      console.log(getCurrentPages())
+      /**
+       * result:
+       *
+       *     [page]
+       *
+       */
+    },
+  })
+  ```
+
 #### Page 选项 / 一般参数
 ##### data
 - 类型: ``Object``

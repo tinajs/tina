@@ -130,6 +130,26 @@ Page.define({
 通过 ``compute(data)`` 方法计算返回的值，将被合并入实例的 ``data`` 属性中。你可以在模板或者实例方法中通过读取 ``data`` 使用。
 
 
+## getCurrentPages
+当使用 Tina 后，你依旧可以通过小程序自身暴露的全局 API `getCurrentPages()` 获取当前页面栈。
+但需要注意的是，该 API 返回的页面栈并非 `Tina.Page.define(...)` 中的实例，这可能会让你感到困扰；因此我们也提供了与之相应的 `getCurrentPages()` API，帮助你访问 *当前通过 Tina Page 构造的页面栈*：
+
+```javascript
+/**
+ * 从 `@tinajs/tina` 中引入 `getCurrentPages`，而非直接使用全局暴露的 API
+ */
+import { Page, getCurrentPages } from '@tinajs/tina'
+
+Page.define({
+  onLoad () {
+    console.log(getCurrentPages())
+  },
+})
+```
+
+> 但通常来说，对于跨页面操作数据的场景，我们更推荐你使用 [全局状态管理器](/guide/state-management)。
+
+
 ## 为什么是 Page.define
 *为什么是 ``Page.define()``，而不是 ``Page()`` 或 ``new Page()`` ？*
 
