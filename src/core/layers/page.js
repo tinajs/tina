@@ -107,3 +107,7 @@ linkProperties({
 })
 
 export default Page
+
+export function getCurrentPages () {
+  return globals.getCurrentPages().map((page) => page.__tina_instance__)
+}

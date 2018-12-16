@@ -3,4 +3,5 @@ export default {
   Page,
   Component,
   wx,
+  getCurrentPages,
 }
