@@ -131,8 +131,8 @@ Page.define({
 
 
 ## getCurrentPages
-当使用 Tina 后，你依旧可以通过小程序自身暴露的全局 API `getCurrentPages()` 获取当前页面栈。
-但需要注意的是，该 API 返回的页面栈并非 `Tina.Page.define(...)` 中的实例，这可能会让你感到困扰；因此我们也提供了与之相应的 `getCurrentPages()` API，帮助你访问 *当前通过 Tina Page 构造的页面栈*：
+当使用 Tina 后，你依旧可以通过小程序自身暴露的全局 API [`getCurrentPages()`](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html#getcurrentpages) 获取当前页面栈。
+但需要注意的是，该 API 返回的页面栈并非 `Tina.Page.define(...)` 中的实例，这可能会让你感到困扰；因此我们也提供了与之相应的 `getCurrentPages()` API，帮助你访问 **当前通过 Tina Page 构造的页面栈** ：
 
 ```javascript
 /**
