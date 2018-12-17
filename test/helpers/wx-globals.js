@@ -4,3 +4,4 @@ global.App = noop
 global.Page = noop
 global.Component = noop
 global.wx = noop
+global.getCurrentPages = noop
