@@ -1,11 +1,11 @@
-import '../helpers/wx-globals'
+import '../../helpers/wx-globals'
 import test from 'ava'
 import sinon from 'sinon'
 
-import MinaSandbox from '../helpers/mina-sandbox'
-import { objectify } from '../helpers/functions'
+import MinaSandbox from '../../helpers/mina-sandbox'
+import { objectify } from '../../helpers/functions'
 
-import Tina from '../..'
+import Tina from '../../..'
 
 test.beforeEach((t) => {
   t.context.mina = new MinaSandbox({ Tina })
@@ -254,36 +254,6 @@ test('`properties` should work with custom observer which is defined in `methods
     qux: 'quuz',
   })
   t.true(spy.calledWith('quuz', 'quux'))
-})
-
-test('`compute` should be called and merged with `data`', async (t) => {
-  const options = {
-    properties: {
-      qux: {
-        type: String,
-        value: 'quux',
-      },
-    },
-    data: {
-      foo: 'bar',
-    },
-    compute (state) {
-      return {
-        foobar: state.foo + 'baz' + state.qux,
-      }
-    },
-  }
-  Tina.Component.define(options)
-
-  const component = t.context.mina.getComponent(-1)
-  await component._emit('created')
-  await component._emit('attached')
-
-  t.deepEqual(component.data, {
-    foo: 'bar',
-    foobar: 'barbazquux',
-    qux: 'quux',
-  })
 })
 
 test('`methods` could be called in context of Component instance', async (t) => {

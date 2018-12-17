@@ -1,10 +1,10 @@
-import '../helpers/wx-globals'
+import '../../helpers/wx-globals'
 import test from 'ava'
 import sinon from 'sinon'
 
-import MinaSandbox from '../helpers/mina-sandbox'
+import MinaSandbox from '../../helpers/mina-sandbox'
 
-import Tina from '../..'
+import Tina from '../../..'
 
 test.beforeEach((t) => {
   t.context.mina = new MinaSandbox({ Tina })
@@ -117,28 +117,6 @@ test('`data` could be defined by `Page.define({ data })`', (t) => {
   const page = t.context.mina.getPage(-1)
 
   t.deepEqual(page.data, options.data)
-})
-
-test('`compute` should be called and merged with `data`', async (t) => {
-  const options = {
-    data: {
-      foo: 'bar',
-    },
-    compute (state) {
-      return {
-        foobar: state.foo + 'baz',
-      }
-    },
-  }
-  Tina.Page.define(options)
-
-  const page = t.context.mina.getPage(-1)
-  await page._emit('onLoad')
-
-  t.deepEqual(page.data, {
-    foo: 'bar',
-    foobar: 'barbaz',
-  })
 })
 
 test('`this.data` could be accessed', async (t) => {
