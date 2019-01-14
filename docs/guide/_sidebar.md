@@ -16,4 +16,4 @@
   - [<span class="iconfont icon-pack"></span> 包管理及构建工具](guide/package-management-and-build-tools.md)
 - <span class="iconfont icon-magic"></span> 还有更多
   - [<span class="iconfont icon-nut"></span> 示例](guide/examples.md)
-  - [<span class="iconfont icon-discord"></span> 加入 Discord 讨论组](https://discord.gg/FX2RATn)
+  - [<span class="iconfont icon-discord"></span> 加入 Discord 讨论组](https://discord.gg/YXxy8Wp)
