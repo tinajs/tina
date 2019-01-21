@@ -5,6 +5,7 @@ import Component from '../layers/component'
 import BasicDataAdapter from '../../adapters/data/basic'
 import PlainDataAdapter from '../../adapters/data/plain'
 import SigmundDataAdapter from '../../adapters/data/sigmund'
+import config from '../../utils/config'
 import globals from '../../utils/globals'
 
 class Tina {
@@ -17,6 +18,7 @@ class Tina {
   static BasicDataAdapter = BasicDataAdapter
   static PlainDataAdapter = PlainDataAdapter
   static SigmundDataAdapter = SigmundDataAdapter
+  static config = config
   static globals = globals
 
   static _plugins = []
