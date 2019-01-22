@@ -47,7 +47,7 @@ test('`onLaunch`, `onShow`, `onHide`, `onError`, `onPageNotFound` should be call
   t.true(options.onPageNotFound.calledOnce)
 })
 
-test('the rest of parameters could be accessed and called in context of Page instance', async (t) => {
+test('the rest of parameters could be accessed and called in context of Tina.App instance', async (t) => {
   const spy = sinon.spy()
   const options = {
     onLaunch () {

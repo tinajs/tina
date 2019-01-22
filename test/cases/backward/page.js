@@ -154,7 +154,7 @@ test('`this.route` could be accessed', async (t) => {
   t.true(spy.calledWithExactly(ROUTE))
 })
 
-test('`methods` could be called in context of Page instance', async (t) => {
+test('`methods` could be called in context of Tina.Page instance', async (t) => {
   const options = {
     onLoad () {
       this.foo()

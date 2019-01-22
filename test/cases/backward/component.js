@@ -256,7 +256,7 @@ test('`properties` should work with custom observer which is defined in `methods
   t.true(spy.calledWith('quuz', 'quux'))
 })
 
-test('`methods` could be called in context of Component instance', async (t) => {
+test('`methods` could be called in context of Tina.Component instance', async (t) => {
   const options = {
     attached () {
       this.foo()
