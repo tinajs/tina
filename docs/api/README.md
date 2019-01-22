@@ -31,6 +31,177 @@
   ```
 
 
+### App
+
+#### 全局配置
+##### App.debug
+- 类型: ``boolean``
+- 默认值: ``false``
+- 用法:
+
+  ```javascript
+  App.debug = true
+  ```
+
+  设置为 ``true`` 打开调试模式，输入到 ``App.log`` 的信息将被打印到控制台。
+
+
+#### 全局 API
+##### App.define(options)
+- 参数:
+  - ``{Object} options``
+- 用法:
+
+  定义程序。
+
+  ```javascript
+  App.define({})
+  ```
+
+##### App.mixin(mixin)
+- 参数:
+  - ``{Object | Function | Array} mixin``
+- 用法:
+
+  为全局 App 注册一个混合。
+
+  ```javascript
+  App.mixin({
+    onLaunch () {
+      console.log('hi')
+    },
+  })
+  ```
+
+##### App.mix(origin, mixin)
+- 参数:
+  - ``{Object} origin``
+  - ``{Object | Function | Array} mixin``
+- 返回值: 混合后的值
+- 用法:
+
+  按 App 的混合选项合并策略，计算并返回将 ``mixin`` 的值混入 ``origin`` 后的结果。
+
+  ```javascript
+  App.mix({
+    onLaunch () {
+      console.log('hello')
+    },
+  }, {
+    onLaunch () {
+      console.log('world')
+    },
+  })
+  /**
+   * return
+   * {
+   *   onLaunch: [
+   *     function onLaunch () {
+   *       console.log('hello')
+   *     },
+   *     function onLaunch () {
+   *       console.log('world')
+   *     },
+   *   ],
+   * }
+  ```
+
+##### App.log(action, data)
+- 参数:
+  - ``{String} action``
+  - ``{any} data``
+- 用法:
+
+  输出日志。当 ``App.debug`` 为 ``true`` 时打印到控制台。
+
+  ```javascript
+  App.log('custom-action', { data: 'foobar' })
+  // [Tina.App] - custom-action: >+data
+  ```
+
+##### getApp()
+- 返回值: 由 Tina 代理的小程序 App 实例
+- 用法:
+
+  获取小程序 App 实例。与小程序全局的 `getApp` 方法不同，这个 API 将返回由 Tina 代理的实例。
+
+  ```javascript
+  import { App, getApp } from '@tinajs/tina'
+
+  App.define({
+    onLaunch () {
+      console.log(getApp())
+      /**
+       * result:
+       *
+       *     app
+       *
+       */
+    },
+  })
+  ```
+
+#### App 选项 / 一般参数
+##### mixins
+- 类型: ``Array <Object | Function | Array>``
+- 默认值: ``[]``
+- 说明:
+
+  页面混入的混合对象列表。
+
+#### App 选项 / 生命周期和页面事件钩子
+##### onLaunch(options)
+- 参数:
+  - ``{Object} options``
+- 说明:
+
+  小程序初始化完成（全局只触发一次）。
+
+  与 [MINA 注册程序 - App(Object)](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html#appobject) 中的 ``onLaunch`` 一致。
+
+##### onShow(options)
+- 参数:
+  - ``{Object} options``
+- 说明:
+
+  小程序显示。
+
+  与 [MINA 注册程序 - App(Object)](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html#appobject) 中的 ``onShow`` 一致。
+
+##### onHide()
+- 说明:
+
+  小程序隐藏。
+
+  与 [MINA 注册程序 - App(Object)](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html#appobject) 中的 ``onHide`` 一致。
+
+##### onError(message)
+- 参数:
+  - ``{String} message``
+- 说明:
+
+  小程序发生脚本错误，或者 api 调用失败.
+
+  与 [MINA 注册程序 - App(Object)](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html#appobject) 中的 ``onError`` 一致。
+
+##### onPageNotFound(options)
+- 参数:
+  - ``{Object} options``
+- 说明:
+
+  小程序要打开的页面不存在。
+
+  与 [MINA 注册程序 - App(Object)](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html#appobject) 中的 ``onPageNotFound`` 一致。
+
+
+#### 实例属性
+##### app.$source
+- 类型: ``Object``
+- 说明:
+
+  当前页面对应的 [原 MINA App 实例](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/app.html)。
+
+
 ### Page
 
 #### 全局配置
