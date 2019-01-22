@@ -74,6 +74,50 @@ test('the rest of parameters could be accessed and called in context of Tina.App
   t.true(spy.calledWithExactly('qux'))
 })
 
+test('could not call `setData` method on App by default', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    onLaunch () {
+      try {
+        this.setData({ foo: 'bar' })
+      } catch (e) {
+        spy(e)
+      }
+    },
+  }
+  Tina.App.define(options)
+
+  const app = t.context.mina.getApp(-1)
+
+  await app._emit('onLaunch')
+
+  t.true(spy.calledOnce)
+  t.is(spy.lastCall.args[0].message, '`setData` of Tina.App is not a function')
+})
+
+test('`setData` method could be override on App', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    onLaunch () {
+      try {
+        this.setData({ foo: 'bar' })
+      } catch (e) {
+        spy(e)
+      }
+    },
+    setData: sinon.spy(),
+  }
+  Tina.App.define(options)
+
+  const app = t.context.mina.getApp(-1)
+
+  await app._emit('onLaunch')
+
+  t.true(spy.notCalled)
+  t.true(options.setData.calledOnce)
+  t.true(options.setData.calledWithExactly({ foo: 'bar' }))
+})
+
 test('`getApp` should return the instance created with Tina.App', async (t) => {
   const spy = sinon.spy()
   Tina.App.define({

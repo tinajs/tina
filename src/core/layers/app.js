@@ -76,6 +76,10 @@ class App extends Unit {
 
     return this
   }
+
+  setData () {
+    throw new Error('`setData` of Tina.App is not a function')
+  }
 }
 
 // link the rest of wx-App attributes and methods to Tina-App
