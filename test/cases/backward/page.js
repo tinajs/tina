@@ -221,3 +221,20 @@ test('`this.setData(patch, callback)` could update data and then execute callbac
   t.deepEqual(page.data, { foo: 'baz' })
   t.true(spy.called)
 })
+
+test('`getCurrentPages` should return the instances created with Tina.Page', async (t) => {
+  const spy = sinon.spy()
+  Tina.Page.define({
+    onLoad () {
+      spy(this)
+    },
+  })
+
+  const page = t.context.mina.getPage(-1)
+
+  await page._emit('onLoad')
+
+  t.is(Tina.getCurrentPages()[0], page.__tina_instance__)
+  t.true(spy.calledOnce)
+  t.true(spy.calledWithExactly(Tina.getCurrentPages()[0]))
+})

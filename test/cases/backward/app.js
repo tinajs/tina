@@ -73,3 +73,20 @@ test('the rest of parameters could be accessed and called in context of Page ins
   t.true(options.bar.calledOnce)
   t.true(spy.calledWithExactly('qux'))
 })
+
+test('`getApp` should return the instance created with Tina.App', async (t) => {
+  const spy = sinon.spy()
+  Tina.App.define({
+    onLaunch () {
+      spy(this)
+    },
+  })
+
+  const app = t.context.mina.getApp(-1)
+
+  await app._emit('onLaunch')
+
+  t.is(Tina.getApp(), app.__tina_instance__)
+  t.true(spy.calledOnce)
+  t.true(spy.calledWithExactly(Tina.getApp()))
+})

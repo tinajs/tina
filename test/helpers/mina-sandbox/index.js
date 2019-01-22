@@ -76,6 +76,7 @@ export default class MinaSandbox {
     sandbox._pages = []
     sandbox._components = []
 
+    // globals function of mina
     sandbox.globals = {
       App: spy(function (options) {
         sandbox._apps.push(new App(options))
@@ -86,6 +87,8 @@ export default class MinaSandbox {
       Component: spy(function (options) {
         sandbox._components.push(new Component(options))
       }),
+      getApp: () => sandbox.getApp(-1),
+      getCurrentPages: () => [sandbox.getPage(-1)],
     }
 
     // replace Tina.globals
@@ -94,12 +97,17 @@ export default class MinaSandbox {
       App: Tina.globals.App,
       Page: Tina.globals.Page,
       Component: Tina.globals.Component,
+      getApp: Tina.globals.getApp,
+      getCurrentPages: Tina.globals.getCurrentPages,
     }
     Tina.globals.App = sandbox.globals.App
     Tina.globals.Page = sandbox.globals.Page
     Tina.globals.Component = sandbox.globals.Component
+    Tina.globals.getApp = sandbox.globals.getApp
+    Tina.globals.getCurrentPages = sandbox.globals.getCurrentPages
   }
 
+  // shortcut methods of sandbox
   getApp (index) {
     return this._apps[index >= 0 ? index : this._apps.length + index]
   }
@@ -114,5 +122,7 @@ export default class MinaSandbox {
     this._original.Tina.globals.App = this._original.App
     this._original.Tina.globals.Page = this._original.Page
     this._original.Tina.globals.Component = this._original.Component
+    this._original.Tina.globals.getApp = this._original.getApp
+    this._original.Tina.globals.getCurrentPages = this._original.getCurrentPages
   }
 }
