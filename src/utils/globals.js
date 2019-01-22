@@ -3,5 +3,6 @@ export default {
   Page,
   Component,
   wx,
+  getApp,
   getCurrentPages,
 }

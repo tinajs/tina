@@ -1,4 +1,5 @@
 import Unit from '../layers/unit'
+import App, { getApp } from '../layers/app'
 import Page, { getCurrentPages } from '../layers/page'
 import Component from '../layers/component'
 import BasicDataAdapter from '../../adapters/data/basic'
@@ -8,6 +9,8 @@ import globals from '../../utils/globals'
 
 class Tina {
   static Unit = Unit
+  static App = App
+  static getApp = getApp
   static Page = Page
   static getCurrentPages = getCurrentPages
   static Component = Component

@@ -26,6 +26,10 @@ export function pick (object, keys = []) {
   return picked
 }
 
+export function omit (object, keys = []) {
+  return pick(object, without(Object.keys(object), keys))
+}
+
 export function without (input, exclude = []) {
 	return input.filter((x) => exclude.indexOf(x) === -1)
 }

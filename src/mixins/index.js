@@ -19,4 +19,5 @@ function log () {
 export const $log = {
   created: log,
   beforeLoad: log,
+  onLaunch: log,
 }
