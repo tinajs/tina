@@ -59,7 +59,7 @@ test('`data` could be defined by `Component.define({ data })', (t) => {
       foo: 'bar',
     },
   })
-  t.deepEqual(t.context.mina.Component.lastCall.args[0].data, { foo: 'bar' } )
+  t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].data, { foo: 'bar' } )
 })
 
 test('`behaviors` could be defined by `Component.define({ behaviors })', (t) => {
@@ -67,7 +67,7 @@ test('`behaviors` could be defined by `Component.define({ behaviors })', (t) => 
   Tina.Component.define({
     behaviors,
   })
-  t.deepEqual(t.context.mina.Component.lastCall.args[0].behaviors, behaviors)
+  t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].behaviors, behaviors)
 })
 
 test('`relations` could be defined by `Component.define({ relations })', (t) => {
@@ -82,14 +82,14 @@ test('`relations` could be defined by `Component.define({ relations })', (t) => 
   Tina.Component.define({
     relations,
   })
-  t.deepEqual(t.context.mina.Component.lastCall.args[0].relations, relations)
+  t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].relations, relations)
 })
 
 test('`externalClasses` could be defined by `Component.define({ externalClasses })', (t) => {
   Tina.Component.define({
     externalClasses: ['foobar'],
   })
-  t.deepEqual(t.context.mina.Component.lastCall.args[0].externalClasses, ['foobar'])
+  t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].externalClasses, ['foobar'])
 })
 
 test('`options` could be defined by `Component.define({ options })', async (t) => {
@@ -98,7 +98,7 @@ test('`options` could be defined by `Component.define({ options })', async (t) =
       foo: 'bar',
     },
   })
-  t.deepEqual(t.context.mina.Component.lastCall.args[0].options, { foo: 'bar' })
+  t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].options, { foo: 'bar' })
 })
 
 test('`this.data` could be accessed', async (t) => {
