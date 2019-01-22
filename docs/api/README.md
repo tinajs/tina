@@ -1,16 +1,33 @@
 ### Tina
 
 #### 全局配置
-##### Tina.globals
+##### Tina.config.globals
 - 类型: ``Object``
-- 默认值: ``{ App, Page, Component, wx }``
+- 默认值: ``{}``
+- 参数:
+  - ``App``
+  - ``Page``
+  - ``Component``
+  - ``wx``
+  - ``getApp``
+  - ``getCurrentPages``
 - 用法:
 
   ```javascript
-  Tina.globals.Page = require('sinon').spy()
+  const sinon = require('sinon')
+  Tina.config.globals = {
+    App: sinon.spy(),
+    Page: sinon.spy(),
+    Component: sinon.spy(),
+    wx: sinon.spy(),
+    getApp: sinon.spy(),
+    getCurrentPages: sinon.spy(),
+  }
+
+  Tina.config.globals.Page = sinon.spy()
   ```
 
-  Tina 所依赖的全局变量集合。在编写测试用例时，可通过重写该对象的值模拟小程序运行时的环境。
+  覆盖 Tina 所依赖的全局变量。在编写测试用例时，可通过配置该值模拟小程序运行时的环境。
 
 #### 全局 API
 ##### Tina.use(plugin)
@@ -29,6 +46,28 @@
     },
   }, options)
   ```
+
+##### Tina.globals
+- 类型: ``Object``
+- 结构: ``{ App, Page, Component, wx, getApp, getCurrentPages }``
+- 用法:
+
+  ```javascript
+  const { wx } = Tina.globals
+
+  function fetch () {
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: 'https://uinames.com/api/',
+        success: ({ data }) => resolve(data),
+        fail: (error) => reject(error),
+      })
+    })
+  }
+  ```
+
+  提供 Tina 正在使用的全局变量集合。
+  该集合的值可通过 [全局配置中的 `Tina.config.globals`](#Tina.config.globals) 覆盖。
 
 
 ### App
