@@ -100,11 +100,13 @@ export default class MinaSandbox {
       getApp: Tina.globals.getApp,
       getCurrentPages: Tina.globals.getCurrentPages,
     }
-    Tina.globals.App = sandbox.globals.App
-    Tina.globals.Page = sandbox.globals.Page
-    Tina.globals.Component = sandbox.globals.Component
-    Tina.globals.getApp = sandbox.globals.getApp
-    Tina.globals.getCurrentPages = sandbox.globals.getCurrentPages
+    Tina.config.globals = {
+      App: sandbox.globals.App,
+      Page: sandbox.globals.Page,
+      Component: sandbox.globals.Component,
+      getApp: sandbox.globals.getApp,
+      getCurrentPages: sandbox.globals.getCurrentPages,
+    }
   }
 
   // shortcut methods of sandbox
@@ -119,10 +121,12 @@ export default class MinaSandbox {
   }
 
   restore () {
-    this._original.Tina.globals.App = this._original.App
-    this._original.Tina.globals.Page = this._original.Page
-    this._original.Tina.globals.Component = this._original.Component
-    this._original.Tina.globals.getApp = this._original.getApp
-    this._original.Tina.globals.getCurrentPages = this._original.getCurrentPages
+    this._original.Tina.globals = {
+      App: this._original.App,
+      Page: this._original.Page,
+      Component: this._original.Component,
+      getApp: this._original.getApp,
+      getCurrentPages: this._original.getCurrentPages,
+    }
   }
 }
