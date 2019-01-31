@@ -93,6 +93,7 @@ function Component (wechatOptions) {
       }
       if (created) {
         created.call(this)
+        this.__tina_instance__.setData(this.props)
       }
       if (attached) {
         attached.call(this)
@@ -105,6 +106,13 @@ function Component (wechatOptions) {
       for (let key in observers) {
         if (prevProps[key] !== this.data[key]) {
           observers[key].call(this, this.data[key], prevProps[key])
+        }
+      }
+      for (let key in prevProps) {
+        if (prevProps[key] !== this.props[key]) {
+          this.__tina_instance__.setData({
+            [key]: this.props[key],
+          })
         }
       }
     },
