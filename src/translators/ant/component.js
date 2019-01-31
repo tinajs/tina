@@ -3,7 +3,6 @@ import filter from 'just-filter-object'
 import globals from '../../utils/globals'
 import { isEmpty } from '../../utils/functions'
 
-
 function warn (message) {
   console.warning(new Error(message))
 }
@@ -86,6 +85,12 @@ function Component (wechatOptions) {
       }
     }),
     didMount () {
+      this.triggerEvent = function (name, detail, options) {
+        this.props[`on${name[0].toUpperCase()}${name.slice(1)}`]({
+          detail,
+          options,
+        })
+      }
       if (created) {
         created.call(this)
       }
