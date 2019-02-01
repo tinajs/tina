@@ -85,14 +85,18 @@ function Component (wechatOptions) {
       }
     }),
     didMount () {
+      // add missing property
       this.triggerEvent = function (name, detail, options) {
         this.props[`on${name[0].toUpperCase()}${name.slice(1)}`]({
           detail,
           options,
         })
       }
+      this.id = this.$id
+
       if (created) {
         created.call(this)
+        // sync props into readable data
         this.__tina_instance__.setData(this.props)
       }
       if (attached) {
@@ -104,8 +108,8 @@ function Component (wechatOptions) {
     },
     didUpdate (prevProps) {
       for (let key in observers) {
-        if (prevProps[key] !== this.data[key]) {
-          observers[key].call(this, this.data[key], prevProps[key])
+        if (prevProps[key] !== this.props[key]) {
+          observers[key].call(this, this.props[key], prevProps[key])
         }
       }
       for (let key in prevProps) {
