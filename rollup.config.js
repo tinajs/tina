@@ -1,10 +1,16 @@
-import merge from 'deepmerge'
-import base from './rollup.config.base.js'
+import createConfig from './rollup.config.base.js'
 
-export default merge(base, {
-  output: {
-    file: 'dist/tina.js',
-    format: 'umd',
-    name: 'tina',
+export default [
+  {
+    output: 'lib/wechat/tina.js',
+    env: {
+      MINA_PLATFORM: JSON.stringify('wechat'),
+    },
   },
-})
+  {
+    output: 'lib/ant/tina.js',
+    env: {
+      MINA_PLATFORM: JSON.stringify('ant'),
+    },
+  },
+].map(createConfig)
