@@ -7,7 +7,7 @@ import globals from '../../utils/globals'
 import SigmundDataAdapter from '../../adapters/data/sigmund'
 import Unit from './unit'
 
-import AntComponent from '../../translators/ant/component'
+import { AntComponent, createAntBuiltinMixins } from '../../translators/ant/component'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'externalClasses', 'options']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
@@ -45,8 +45,15 @@ class Component extends Unit {
   static _mixins = []
 
   static define (options = {}) {
+    let builtinMixins
+    if (process.env.MINA_PLATFORM === 'ant') {
+      builtinMixins = createAntBuiltinMixins(BUILTIN_MIXINS)
+    } else {
+      builtinMixins = BUILTIN_MIXINS
+    }
+
     // use mixins
-    options = this.mix(COMPONENT_INITIAL_OPTIONS, [...BUILTIN_MIXINS, ...this._mixins, ...(options.mixins || []), options])
+    options = this.mix(COMPONENT_INITIAL_OPTIONS, [...builtinMixins, ...this._mixins, ...(options.mixins || []), options])
 
     // initilize data
     options.data = initializeData(options.adapters.data, options.data, options.properties)

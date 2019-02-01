@@ -7,7 +7,18 @@ function warn (message) {
   console.warning(new Error(message))
 }
 
-function Component (wechatOptions) {
+export function createAntBuiltinMixins (BUILTIN_MIXINS) {
+  return [...BUILTIN_MIXINS,
+    {
+      created () {
+        // sync props into readable data
+        this.setData(this.$source.props)
+      },
+    },
+  ]
+}
+
+export function AntComponent (wechatOptions) {
   function notSupported (option) {
     warn(`\`Component({ ${option} })\` is not supported in Ant Mini Program.`)
   }
@@ -96,8 +107,6 @@ function Component (wechatOptions) {
 
       if (created) {
         created.call(this)
-        // sync props into readable data
-        this.__tina_instance__.setData(this.props)
       }
       if (attached) {
         attached.call(this)
@@ -127,5 +136,3 @@ function Component (wechatOptions) {
     },
   })
 }
-
-export default Component
