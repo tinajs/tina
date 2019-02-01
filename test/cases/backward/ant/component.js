@@ -7,6 +7,10 @@ import { objectify } from '../../../helpers/functions'
 
 import Tina from '../../../../lib/ant/tina'
 
+function plain (object) {
+  return JSON.parse(JSON.stringify(object))
+}
+
 test.beforeEach((t) => {
   t.context.mina = new MinaSandbox({ Tina })
 })
@@ -95,6 +99,7 @@ test('`this.is`, `this.id` could be accessed', async (t) => {
 })
 
 test('`properties` should be merged with `data`', async (t) => {
+  const spy = sinon.spy()
   const options = {
     properties: {
       qux: {
@@ -105,11 +110,19 @@ test('`properties` should be merged with `data`', async (t) => {
     data: {
       foo: 'bar',
     },
+    created () {
+      spy(this.data)
+    },
   }
   Tina.Component.define(options)
 
   const component = t.context.mina.getComponent(-1)
   await component._emit('didMount')
+
+  t.deepEqual(plain(spy.lastCall.lastArg), {
+    foo: 'bar',
+    qux: 'quux',
+  })
 
   t.deepEqual(component.data, {
     foo: 'bar',
