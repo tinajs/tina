@@ -7,17 +7,6 @@ function warn (message) {
   console.warning(new Error(message))
 }
 
-export function createAntBuiltinMixins (BUILTIN_MIXINS) {
-  return [...BUILTIN_MIXINS,
-    {
-      created () {
-        // sync props into readable data
-        this.setData(this.$source.props)
-      },
-    },
-  ]
-}
-
 export function AntComponent (wechatOptions) {
   function notSupported (option) {
     warn(`\`Component({ ${option} })\` is not supported in Ant Mini Program.`)
