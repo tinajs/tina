@@ -7,6 +7,8 @@ import globals from '../../utils/globals'
 import SigmundDataAdapter from '../../adapters/data/sigmund'
 import Unit from './unit'
 
+import AntComponent from '../../translators/ant/component'
+
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'externalClasses', 'options']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
 const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes', 'createIntersectionObserver']
@@ -69,10 +71,17 @@ class Component extends Unit {
     })
 
     // apply wx-Component options
-    new globals.Component({
-      ...pick(options, without(MINA_COMPONENT_OPTIONS, OVERWRITED_OPTIONS)),
-      ...component,
-    })
+    if (process.env.MINA_PLATFORM === 'ant') {
+      new AntComponent({
+        ...pick(options, without(MINA_COMPONENT_OPTIONS, OVERWRITED_OPTIONS)),
+        ...component,
+      })
+    } else {
+      new globals.Component({
+        ...pick(options, without(MINA_COMPONENT_OPTIONS, OVERWRITED_OPTIONS)),
+        ...component,
+      })
+    }
   }
 
   constructor ({ options = {}, $source }) {
