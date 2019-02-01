@@ -1,10 +1,10 @@
-import '../../helpers/wx-globals'
+import '../../../helpers/wx-globals'
 import test from 'ava'
 import sinon from 'sinon'
 
-import MinaSandbox from '../../helpers/mina-sandbox'
+import MinaSandbox from '../../../helpers/mina-sandbox/wechat'
 
-import Tina from '../../..'
+import Tina from '../../../..'
 
 test.beforeEach((t) => {
   t.context.mina = new MinaSandbox({ Tina })

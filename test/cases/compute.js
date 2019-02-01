@@ -1,7 +1,7 @@
 import '../helpers/wx-globals'
 import test from 'ava'
 
-import MinaSandbox from '../helpers/mina-sandbox'
+import MinaSandbox from '../helpers/mina-sandbox/wechat'
 
 import Tina from '../..'
 
