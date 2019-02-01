@@ -2,6 +2,6 @@
 .DS_Store
 node_modules
 npm-debug.log
-dist
+lib
 .nyc_output
 coverage
