@@ -137,6 +137,46 @@ test('`properties` should be merged with `data`', async (t) => {
   })
 })
 
+test('`properties` passed by template should be merged with `data`', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    properties: {
+      qux: {
+        type: String,
+        value: 'quux',
+      },
+    },
+    data: {
+      foo: 'bar',
+    },
+    created () {
+      spy(this.data)
+    },
+  }
+  Tina.Component.define(options)
+
+  const component = t.context.mina.getComponent(-1)
+  component.props.qux = 'quuux'
+  await component._emit('didMount')
+
+  t.deepEqual(plain(spy.lastCall.lastArg), {
+    foo: 'bar',
+    qux: 'quuux',
+  })
+
+  t.deepEqual(component.data, {
+    foo: 'bar',
+    qux: 'quuux',
+  })
+
+  component._property('qux', 'quuz')
+
+  t.deepEqual(component.data, {
+    foo: 'bar',
+    qux: 'quuz',
+  })
+})
+
 test('`properties` should work with custom observer', async (t) => {
   const spy = sinon.spy()
   const options = {
