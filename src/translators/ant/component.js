@@ -87,10 +87,13 @@ export function AntComponent (wechatOptions) {
     didMount () {
       // add missing property
       this.triggerEvent = function (name, detail, options) {
-        this.props[`on${name[0].toUpperCase()}${name.slice(1)}`]({
-          detail,
-          options,
-        })
+        let listener = this.props[`on${name[0].toUpperCase()}${name.slice(1)}`]
+        if (listener) {
+          listener({
+            detail,
+            options,
+          })
+        }
       }
       this.id = this.$id
 
