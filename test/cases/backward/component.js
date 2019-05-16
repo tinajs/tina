@@ -101,6 +101,63 @@ test('`options` could be defined by `Component.define({ options })', async (t) =
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].options, { foo: 'bar' })
 })
 
+test('`observers` could be triggered by `properties` and `data`', async (t) => {
+  let spyOne = sinon.spy()
+  let spyTwo = sinon.spy()
+  let options = {
+    properties: {
+      qux: {
+        type: String,
+        value: 'quux'
+      },
+    },
+    data: {
+      foo: 'bar',
+    },
+    observers: {
+      'qux': spyOne,
+      'foo': spyTwo
+    }
+  }
+  Tina.Component.define(options)
+
+  const component = t.context.mina.getComponent(-1)
+  await component._emit('created')
+
+  component._property('qux', 'quuz')
+  t.true(spyOne.called)
+  component.setData({ foo: 'baz' })
+  t.true(spyTwo.called)
+})
+
+test('`observers` could access methods', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    properties: {
+      qux: {
+        type: String,
+        value: 'quux',
+      },
+    },
+    observers: {
+      'qux': function () {
+        this.quuz()
+      }
+    },
+    methods: {
+      quuz: spy
+    }
+  }
+
+  Tina.Component.define(options)
+
+  const component = t.context.mina.getComponent(-1)
+  await component._emit('created')
+
+  component._property('qux', 'baz')
+  t.true(spy.called)
+})
+
 test('`this.data` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
@@ -143,6 +200,8 @@ test.skip('`this.properties` could be accessed', async (t) => {
 
   t.deepEqual(objectify(spy.lastCall.args[0]), { foo: 'bar', qux: 'quux' })
 })
+
+
 
 test('`this.is`, `this.id`, `this.dataset` could be accessed', async (t) => {
   const IS = '/somewhere'
