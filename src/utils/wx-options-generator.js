@@ -62,3 +62,11 @@ export function properties (object) {
     }
   })
 }
+
+// generate observers for wx-Component
+export function observers (object) {
+  return map(object || {}, (name, method) => function observer (...args) {
+    let context = this.__tina_instance__
+    method.apply(context, args)
+  })
+}
