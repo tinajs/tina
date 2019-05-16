@@ -92,7 +92,7 @@ export function AntComponent (wechatOptions) {
     props,
     methods: map(methods, (key, method) => {
       return function () {
-        return method.call(this)
+        return method.apply(this, arguments)
       }
     }),
     didMount () {
