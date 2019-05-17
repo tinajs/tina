@@ -59,6 +59,9 @@ class Component extends Unit {
       key: value,
     }
   }
+  _emitObserver (name, ...values) {
+    this.observers[name].call(this, ...values)
+  }
 
   hasBehavior () {}
   triggerEvent () {}
