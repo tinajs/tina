@@ -598,6 +598,15 @@
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``methods`` 一致。
 
+##### observers
+- 类型: ``{ [key: String]: Function }``
+- 默认值: ``{}``
+- 说明:
+
+  [数据监听器](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/observer.html)。
+
+  与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html) 中的 ``observers`` 一致。
+
 ##### behaviors
 - 类型: ``Array <Behavior>``
 - 默认值: ``{}``
