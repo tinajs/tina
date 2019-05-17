@@ -101,39 +101,42 @@ test('`options` could be defined by `Component.define({ options })', async (t) =
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].options, { foo: 'bar' })
 })
 
-// can not test without real env
-test.skip('`observers` could be triggered by `properties` and `data`', async (t) => {
-  let spyOne = sinon.spy()
-  let spyTwo = sinon.spy()
+test('`observers` could be triggered', async (t) => {
   let options = {
     properties: {
       qux: {
         type: String,
-        value: 'quux'
+        value: 'quux',
       },
     },
     data: {
       foo: 'bar',
     },
     observers: {
-      'qux': spyOne,
-      'foo': spyTwo
-    }
+      qux: sinon.spy(),
+      foo: sinon.spy(),
+      'corge grault': sinon.spy(),
+    },
   }
   Tina.Component.define(options)
 
   const component = t.context.mina.getComponent(-1)
   await component._emit('created')
 
-  component._property('qux', 'quuz')
-  t.true(spyOne.called)
-  component.setData({ foo: 'baz' })
-  t.true(spyTwo.called)
+  component._emitObserver('qux', 'quuz')
+  t.true(options.observers.qux.called)
+  t.deepEqual(options.observers.qux.args[0], ['quuz'])
+
+  component._emitObserver('foo', 'baz')
+  t.true(options.observers.foo.called)
+  t.deepEqual(options.observers.foo.args[0], ['baz'])
+
+  component._emitObserver('corge grault', 'garply', 'waldo')
+  t.true(options.observers['corge grault'].called)
+  t.deepEqual(options.observers['corge grault'].args[0], ['garply', 'waldo'])
 })
 
-// can not test without real env
-test.skip('`observers` could access methods', async (t) => {
-  const spy = sinon.spy()
+test('`observers` could access methods', async (t) => {
   const options = {
     properties: {
       qux: {
@@ -142,12 +145,15 @@ test.skip('`observers` could access methods', async (t) => {
       },
     },
     observers: {
-      'qux': function () {
-        this.quuz()
-      }
+      qux () {
+        this.foo()
+      },
     },
     methods: {
-      quuz: spy
+      foo: sinon.stub().callsFake(function () {
+        this.bar()
+      }),
+      bar: sinon.spy(),
     }
   }
 
@@ -156,8 +162,9 @@ test.skip('`observers` could access methods', async (t) => {
   const component = t.context.mina.getComponent(-1)
   await component._emit('created')
 
-  component._property('qux', 'baz')
-  t.true(spy.called)
+  component._emitObserver('qux', 'baz')
+  t.true(options.methods.foo.calledOnce)
+  t.true(options.methods.bar.calledOnce)
 })
 
 test('`this.data` could be accessed', async (t) => {
@@ -202,8 +209,6 @@ test.skip('`this.properties` could be accessed', async (t) => {
 
   t.deepEqual(objectify(spy.lastCall.args[0]), { foo: 'bar', qux: 'quux' })
 })
-
-
 
 test('`this.is`, `this.id`, `this.dataset` could be accessed', async (t) => {
   const IS = '/somewhere'
