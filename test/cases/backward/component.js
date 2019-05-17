@@ -101,7 +101,8 @@ test('`options` could be defined by `Component.define({ options })', async (t) =
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].options, { foo: 'bar' })
 })
 
-test('`observers` could be triggered by `properties` and `data`', async (t) => {
+// can not test without real env
+test.skip('`observers` could be triggered by `properties` and `data`', async (t) => {
   let spyOne = sinon.spy()
   let spyTwo = sinon.spy()
   let options = {
@@ -130,7 +131,8 @@ test('`observers` could be triggered by `properties` and `data`', async (t) => {
   t.true(spyTwo.called)
 })
 
-test('`observers` could access methods', async (t) => {
+// can not test without real env
+test.skip('`observers` could access methods', async (t) => {
   const spy = sinon.spy()
   const options = {
     properties: {
