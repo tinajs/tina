@@ -49,7 +49,7 @@ class Page extends Unit {
 
     // create wx-Page options
     let page = {
-      data: options.adapters.data.toPlainObject(options.data),
+      data: options.adapters.data.toPlainObject(options.data()),
       ...wxOptionsGenerator.methods(options.methods),
       ...wxOptionsGenerator.lifecycles(MINA_PAGE_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
@@ -77,7 +77,7 @@ class Page extends Unit {
 
     // creating Tina-Page members
     let members = {
-      data: options.data,
+      data: options.data(),
       compute: options.compute || function () {
         return {}
       },

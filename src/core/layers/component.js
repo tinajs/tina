@@ -52,7 +52,7 @@ class Component extends Unit {
 
     // create wx-Component options
     let component = {
-      data: options.adapters.data.toPlainObject(options.data),
+      data: options.adapters.data.toPlainObject(options.data()),
       properties: wxOptionsGenerator.properties(options.properties),
       observers: wxOptionsGenerator.observers(options.observers),
       methods: wxOptionsGenerator.methods(options.methods),
@@ -82,7 +82,7 @@ class Component extends Unit {
 
     // creating Tina-Component members
     let members = {
-      data: options.data,
+      data: options.data(),
       compute: options.compute || function () {
         return {}
       },

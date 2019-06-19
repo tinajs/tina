@@ -1,3 +1,4 @@
+import clone from 'clone'
 import map from 'just-map-object'
 import filter from 'just-filter-object'
 
@@ -46,19 +47,21 @@ export function linkProperties ({ TargetClass, getSourceInstance, properties }) 
 }
 
 export function initializeData (adapter, data, properties) {
-  let { isData, fromPlainObject, merge } = adapter
-  data = isData(data) ? data : fromPlainObject(data)
-  if (typeof properties === 'object') {
-    let defaults = fromPlainObject(
-      map(
-        filter(
-          properties,
-          (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+  return () => {
+    let { isData, fromPlainObject, merge } = adapter
+    data = isData(data) ? data : fromPlainObject(clone(data))
+    if (typeof properties === 'object') {
+      let defaults = fromPlainObject(
+        map(
+          filter(
+            properties,
+            (name, property) => typeof property === 'object' && typeof property.value !== 'undefined',
+          ),
+          (name, property) => property.value,
         ),
-        (name, property) => property.value,
-      ),
-    )
-    data = merge(data, defaults)
+      )
+      data = merge(data, defaults)
+    }
+    return data
   }
-  return data
 }
