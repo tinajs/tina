@@ -506,3 +506,43 @@ test.serial('`this.getRelationNodes` method should exist', async (t) => {
   await component._emit('attached')
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
+
+/**
+ * https://github.com/tinajs/tina/issues/43
+ */
+test.serial('`data` should not be shared between component', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    data: {
+      foo: {
+        bar: 'baz',
+      },
+    },
+    attached () {
+      this.input('qux')
+    },
+    methods: {
+      input (value) {
+        this.data.foo['bar'] = value
+        this.setData({
+          foo: this.data.foo,
+        })
+      },
+    },
+  }
+  Tina.Component.define(options)
+  Tina.Component.define(options)
+
+  const components = [
+    t.context.mina.getComponent(-1),
+    t.context.mina.getComponent(-2),
+  ]
+
+  await components[0]._emit('created')
+  await components[1]._emit('created')
+
+  await components[0]._emit('attached')
+
+  t.is(components[0].data.foo.bar, 'qux')
+  t.is(components[1].data.foo.bar, 'baz')
+})
