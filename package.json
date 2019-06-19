@@ -3,10 +3,12 @@
   "version": "1.7.1",
   "description": "A light and progressive Wechat-Mini Program Framework",
   "main": "dist/tina.js",
+  "typings": "index.d.ts",
   "author": "yelo",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "repository": {
     "url": "tinajs/tina",
