@@ -12,7 +12,7 @@ test.afterEach((t) => {
   t.context.mina.restore()
 })
 
-test('`compute` should be called and merged with `data` by Page', async (t) => {
+test.serial('`compute` should be called and merged with `data` by Page', async (t) => {
   const options = {
     data: {
       foo: 'bar',
@@ -34,7 +34,7 @@ test('`compute` should be called and merged with `data` by Page', async (t) => {
   })
 })
 
-test('`compute` should be called and merged with `data` by Component', async (t) => {
+test.serial('`compute` should be called and merged with `data` by Component', async (t) => {
   const options = {
     properties: {
       qux: {

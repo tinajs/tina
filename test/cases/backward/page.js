@@ -13,7 +13,7 @@ test.afterEach((t) => {
   t.context.mina.restore()
 })
 
-test('`onLoad`, `onReady`, `onShow`, `onHide`, `onUnload` should be called', async (t) => {
+test.serial('`onLoad`, `onReady`, `onShow`, `onHide`, `onUnload` should be called', async (t) => {
   const options = {
     onLoad: sinon.spy(),
     onReady: sinon.spy(),
@@ -52,7 +52,7 @@ test('`onLoad`, `onReady`, `onShow`, `onHide`, `onUnload` should be called', asy
   t.true(options.onNonexistentHook.notCalled)
 })
 
-test('`onPullDownRefresh`, `onReachBottom`, `onShareAppMessage`, `onPageScroll`, `onTabItemTap` should be called', async (t) => {
+test.serial('`onPullDownRefresh`, `onReachBottom`, `onShareAppMessage`, `onPageScroll`, `onTabItemTap` should be called', async (t) => {
   const options = {
     onPullDownRefresh: sinon.spy(),
     onReachBottom: sinon.spy(),
@@ -88,7 +88,7 @@ test('`onPullDownRefresh`, `onReachBottom`, `onShareAppMessage`, `onPageScroll`,
   t.true(options.onTabItemTap.calledOnce)
 })
 
-test('`before` hooks should called before `on` hooks', async (t) => {
+test.serial('`before` hooks should called before `on` hooks', async (t) => {
   const options = {
     beforeLoad: sinon.spy(),
     onLoad: sinon.spy(),
@@ -106,7 +106,7 @@ test('`before` hooks should called before `on` hooks', async (t) => {
   t.true(options.beforeLoad.calledBefore(options.onLoad))
 })
 
-test('`data` could be defined by `Page.define({ data })`', (t) => {
+test.serial('`data` could be defined by `Page.define({ data })`', (t) => {
   const options = {
     data: {
       foo: 'bar',
@@ -119,7 +119,7 @@ test('`data` could be defined by `Page.define({ data })`', (t) => {
   t.deepEqual(page.data, options.data)
 })
 
-test('`this.data` could be accessed', async (t) => {
+test.serial('`this.data` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -137,7 +137,7 @@ test('`this.data` could be accessed', async (t) => {
   t.true(spy.calledWithExactly(options.data))
 })
 
-test('`this.route` could be accessed', async (t) => {
+test.serial('`this.route` could be accessed', async (t) => {
   const ROUTE = '/somewhere'
   const spy = sinon.spy()
   const options = {
@@ -154,7 +154,7 @@ test('`this.route` could be accessed', async (t) => {
   t.true(spy.calledWithExactly(ROUTE))
 })
 
-test('`methods` could be called in context of Tina.Page instance', async (t) => {
+test.serial('`methods` could be called in context of Tina.Page instance', async (t) => {
   const options = {
     onLoad () {
       this.foo()
@@ -179,7 +179,7 @@ test('`methods` could be called in context of Tina.Page instance', async (t) => 
   t.true(options.methods.bar.calledOnce)
 })
 
-test('`this.setData(patch)` could update data', async (t) => {
+test.serial('`this.setData(patch)` could update data', async (t) => {
   const options = {
     data: {
       foo: 'bar',
@@ -199,7 +199,7 @@ test('`this.setData(patch)` could update data', async (t) => {
   t.deepEqual(page.data, { foo: 'baz' })
 })
 
-test('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
+test.serial('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -222,7 +222,7 @@ test('`this.setData(patch, callback)` could update data and then execute callbac
   t.true(spy.called)
 })
 
-test('`getCurrentPages` should return the instances created with Tina.Page', async (t) => {
+test.serial('`getCurrentPages` should return the instances created with Tina.Page', async (t) => {
   const spy = sinon.spy()
   Tina.Page.define({
     onLoad () {

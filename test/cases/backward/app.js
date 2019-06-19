@@ -13,7 +13,7 @@ test.afterEach((t) => {
   t.context.mina.restore()
 })
 
-test('`onLaunch`, `onShow`, `onHide`, `onError`, `onPageNotFound` should be called', async (t) => {
+test.serial('`onLaunch`, `onShow`, `onHide`, `onError`, `onPageNotFound` should be called', async (t) => {
   const options = {
     onLaunch: sinon.spy(),
     onShow: sinon.spy(),
@@ -47,7 +47,7 @@ test('`onLaunch`, `onShow`, `onHide`, `onError`, `onPageNotFound` should be call
   t.true(options.onPageNotFound.calledOnce)
 })
 
-test('the rest of parameters could be accessed and called in context of Tina.App instance', async (t) => {
+test.serial('the rest of parameters could be accessed and called in context of Tina.App instance', async (t) => {
   const spy = sinon.spy()
   const options = {
     onLaunch () {
@@ -74,7 +74,7 @@ test('the rest of parameters could be accessed and called in context of Tina.App
   t.true(spy.calledWithExactly('qux'))
 })
 
-test('could not call `setData` method on App by default', async (t) => {
+test.serial('could not call `setData` method on App by default', async (t) => {
   const spy = sinon.spy()
   const options = {
     onLaunch () {
@@ -95,7 +95,7 @@ test('could not call `setData` method on App by default', async (t) => {
   t.is(spy.lastCall.args[0].message, '`setData` of Tina.App is not a function')
 })
 
-test('`setData` method could be override on App', async (t) => {
+test.serial('`setData` method could be override on App', async (t) => {
   const spy = sinon.spy()
   const options = {
     onLaunch () {
@@ -118,7 +118,7 @@ test('`setData` method could be override on App', async (t) => {
   t.true(options.setData.calledWithExactly({ foo: 'bar' }))
 })
 
-test('`getApp` should return the instance created with Tina.App', async (t) => {
+test.serial('`getApp` should return the instance created with Tina.App', async (t) => {
   const spy = sinon.spy()
   Tina.App.define({
     onLaunch () {

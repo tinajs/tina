@@ -14,7 +14,7 @@ test.afterEach((t) => {
   t.context.mina.restore()
 })
 
-test('`created`, `attached`, `ready`, `moved`, `detached` should be called', async (t) => {
+test.serial('`created`, `attached`, `ready`, `moved`, `detached` should be called', async (t) => {
   const options = {
     created: sinon.spy(),
     attached: sinon.spy(),
@@ -53,7 +53,7 @@ test('`created`, `attached`, `ready`, `moved`, `detached` should be called', asy
   t.true(options.onNonexistentHook.notCalled)
 })
 
-test('`data` could be defined by `Component.define({ data })', (t) => {
+test.serial('`data` could be defined by `Component.define({ data })', (t) => {
   Tina.Component.define({
     data: {
       foo: 'bar',
@@ -62,7 +62,7 @@ test('`data` could be defined by `Component.define({ data })', (t) => {
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].data, { foo: 'bar' } )
 })
 
-test('`behaviors` could be defined by `Component.define({ behaviors })', (t) => {
+test.serial('`behaviors` could be defined by `Component.define({ behaviors })', (t) => {
   const behaviors = ['foobar', function () {}]
   Tina.Component.define({
     behaviors,
@@ -70,7 +70,7 @@ test('`behaviors` could be defined by `Component.define({ behaviors })', (t) => 
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].behaviors, behaviors)
 })
 
-test('`relations` could be defined by `Component.define({ relations })', (t) => {
+test.serial('`relations` could be defined by `Component.define({ relations })', (t) => {
   let relations = {
     './custom-li': {
       type: 'child',
@@ -85,14 +85,14 @@ test('`relations` could be defined by `Component.define({ relations })', (t) => 
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].relations, relations)
 })
 
-test('`externalClasses` could be defined by `Component.define({ externalClasses })', (t) => {
+test.serial('`externalClasses` could be defined by `Component.define({ externalClasses })', (t) => {
   Tina.Component.define({
     externalClasses: ['foobar'],
   })
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].externalClasses, ['foobar'])
 })
 
-test('`options` could be defined by `Component.define({ options })', async (t) => {
+test.serial('`options` could be defined by `Component.define({ options })', async (t) => {
   Tina.Component.define({
     options: {
       foo: 'bar',
@@ -101,7 +101,7 @@ test('`options` could be defined by `Component.define({ options })', async (t) =
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].options, { foo: 'bar' })
 })
 
-test('`observers` could be triggered', async (t) => {
+test.serial('`observers` could be triggered', async (t) => {
   let options = {
     properties: {
       qux: {
@@ -136,7 +136,7 @@ test('`observers` could be triggered', async (t) => {
   t.deepEqual(options.observers['corge grault'].args[0], ['garply', 'waldo'])
 })
 
-test('`observers` could access methods', async (t) => {
+test.serial('`observers` could access methods', async (t) => {
   const options = {
     properties: {
       qux: {
@@ -167,7 +167,7 @@ test('`observers` could access methods', async (t) => {
   t.true(options.methods.bar.calledOnce)
 })
 
-test('`this.data` could be accessed', async (t) => {
+test.serial('`this.data` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -186,7 +186,7 @@ test('`this.data` could be accessed', async (t) => {
 })
 
 // TODO
-test.skip('`this.properties` could be accessed', async (t) => {
+test.serial.skip('`this.properties` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
     properties: {
@@ -210,7 +210,7 @@ test.skip('`this.properties` could be accessed', async (t) => {
   t.deepEqual(objectify(spy.lastCall.args[0]), { foo: 'bar', qux: 'quux' })
 })
 
-test('`this.is`, `this.id`, `this.dataset` could be accessed', async (t) => {
+test.serial('`this.is`, `this.id`, `this.dataset` could be accessed', async (t) => {
   const IS = '/somewhere'
   const ID = 'foo'
   const DATASET = 'bar'
@@ -231,7 +231,7 @@ test('`this.is`, `this.id`, `this.dataset` could be accessed', async (t) => {
   t.true(spy.calledWithExactly(IS, ID, DATASET))
 })
 
-test('`properties` should be merged with `data`', async (t) => {
+test.serial('`properties` should be merged with `data`', async (t) => {
   const options = {
     properties: {
       qux: {
@@ -261,7 +261,7 @@ test('`properties` should be merged with `data`', async (t) => {
   })
 })
 
-test('`properties` should work with custom observer', async (t) => {
+test.serial('`properties` should work with custom observer', async (t) => {
   const spy = sinon.spy()
   const options = {
     properties: {
@@ -290,7 +290,7 @@ test('`properties` should work with custom observer', async (t) => {
   t.true(spy.calledWith('quuz', 'quux'))
 })
 
-test('`properties` should work with custom observer which is defined in `methods`', async (t) => {
+test.serial('`properties` should work with custom observer which is defined in `methods`', async (t) => {
   const spy = sinon.spy()
   const options = {
     properties: {
@@ -322,7 +322,7 @@ test('`properties` should work with custom observer which is defined in `methods
   t.true(spy.calledWith('quuz', 'quux'))
 })
 
-test('`methods` could be called in context of Tina.Component instance', async (t) => {
+test.serial('`methods` could be called in context of Tina.Component instance', async (t) => {
   const options = {
     attached () {
       this.foo()
@@ -348,7 +348,7 @@ test('`methods` could be called in context of Tina.Component instance', async (t
   t.true(options.methods.bar.calledOnce)
 })
 
-test('`this.setData(patch)` could update data', async (t) => {
+test.serial('`this.setData(patch)` could update data', async (t) => {
   const options = {
     data: {
       foo: 'bar',
@@ -369,7 +369,7 @@ test('`this.setData(patch)` could update data', async (t) => {
   t.deepEqual(component.data, { foo: 'baz' })
 })
 
-test('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
+test.serial('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -393,7 +393,7 @@ test('`this.setData(patch, callback)` could update data and then execute callbac
   t.true(spy.called)
 })
 
-test('`this.hasBehavior` method should exist', async (t) => {
+test.serial('`this.hasBehavior` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -412,7 +412,7 @@ test('`this.hasBehavior` method should exist', async (t) => {
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
 
-test('`this.triggerEvent` method should exist', async (t) => {
+test.serial('`this.triggerEvent` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -431,7 +431,7 @@ test('`this.triggerEvent` method should exist', async (t) => {
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
 
-test('`this.createSelectorQuery` method should exist', async (t) => {
+test.serial('`this.createSelectorQuery` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -450,7 +450,7 @@ test('`this.createSelectorQuery` method should exist', async (t) => {
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
 
-test('`this.selectComponent` method should exist', async (t) => {
+test.serial('`this.selectComponent` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -469,7 +469,7 @@ test('`this.selectComponent` method should exist', async (t) => {
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
 
-test('`this.selectAllComponents` method should exist', async (t) => {
+test.serial('`this.selectAllComponents` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
@@ -488,7 +488,7 @@ test('`this.selectAllComponents` method should exist', async (t) => {
   t.true(spy.lastCall.calledWithExactly(sinon.match.func))
 })
 
-test('`this.getRelationNodes` method should exist', async (t) => {
+test.serial('`this.getRelationNodes` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
     data: {
