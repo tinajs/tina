@@ -553,7 +553,7 @@ test('`pageLifetimes` can be triggered', async (t) => {
     pageLifetimes: {
       show () {
         spy(this.data.foo)
-      }
+      },
     },
     data: {
       foo: 'bar',

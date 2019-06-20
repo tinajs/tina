@@ -10,18 +10,19 @@ export function methods (object) {
 }
 
 // generate lifecycles for wx-Component
-export function lifecycles (hooks, getBeforeHookName) {
+export function lifecycles (hooks, getBeforeHookName, namespace) {
   return fromPairs(hooks.map((origin) => {
     let before = getBeforeHookName(origin)
     return [
       origin,
       function handler () {
         let context = this.__tina_instance__
-        if (before && context[before]) {
-          context[before].apply(context, arguments)
+        let ns = namespace ? context[namespace] : context
+        if (before && ns[before]) {
+          ns[before].apply(context, arguments)
         }
-        if (context[origin]) {
-          return context[origin].apply(context, arguments)
+        if (ns[origin]) {
+          return ns[origin].apply(context, arguments)
         }
       },
     ]
@@ -68,12 +69,5 @@ export function observers (object) {
   return map(object || {}, (name, method) => function observer (...args) {
     let context = this.__tina_instance__
     method.apply(context, args)
-  })
-}
-
-export function pageLifetimes (object) {
-  return map(object || {}, (name, func) => function pageLifetime (...args) {
-    let context = this.__tina_instance__
-    func.apply(context, args)
   })
 }
