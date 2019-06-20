@@ -546,3 +546,25 @@ test.serial('`data` should not be shared between component', async (t) => {
   t.is(components[0].data.foo.bar, 'qux')
   t.is(components[1].data.foo.bar, 'baz')
 })
+
+test('`pageLifetimes` can be triggered', async (t) => {
+  const spy = sinon.spy()
+  const options = {
+    pageLifetimes: {
+      show () {
+        spy(this.data.foo)
+      }
+    },
+    data: {
+      foo: 'bar',
+    },
+  }
+
+  Tina.Component.define(options)
+
+  const component = t.context.mina.getComponent(-1)
+
+  await component._emit('created')
+  await component._emitPageLifetimes('show')
+  t.true(spy.calledWith('bar'))
+})

@@ -70,3 +70,10 @@ export function observers (object) {
     method.apply(context, args)
   })
 }
+
+export function pageLifetimes (object) {
+  return map(object || {}, (name, func) => function pageLifetime (...args) {
+    let context = this.__tina_instance__
+    func.apply(context, args)
+  })
+}

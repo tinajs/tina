@@ -1,11 +1,13 @@
-declare module '@tinajs/tina' {
+declare module "@tinajs/tina" {
   export function use(plugin: any): void
+
+  type FunctionBindWith<T> = Record<string, (this: T, ...args: any[]) => void>
 
   export interface BaseDefinitions<T> {
     mixins: Array<Partial<T>>
     data: { [key: string]: any }
     compute: (data: { [key: string]: any }) => { [key: string]: any }
-    methods: { [name: string]: (this: T, ...args: any[]) => any }
+    methods: FunctionBindWith<T>
     setData(data: { [key: string]: any }): void
     /**
      * 小程序的实例
@@ -25,15 +27,16 @@ declare module '@tinajs/tina' {
     extends ComponentHooks,
       BaseDefinitions<ComponentDefinitions> {
     properties: { [key: string]: any }
-    observers: Record<string, (this: ComponentDefinitions, ...args: any[]) => void>
+    observers: FunctionBindWith<ComponentDefinitions>
+    pageLifetimes: FunctionBindWith<ComponentDefinitions>
 
     triggerEvent(
       name: string,
       detail?: object,
       options?: {
-      bubbles: boolean
-      composed: boolean
-      capturePhase: boolean
+        bubbles: boolean
+        composed: boolean
+        capturePhase: boolean
       }
     ): void
   }
