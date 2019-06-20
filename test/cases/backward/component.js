@@ -547,7 +547,7 @@ test.serial('`data` should not be shared between component', async (t) => {
   t.is(components[1].data.foo.bar, 'baz')
 })
 
-test('`pageLifetimes` can be triggered', async (t) => {
+test.serial('`pageLifetimes` can be triggered', async (t) => {
   const spy = sinon.spy()
   const options = {
     pageLifetimes: {
