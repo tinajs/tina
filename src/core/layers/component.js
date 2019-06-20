@@ -7,15 +7,16 @@ import globals from '../../utils/globals'
 import SigmundDataAdapter from '../../adapters/data/sigmund'
 import Unit from './unit'
 
-const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'externalClasses', 'options', 'observers']
+const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'externalClasses', 'options', 'observers', 'pageLifetimes']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
 const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes', 'createIntersectionObserver']
 const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
+const MINA_COMPONENT_PAGE_LIFETIME_HOOkS = ['show', 'hide', 'resize']
 
 const ADDON_BEFORE_HOOKS = {}
 const ADDON_OPTIONS = ['mixins', 'compute']
 
-const OVERWRITED_OPTIONS = ['properties', 'data', 'methods', 'observers', ...MINA_COMPONENT_HOOKS]
+const OVERWRITED_OPTIONS = ['properties', 'data', 'methods', 'observers', 'pageLifetimes', ...MINA_COMPONENT_HOOKS]
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
@@ -56,6 +57,7 @@ class Component extends Unit {
       properties: wxOptionsGenerator.properties(options.properties),
       observers: wxOptionsGenerator.observers(options.observers),
       methods: wxOptionsGenerator.methods(options.methods),
+      pageLifetimes: wxOptionsGenerator.pageLifetimes(options.pageLifetimes),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
