@@ -688,6 +688,30 @@
 
   与 [MINA Component 构造器参数](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/component.html)  中的 ``detached`` 一致。
 
+#### Component 选项 / 所处页面生命周期钩子
+##### pageLifetimes.show()
+- 说明:
+
+  组件实例所在的页面被展示。
+
+  与 [MINA Component 组件所在页面的生命周期](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html#组件所在页面的生命周期)  中的 ``show`` 一致。
+
+##### pageLifetimes.hide()
+- 说明:
+
+  组件实例所在的页面被隐藏。
+
+  与 [MINA Component 组件所在页面的生命周期](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html#组件所在页面的生命周期)  中的 ``hide`` 一致。
+
+##### pageLifetimes.resize(size)
+- 参数:
+  - ``{Object} size``
+- 说明:
+
+  组件实例所在的页面尺寸发生变化。
+
+  与 [MINA Component 组件所在页面的生命周期](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html#组件所在页面的生命周期)  中的 ``resize`` 一致。
+
 
 #### 实例属性
 ##### component.data
