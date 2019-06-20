@@ -9,9 +9,9 @@ import Unit from './unit'
 
 const MINA_COMPONENT_OPTIONS = ['properties', 'data', 'methods', 'behaviors', 'created', 'attached', 'ready', 'moved', 'detached', 'relations', 'externalClasses', 'options', 'observers', 'pageLifetimes']
 const MINA_COMPONENT_HOOKS = ['created', 'attached', 'ready', 'moved', 'detached']
+const MINA_COMPONENT_PAGE_HOOKS = ['show', 'hide', 'resize']
 const MINA_COMPONENT_METHODS = ['setData', 'hasBehavior', 'triggerEvent', 'createSelectorQuery', 'selectComponent', 'selectAllComponents', 'getRelationNodes', 'createIntersectionObserver']
 const MINA_COMPONENT_ATTRIBUTES = ['is', 'id', 'dataset', 'data']
-const MINA_COMPONENT_PAGE_LIFETIME_HOOkS = ['show', 'hide', 'resize']
 
 const ADDON_BEFORE_HOOKS = {}
 const ADDON_OPTIONS = ['mixins', 'compute']
@@ -20,7 +20,13 @@ const OVERWRITED_OPTIONS = ['properties', 'data', 'methods', 'observers', 'pageL
 const OVERWRITED_METHODS = ['setData']
 const OVERWRITED_ATTRIBUTES = ['data']
 
-const COMPONENT_HOOKS = [...MINA_COMPONENT_HOOKS, ...values(ADDON_BEFORE_HOOKS)]
+const COMPONENT_HOOKS = [
+  ...MINA_COMPONENT_HOOKS,
+  ...values(ADDON_BEFORE_HOOKS),
+]
+const COMPONENT_PAGE_HOOKS = [
+  ...MINA_COMPONENT_PAGE_HOOKS,
+]
 
 const COMPONENT_INITIAL_OPTIONS = {
   mixins: [],
@@ -31,6 +37,9 @@ const COMPONENT_INITIAL_OPTIONS = {
   compute () {},
   // hooks: return { created: [], ...... }
   ...fromPairs(COMPONENT_HOOKS.map((name) => [name, []])),
+  pageLifetimes: {
+    ...fromPairs(COMPONENT_PAGE_HOOKS.map((name) => [name, []])),
+  },
   methods: {},
   relations: {},
   options: {},
@@ -57,7 +66,7 @@ class Component extends Unit {
       properties: wxOptionsGenerator.properties(options.properties),
       observers: wxOptionsGenerator.observers(options.observers),
       methods: wxOptionsGenerator.methods(options.methods),
-      pageLifetimes: wxOptionsGenerator.pageLifetimes(options.pageLifetimes),
+      pageLifetimes: wxOptionsGenerator.lifecycles(MINA_COMPONENT_PAGE_HOOKS.filter((name) => options.pageLifetimes[name].length > 0), () => void 0, 'pageLifetimes'),
       ...wxOptionsGenerator.lifecycles(MINA_COMPONENT_HOOKS.filter((name) => options[name].length > 0), (name) => ADDON_BEFORE_HOOKS[name]),
     }
 
@@ -91,6 +100,9 @@ class Component extends Unit {
       ...options.methods,
       // hooks
       ...map(pick(options, COMPONENT_HOOKS), (name, handlers) => function (...args) {
+        return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
+      }),
+      pageLifetimes: map(pick(options.pageLifetimes, COMPONENT_PAGE_HOOKS), (name, handlers) => function (...args) {
         return handlers.reduce((memory, handler) => handler.apply(this, args.concat(memory)), void 0)
       }),
       adapters: options.adapters,

@@ -62,7 +62,6 @@ class Component extends Unit {
   _emitObserver (name, ...values) {
     this.observers[name].call(this, ...values)
   }
-
   _emitPageLifetimes (name, ...values) {
     this.pageLifetimes[name].call(this, ...values)
   }

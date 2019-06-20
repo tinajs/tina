@@ -1,7 +1,5 @@
 import isPlainObject from 'is-plain-obj'
-import map from 'just-map-object'
-import { isEmpty, pick } from '../../utils/functions'
-import globals from '../../utils/globals'
+import { isEmpty } from '../../utils/functions'
 import strategies from '../../utils/mix-strategies'
 
 class Basic {
@@ -23,10 +21,7 @@ class Basic {
     }
 
     let mixin = mixins
-    return {
-      ...options,
-      ...map(mixin, (key, extra) => strategies.merge(options[key], extra)),
-    }
+    return strategies(options, mixin)
   }
 
   static log (behavior, data) {
