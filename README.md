@@ -51,6 +51,7 @@
 |![wxcode](https://static.kanfangjilu.com/common/weapp-code-tina-showcase-172.jpg)|小鹿选房<br/>[fanggeek.com](http://fanggeek.com)|
 |![wxcode](https://assets.miniapp.neobaran.com/wallpaper/qrcode/tinajs?imageMogr2/thumbnail/176x)|魔性壁纸 😀<br/>[neobaran.com](https://neobaran.com/#wallpaper)|
 |![wxcode](https://qktlite-1253493352.cos.ap-guangzhou.myqcloud.com/teacher/assets/images/hejiaoyu-yuzhitong-teacher.jpg)|和教育语智通 教师版<br />|
+|![wxcode](https://static.coolvox.com/gh_e3a14cef028c_258.jpg?x-oss-process=image/resize,m_fill,w_172)|库音 COOLVOX<br/>[coolvox.com](https://coolvox.com/)|
 
 *你也已经在使用 Tina.js 了吗？[请在这里告诉我们 :muscle:。 ](https://github.com/tinajs/tina/edit/master/README.md)*
 
