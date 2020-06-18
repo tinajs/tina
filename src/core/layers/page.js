@@ -9,7 +9,7 @@ import Unit from './unit'
 
 const MINA_PAGE_OPTIONS = ['data', 'onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll', 'onTabItemTap']
 const MINA_PAGE_HOOKS = ['onLoad', 'onReady', 'onShow', 'onHide', 'onUnload', 'onPullDownRefresh', 'onReachBottom', 'onShareAppMessage', 'onPageScroll', 'onTabItemTap']
-const MINA_PAGE_METHODS = ['setData']
+const MINA_PAGE_METHODS = ['setData', 'getTabBar']
 const MINA_PAGE_ATTRIBUTES = ['data', 'route']
 
 const ADDON_BEFORE_HOOKS = {
