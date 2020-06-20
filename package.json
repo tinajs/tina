@@ -1,6 +1,6 @@
 {
   "name": "@tinajs/tina",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "A light and progressive Wechat-Mini Program Framework",
   "main": "dist/tina.js",
   "typings": "index.d.ts",
