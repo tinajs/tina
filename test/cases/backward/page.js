@@ -108,8 +108,10 @@ test.serial('`before` hooks should called before `on` hooks', async (t) => {
 
 test.serial('`data` could be defined by `Page.define({ data })`', (t) => {
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
   }
   Tina.Page.define(options)
@@ -122,8 +124,10 @@ test.serial('`data` could be defined by `Page.define({ data })`', (t) => {
 test.serial('`this.data` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     onLoad () {
       spy(this.data)
@@ -181,8 +185,10 @@ test.serial('`methods` could be called in context of Tina.Page instance', async 
 
 test.serial('`this.setData(patch)` could update data', async (t) => {
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     onLoad () {
       this.setData({
@@ -202,8 +208,10 @@ test.serial('`this.setData(patch)` could update data', async (t) => {
 test.serial('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     onLoad () {
       this.setData({
