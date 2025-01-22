@@ -14,8 +14,10 @@ test.afterEach((t) => {
 
 test.serial('`compute` should be called and merged with `data` by Page', async (t) => {
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     compute (state) {
       return {
@@ -42,8 +44,10 @@ test.serial('`compute` should be called and merged with `data` by Component', as
         value: 'quux',
       },
     },
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     compute (state) {
       return {

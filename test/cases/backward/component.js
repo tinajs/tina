@@ -55,8 +55,10 @@ test.serial('`created`, `attached`, `ready`, `moved`, `detached` should be calle
 
 test.serial('`data` could be defined by `Component.define({ data })', (t) => {
   Tina.Component.define({
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
   })
   t.deepEqual(t.context.mina.globals.Component.lastCall.args[0].data, { foo: 'bar' } )
@@ -109,8 +111,10 @@ test.serial('`observers` could be triggered', async (t) => {
         value: 'quux',
       },
     },
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     observers: {
       qux: sinon.spy(),
@@ -170,8 +174,10 @@ test.serial('`observers` could access methods', async (t) => {
 test.serial('`this.data` could be accessed', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.data)
@@ -195,8 +201,10 @@ test.serial.skip('`this.properties` could be accessed', async (t) => {
         value: 'quux',
       },
     },
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.properties)
@@ -239,8 +247,10 @@ test.serial('`properties` should be merged with `data`', async (t) => {
         value: 'quux',
       },
     },
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
   }
   Tina.Component.define(options)
@@ -350,8 +360,10 @@ test.serial('`methods` could be called in context of Tina.Component instance', a
 
 test.serial('`this.setData(patch)` could update data', async (t) => {
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     attached () {
       this.setData({
@@ -372,8 +384,10 @@ test.serial('`this.setData(patch)` could update data', async (t) => {
 test.serial('`this.setData(patch, callback)` could update data and then execute callback', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     attached () {
       this.setData({
@@ -396,8 +410,10 @@ test.serial('`this.setData(patch, callback)` could update data and then execute 
 test.serial('`this.hasBehavior` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.hasBehavior)
@@ -415,8 +431,10 @@ test.serial('`this.hasBehavior` method should exist', async (t) => {
 test.serial('`this.triggerEvent` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.triggerEvent)
@@ -434,8 +452,10 @@ test.serial('`this.triggerEvent` method should exist', async (t) => {
 test.serial('`this.createSelectorQuery` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.createSelectorQuery)
@@ -453,8 +473,10 @@ test.serial('`this.createSelectorQuery` method should exist', async (t) => {
 test.serial('`this.selectComponent` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.selectComponent)
@@ -472,8 +494,10 @@ test.serial('`this.selectComponent` method should exist', async (t) => {
 test.serial('`this.selectAllComponents` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.selectAllComponents)
@@ -491,8 +515,10 @@ test.serial('`this.selectAllComponents` method should exist', async (t) => {
 test.serial('`this.getRelationNodes` method should exist', async (t) => {
   const spy = sinon.spy()
   const options = {
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
     created () {
       spy(this.getRelationNodes)
@@ -555,8 +581,10 @@ test.serial('`pageLifetimes` can be triggered', async (t) => {
         spy(this.data.foo)
       },
     },
-    data: {
-      foo: 'bar',
+    data () {
+      return {
+        foo: 'bar',
+      }
     },
   }
 
